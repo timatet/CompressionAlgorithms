@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlgorithmsLibrary.LinearCodesType52
+namespace AlgorithmsLibrary
 {
-    internal class LinearCodesType52
+    public static class LinearCodesType52
     {
     }
 }

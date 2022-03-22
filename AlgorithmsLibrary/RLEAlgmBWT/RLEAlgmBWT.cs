@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlgorithmsLibrary.RLEAlgmBWT
+namespace AlgorithmsLibrary
 {
-    internal class RLEAlgmBWT
+    public static class RLEAlgmBWT
     {
     }
 }

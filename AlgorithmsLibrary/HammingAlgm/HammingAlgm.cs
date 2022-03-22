@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlgorithmsLibrary.HammingAlgm
+namespace AlgorithmsLibrary
 {
-    internal class HammingAlgm
+    public static class HammingAlgm
     {
     }
 }

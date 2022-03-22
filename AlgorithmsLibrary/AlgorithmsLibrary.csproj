@@ -46,12 +46,17 @@
     <Compile Include="HuffmanAlgm\HuffmanAlgm.cs" />
     <Compile Include="LinearCodesType52\LinearCodesType52.cs" />
     <Compile Include="LZ77Algm\LZ77Algm.cs" />
+    <Compile Include="LZ77Algm\CodeBlock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RLEAlgmBWT\RLEAlgmBWT.cs" />
     <Compile Include="ShannonFanoAlgm\ShannonFanoAlgm.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Lab.pdf" />
+    <None Include="README.md" />
+    <None Include="Documentation\Lab.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CommonClasses\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

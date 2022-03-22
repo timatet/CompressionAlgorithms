@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlgorithmsLibrary.ArithmeticCodingAlgm
+namespace AlgorithmsLibrary
 {
-    internal class ArithmeticCodingAlgm
+    public static class ArithmeticCodingAlgm
     {
     }
 }

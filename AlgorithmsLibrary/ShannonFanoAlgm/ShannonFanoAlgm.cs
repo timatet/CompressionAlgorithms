@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlgorithmsLibrary.ShannonFanoAlgm
+namespace AlgorithmsLibrary
 {
-    internal class ShannonFanoAlgm
+    public static class ShannonFanoAlgm
     {
     }
 }

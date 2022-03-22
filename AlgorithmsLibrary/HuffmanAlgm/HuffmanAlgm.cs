@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlgorithmsLibrary.HuffmanAlgm
+namespace AlgorithmsLibrary
 {
-    internal class HuffmanAlgm
+    public static class HuffmanAlgm
     {
     }
 }
