@@ -44,7 +44,7 @@
     <Compile Include="ArithmeticCodingAlgm\ArithmeticCodingAlgm.cs" />
     <Compile Include="CommonClasses\Deque.cs" />
     <Compile Include="CommonClasses\DoublyNode.cs" />
-    <Compile Include="CommonClasses\StringBuilderAddons.cs" />
+    <Compile Include="Extensions\StringBuilderExtensions.cs" />
     <Compile Include="HammingAlgm\HammingAlgm.cs" />
     <Compile Include="HuffmanAlgm\HuffmanAlgm.cs" />
     <Compile Include="LinearCodesType52\LinearCodesType52.cs" />

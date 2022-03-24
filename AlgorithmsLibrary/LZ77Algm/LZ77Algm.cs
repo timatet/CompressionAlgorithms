@@ -1,4 +1,4 @@
-﻿using AlgorithmsLibrary.StringBuilderAddons;
+﻿using AlgorithmsLibrary.StringBuilderExtensions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -113,10 +113,12 @@ namespace AlgorithmsLibrary
         {
             StringBuilder resultDecoding = new StringBuilder(string.Empty);
 
-            foreach (CodeBlock codeBlock in encodedString) {
-                if (codeBlock.Length > 0) {                         
+            foreach (CodeBlock codeBlock in encodedString)
+            {
+                if (codeBlock.Length > 0)
+                {
                     int start = resultDecoding.Length - codeBlock.Offset;
-                    for (int i = 0; i <= codeBlock.Length - 1; i++)       
+                    for (int i = 0; i <= codeBlock.Length - 1; i++)
                         resultDecoding.Append(resultDecoding[start + i]);
                 }
                 resultDecoding.Append(codeBlock.NextChar);
