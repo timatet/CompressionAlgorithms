@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RLEAlgmBWT\BurrowsWheelerTransform.cs" />
     <Compile Include="RLEAlgmBWT\RLEAlgmBWT.cs" />
+    <Compile Include="RLEAlgmBWT\RLECodeBlock.cs" />
     <Compile Include="ShannonFanoAlgm\ShannonFanoAlgm.cs" />
   </ItemGroup>
   <ItemGroup>

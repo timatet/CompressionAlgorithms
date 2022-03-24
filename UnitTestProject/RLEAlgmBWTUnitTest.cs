@@ -1,5 +1,7 @@
 ﻿using Xunit;
 using AlgorithmsLibrary;
+using System.Collections.Generic;
+using System;
 
 namespace UnitTestProject
 {
@@ -25,6 +27,94 @@ namespace UnitTestProject
             string expected = "abracadabra";
 
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void EncodeAbracadabraWithRLE()
+        {
+            string input = "abracadabra";
+
+            var actual = RLEAlgm.Encode(input);
+            var expected = new List<RLECodeBlock> { 
+                new RLECodeBlock(default, 2),
+                new RLECodeBlock('r', 1),
+                new RLECodeBlock('d', 1),
+                new RLECodeBlock('a', 1),
+                new RLECodeBlock('r', 1),
+                new RLECodeBlock('c', 1),
+                new RLECodeBlock('a', 4),
+                new RLECodeBlock('b', 2),
+            };
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void DecodeAbracadabraWithRLE()
+        {
+            var decoded = new List<RLECodeBlock> {
+                new RLECodeBlock(default, 2),
+                new RLECodeBlock('r', 1),
+                new RLECodeBlock('d', 1),
+                new RLECodeBlock('a', 1),
+                new RLECodeBlock('r', 1),
+                new RLECodeBlock('c', 1),
+                new RLECodeBlock('a', 4),
+                new RLECodeBlock('b', 2),
+            };
+
+            var actual = RLEAlgm.Decode(decoded);
+            var expected = "abracadabra";
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void EncodeEmptyString()
+        {
+            var input = string.Empty;
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var decoded = RLEAlgm.Encode(input);
+            });
+        }
+
+        [Fact]
+        public void DecodeEmptyString()
+        {
+            var input = new List<RLECodeBlock> { };
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var decoded = RLEAlgm.Decode(input);
+            });
+        }
+
+        [Fact]
+        public void EncodeWhitespaceString()
+        {
+            var input = " ";
+            var decoded = RLEAlgm.Encode(input);
+            var expected = new List<RLECodeBlock>
+            {
+                new RLECodeBlock(default, 0),
+                new RLECodeBlock(' ', 1)
+            };
+
+            Assert.Equal(expected, decoded);
+        }
+
+        [Fact]
+        public void DecodeWhitespaceString()
+        {
+            var decoded = new List<RLECodeBlock>
+            {
+                new RLECodeBlock(default, 0),
+                new RLECodeBlock(' ', 1)
+            };
+            var encoded = RLEAlgm.Decode(decoded);
+            var expected = " ";
+
+            Assert.Equal(expected, encoded);
         }
     }
 }
