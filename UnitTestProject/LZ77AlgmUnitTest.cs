@@ -87,6 +87,22 @@ namespace UnitTestProject
             Assert.Equal(expected, actual);
         }
 
+        [Theory]
+        [InlineData("")]
+        [InlineData("a")]
+        [InlineData("abcde")]
+        [InlineData("abab")]
+        [InlineData("abracadabraabracadabra")]
+        [InlineData("aaaa")]
+        public void DecodingOfEmptyString(string stringForEncoding)
+        {
+            var result = LZ77Algm.Encode(stringForEncoding);
+
+            string decodeResult = LZ77Algm.Decode(result);
+
+            Assert.Equal(stringForEncoding, decodeResult);
+        }
+
 
     }
 }

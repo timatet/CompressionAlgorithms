@@ -7,6 +7,11 @@ namespace AlgorithmsLibrary
 {
     public static class LZ77Algm
     {
+        /// <summary>
+        /// String compression using the LZ77 algorithm
+        /// </summary>
+        /// <param name="inputString">Source string</param>
+        /// <returns>Compressed (encoded) string</returns>
         public static List<CodeBlock> Encode(string inputString)
         {
             List<CodeBlock> result = new List<CodeBlock>();
@@ -80,7 +85,7 @@ namespace AlgorithmsLibrary
         /// </summary>
         /// <param name="sourceString">Source string</param>
         /// <param name="compressionString">Compressed (encoded) string</param>
-        /// <returns></returns>
+        /// <returns>Compression ratio</returns>
         public static double CalculateCompressionRatio(string sourceString, List<CodeBlock> compressionString)
         {
             //Считаем что в стандартной кодировке один символ = 8бит
@@ -97,6 +102,30 @@ namespace AlgorithmsLibrary
             }
 
             return countBitsSourceString / countBitsCompressionString;
+        }
+
+        /// <summary>
+        /// Decoding strings compressed by the LZ77 algorithm
+        /// </summary>
+        /// <param name="encodedString">Compressed (encoded) string</param>
+        /// <returns>Decoded string</returns>
+        public static string Decode(List<CodeBlock> encodedString)
+        {
+            StringBuilder resultDecoding = new StringBuilder(string.Empty);
+
+            foreach (CodeBlock codeBlock in encodedString) {
+                if (codeBlock.Length > 0) {                         
+                    int start = resultDecoding.Length - codeBlock.Offset;
+                    for (int i = 0; i <= codeBlock.Length - 1; i++)       
+                        resultDecoding.Append(resultDecoding[start + i]);
+                }
+                resultDecoding.Append(codeBlock.NextChar);
+            }
+
+            if (resultDecoding.Length > 0 && resultDecoding[resultDecoding.Length - 1].Equals('$'))
+                resultDecoding.Remove(resultDecoding.Length - 1, 1);
+
+            return resultDecoding.ToString();
         }
     }
 
