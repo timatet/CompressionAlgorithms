@@ -1,8 +1,7 @@
-﻿using System;
+﻿using AlgorithmsLibrary.StringBuilderAddons;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using AlgorithmsLibrary.CommonClasses;
-using AlgorithmsLibrary.StringBuilderAddons;
 
 namespace AlgorithmsLibrary
 {
@@ -30,12 +29,13 @@ namespace AlgorithmsLibrary
                         positionInBuffer = searchBuffer.IndexOf(establishingBuffer.Substring(0, currentLengthSubString + 1));
 
                     if (positionInBuffer < 0)
-                    {   
+                    {
                         //Если подстроки не найдено возвращаем текущее значение начала этой строки
                         //по умолчанию -1
                         positionInBuffer = previousPositionInBuffer;
                         break;
-                    } else
+                    }
+                    else
                     {
                         currentLengthSubString++;
                     }
@@ -99,5 +99,5 @@ namespace AlgorithmsLibrary
             return countBitsSourceString / countBitsCompressionString;
         }
     }
-    
+
 }

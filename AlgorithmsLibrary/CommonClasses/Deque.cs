@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AlgorithmsLibrary.CommonClasses
 {
-    public class Deque<T> : IEnumerable<T> 
+    public class Deque<T> : IEnumerable<T>
     {
-        DoublyNode<T> head; 
-        DoublyNode<T> tail; 
-        int count;  
+        DoublyNode<T> head;
+        DoublyNode<T> tail;
+        int count;
 
         public Deque() { }
         public Deque(IEnumerable<T> collection)
@@ -21,7 +18,7 @@ namespace AlgorithmsLibrary.CommonClasses
                 AddRight(item);
             }
         }
-        
+
         public void AddRight(T data)
         {
             DoublyNode<T> node = new DoublyNode<T>(data);
