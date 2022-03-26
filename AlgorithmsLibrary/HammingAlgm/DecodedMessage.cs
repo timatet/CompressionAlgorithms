@@ -17,7 +17,7 @@
         public string sourceMessageWithError { get; private set; }
         /// <summary>
         /// Позиция бита в передаваемом сообщении, в котором возможно была допущена ошибка.
-        /// Если ошибки допущено не было, то его значение -1.
+        /// Если ошибки допущено не было, то его значение 0.
         /// </summary>
         public int ErrorBit { get; private set; }
 
