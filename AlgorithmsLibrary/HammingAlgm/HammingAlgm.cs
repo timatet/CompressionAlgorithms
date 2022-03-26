@@ -76,7 +76,7 @@ namespace AlgorithmsLibrary
                 }
                 //в свободные ячейки расставляем биты исходной строки
                 DataArray[i] = source[j--] - '0';
-                if (DataArray[i] != 0 || DataArray[i] != 1)
+                if (DataArray[i] != 0 && DataArray[i] != 1)
                     throw new ArgumentException("the number must consist of 0 and 1");
             }
 
@@ -84,11 +84,7 @@ namespace AlgorithmsLibrary
             { //осталось вычислить значения контрольных битов
                 int contolBit = (1 << i) - 1;
                 var positions = GetPositionsForContolBitCalculation(1 << i, dataLen);
-                foreach (var p in positions)
-                {
-                    DataArray[contolBit] += DataArray[p];
-                }
-                DataArray[contolBit] %= 2;
+                DataArray[contolBit] = positions.Select(p => DataArray[p]).Sum() % 2;
             }
 
             return string.Join(null, DataArray);
@@ -109,7 +105,7 @@ namespace AlgorithmsLibrary
             for (int i = 0; i < dataLen; i++)
             {
                 DataArray[i] = encodedWithOneError[i] - '0';
-                if (DataArray[i] != 0 || DataArray[i] != 1)
+                if (DataArray[i] != 0 && DataArray[i] != 1)
                     throw new ArgumentException("the number must consist of 0 and 1");
             }
 
