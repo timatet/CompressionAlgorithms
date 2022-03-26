@@ -1,5 +1,6 @@
 ﻿using Xunit;
 using AlgorithmsLibrary;
+using System;
 
 namespace UnitTestProject
 {
@@ -57,6 +58,24 @@ namespace UnitTestProject
             string expected = "1";
             Assert.Equal(expected, encoded.decodedMessage);
             Assert.Equal(errorbit, encoded.ErrorBit);
+        }
+
+        [Fact]
+        public void ThrowingArgumentExceptionWithEncoding()
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                HammingAlgm.Encode("10102000");
+            });
+        }
+
+        [Fact]
+        public void ThrowingArgumentExceptionWithDecoding()
+        {
+            Assert.Throws<ArgumentException>(() =>
+            {
+                HammingAlgm.Decode("10102000");
+            });
         }
     }
 }

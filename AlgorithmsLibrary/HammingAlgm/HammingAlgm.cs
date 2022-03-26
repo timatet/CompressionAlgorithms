@@ -109,6 +109,8 @@ namespace AlgorithmsLibrary
             for (int i = 0; i < dataLen; i++)
             {
                 DataArray[i] = encodedWithOneError[i] - '0';
+                if (DataArray[i] != 0 || DataArray[i] != 1)
+                    throw new ArgumentException("the number must consist of 0 and 1");
             }
 
             int brakePositions = 0;
