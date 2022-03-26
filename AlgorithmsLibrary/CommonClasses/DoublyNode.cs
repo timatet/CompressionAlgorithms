@@ -31,6 +31,9 @@ namespace AlgorithmsLibrary.CommonClasses
             Data = data;
             Weight = weight;
         }
+        /// <summary>
+        /// Создает новый узел как объединение двух потомков.
+        /// </summary>
         public DoublyNode(DoublyNode<T> left, DoublyNode<T> right)
         {
             Previous = left;

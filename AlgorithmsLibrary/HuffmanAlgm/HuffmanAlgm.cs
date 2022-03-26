@@ -49,27 +49,56 @@ namespace AlgorithmsLibrary
             }
 
             //обходим поулчившееся дерево, приписывая каждому символу свой код
-            Dictionary<char, string> codes = new Dictionary<char, string>();
-            Bypass(nodes.FirstOrDefault(), ref codes, new StringBuilder(string.Empty));
-
-            return codes;
+            return InOrderTraversal(nodes.FirstOrDefault());
         }
-        //метод обхода остался еще с дискретной математики, но его кажется надо бы улучшить...
-        private static void Bypass(DoublyNode<char> Current, ref Dictionary<char, string> Codes, StringBuilder CurrentCode)
+        private static Dictionary<char, string> InOrderTraversal(DoublyNode<char> root)
         {
-            if (Current.Data != default)
+            Dictionary<char, string> codes = new Dictionary<char, string>();
+
+            if (root != null)
             {
-                Codes.Add(Current.Data, CurrentCode.ToString());
-                return;
+                Stack<DoublyNode<char>> stack = new Stack<DoublyNode<char>>();
+                var current = root;
+                bool goLeftNext = true;
+
+                stack.Push(current);
+
+                string buffer = string.Empty;
+                while (stack.Count > 0)
+                {
+                    if (goLeftNext)
+                    {
+                        while (current.Previous != null)
+                        {
+                            stack.Push(current);
+                            current = current.Previous;
+                            buffer += "0";
+                        }
+                    }
+
+                    //проверка является ли вершина обхода листом
+                    //вершина является листом если ей присвоено значение != default
+                    if (current.Data != default)
+                    {
+                        codes.Add(current.Data, buffer);
+                    }
+
+                    if (current.Next != null)
+                    {
+                        current = current.Next;
+                        buffer += "1";
+                        goLeftNext = true;
+                    }
+                    else
+                    {
+                        current = stack.Pop();
+                        buffer = buffer.Remove(buffer.Length - 1);
+                        goLeftNext = false;
+                    }
+                }
             }
 
-            CurrentCode.Append('0');
-            Bypass(Current.Previous, ref Codes, CurrentCode);
-            CurrentCode.Remove(CurrentCode.Length - 1, 1);
-
-            CurrentCode.Append('1');
-            Bypass(Current.Next, ref Codes, CurrentCode);
-            CurrentCode.Remove(CurrentCode.Length - 1, 1);
+            return codes;
         }
 
         /// <summary>
