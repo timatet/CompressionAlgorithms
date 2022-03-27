@@ -48,8 +48,29 @@ namespace AlgorithmsLibrary
                 nodes.Insert(index, parent);
             }
 
+            //TreeNodePrinter.Print(nodes.FirstOrDefault());
+
             //обходим поулчившееся дерево, приписывая каждому символу свой код
-            return InOrderTraversal(nodes.FirstOrDefault());
+            //return InOrderTraversal(nodes.FirstOrDefault());
+            Dictionary<char, string> codes = new Dictionary<char, string>();
+            Bypass(nodes.FirstOrDefault(), ref codes, new StringBuilder());
+            return codes;
+        }
+        private static void Bypass(DoublyNode<char> Current, ref Dictionary<char, string> Codes, StringBuilder CurrentCode)
+        {
+            if (Current.Data != default)
+            {
+                Codes.Add(Current.Data, CurrentCode.ToString());
+                return;
+            }
+
+            CurrentCode.Append('0');
+            Bypass(Current.Previous, ref Codes, CurrentCode);
+            CurrentCode.Remove(CurrentCode.Length - 1, 1);
+
+            CurrentCode.Append('1');
+            Bypass(Current.Next, ref Codes, CurrentCode);
+            CurrentCode.Remove(CurrentCode.Length - 1, 1);
         }
         private static Dictionary<char, string> InOrderTraversal(DoublyNode<char> root)
         {
@@ -110,7 +131,7 @@ namespace AlgorithmsLibrary
         public static string Encode(string source)
         {
             StringBuilder encoded = new StringBuilder(string.Empty);
-            Dictionary<char, string> codes = GetHuffmanCodes(source);
+            Dictionary<char, string> codes = GetHuffmanCodes(source);            
 
             foreach (char c in source)
                 encoded.Append(codes[c]);

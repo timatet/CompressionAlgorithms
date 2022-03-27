@@ -77,5 +77,12 @@ namespace UnitTestProject
                 HammingAlgm.Decode("10102000");
             });
         }
+
+        [Fact]
+        public void Test_EncodeCharsStringASCII()
+        {
+            var actual = HammingAlgm.DecodeASCII("1000100110000111001010110110001110110001101111");
+            Assert.Equal("Hello", actual);
+        }
     }
 }
