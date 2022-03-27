@@ -50,6 +50,49 @@ namespace AlgorithmsLibrary
             return array;
         }
 
+        private static string GetBinary(int m)
+        {
+            int[] bin = new int[8];
+            int binLen = bin.Length;
+            for (int i = 0; i < binLen; i++)
+            {
+                int degOfTwo = 1 << (binLen - i - 1);
+                if (m >= degOfTwo)
+                {
+                    m -= degOfTwo;
+                    bin[i] = 1;
+                    if (m == 0)
+                        return string.Join(null, bin);
+                }
+            }
+
+            return string.Join(null, bin);
+        }
+
+        public static string EncodeASCII(string source)
+        {
+            string sourceASCII = string.Join(null, Encoding.ASCII.GetBytes(source).Select(x => GetBinary(x)));
+
+            return Encode(sourceASCII);
+        }
+
+        private static byte[] GetByteArray(string bin)
+        {
+            byte[] result = new byte[bin.Length / 8];
+            for (int i = 0; i < bin.Length / 8; i++)
+            {
+                result[i] = Convert.ToByte(bin.Substring(i * 8, 8), 2);
+            }
+            return result;
+        }
+
+        public static string DecodeASCII(string source)
+        {
+            var restored = Decode(source).decodedMessage;
+
+            return Encoding.ASCII.GetString(GetByteArray(restored));
+        }
+
         /// <summary>
         /// Encoding of the string. Arranging of information bits and calculation of control bits.
         /// </summary>
