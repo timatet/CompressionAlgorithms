@@ -10,9 +10,9 @@ namespace AlgorithmsLibrary
     {
         static void Main(string[] args)
         {
-            string source = "aabbccdd";
-
-            string encoded = HuffmanAlgm.Encode(source);
+            //Для того чтобы здесь, что то работало необходимо переключить тип проекта 
+            //на консольное приложение
+            //я понимаю что это не правильно так делать но пофиг
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using AlgorithmsLibrary.CommonClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,29 +49,8 @@ namespace AlgorithmsLibrary
                 nodes.Insert(index, parent);
             }
 
-            //TreeNodePrinter.Print(nodes.FirstOrDefault());
-
             //обходим поулчившееся дерево, приписывая каждому символу свой код
-            //return InOrderTraversal(nodes.FirstOrDefault());
-            Dictionary<char, string> codes = new Dictionary<char, string>();
-            Bypass(nodes.FirstOrDefault(), ref codes, new StringBuilder());
-            return codes;
-        }
-        private static void Bypass(DoublyNode<char> Current, ref Dictionary<char, string> Codes, StringBuilder CurrentCode)
-        {
-            if (Current.Data != default)
-            {
-                Codes.Add(Current.Data, CurrentCode.ToString());
-                return;
-            }
-
-            CurrentCode.Append('0');
-            Bypass(Current.Previous, ref Codes, CurrentCode);
-            CurrentCode.Remove(CurrentCode.Length - 1, 1);
-
-            CurrentCode.Append('1');
-            Bypass(Current.Next, ref Codes, CurrentCode);
-            CurrentCode.Remove(CurrentCode.Length - 1, 1);
+            return InOrderTraversal(nodes.FirstOrDefault());
         }
         private static Dictionary<char, string> InOrderTraversal(DoublyNode<char> root)
         {
@@ -112,8 +92,12 @@ namespace AlgorithmsLibrary
                     }
                     else
                     {
+                        int actualLevel = current.Level;
                         current = stack.Pop();
-                        buffer = buffer.Remove(buffer.Length - 1);
+                        while (current.Level - actualLevel++ > 0)
+                        {
+                            buffer = buffer.Remove(buffer.Length - 1);
+                        }
                         goLeftNext = false;
                     }
                 }

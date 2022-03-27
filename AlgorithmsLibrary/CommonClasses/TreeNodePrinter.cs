@@ -22,7 +22,7 @@ namespace AlgorithmsLibrary.CommonClasses
             var next = root;
             for (int level = 0; next != null; level++)
             {
-                var item = new NodeInfo<T> { Node = next, Text = string.Format("({0})", next.Data) };
+                var item = new NodeInfo<T> { Node = next, Text = string.Format("({0}:{1})", next.Data, next.Level) };
                 if (level < last.Count)
                 {
                     item.StartPos = last[level].EndPos + 1;

@@ -25,6 +25,23 @@ namespace AlgorithmsLibrary.CommonClasses
         /// </summary>
         public DoublyNode<T> Next { get; set; }
 
+        public int _Level;
+        public int Level
+        {
+            get
+            {
+                return _Level;
+            }
+            private set
+            {
+                _Level = value;
+                if (Previous != null)
+                    Previous.Level = value - 1;
+                if (Next != null)
+                    Next.Level = value - 1;
+            }
+        } 
+
         public DoublyNode(T data) : this(data, 0) { }
         public DoublyNode(T data, int weight)
         {
@@ -40,6 +57,10 @@ namespace AlgorithmsLibrary.CommonClasses
             Next = right;
             Weight = Previous.Weight + Next.Weight;
             Data = default;
+
+            int MaxHeight = Math.Max(left.Level, right.Level);
+            left.Level = right.Level = MaxHeight;
+            Level = MaxHeight + 1;
         }
 
         public int CompareTo(DoublyNode<T> other)
