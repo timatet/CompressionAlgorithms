@@ -27,29 +27,23 @@ namespace AlgorithmsLibrary
         /// Вычисление позиций в сообщении, биты на которых контролируются битом с позиции p.
         /// </summary>
         /// <param name="p">Позиция контрольного бита.</param>
-        /// <param name="dataLen">Длина всего сообщения.</param>
+        /// <param name="l">Длина всего сообщения.</param>
         /// <returns>Список позиций подконтрольных битов в пределах длины сообщения.</returns>
-        private static List<int> GetPositionsForContolBitCalculation(int p, int dataLen)
-        { //наверное эти значения можно вычислять как то попроще...
+        private static List<int> GetPositionsForContolBitCalculation(int p, int l)
+        { 
+            // [(4k-2)*(p/2), (4k-2)*(p/2)+p-1] - числа в этих отрезках нам нужны
+            // [(2k-1)*p, (2k-1)*p+p-1] = [(2k-1)*p, 2kp-1]
+            // необходимо определить рамки для k:
+            // (2k-1)*p > 0 и 2kp-1 < l
+            // k>1/2 => k>=1 и k < (l+1)/(2p)
             var array = new List<int>();
-            bool skip = false; //необходимо взять все позиции начиная с p с интервалом p
-            for (int i = p - 1, mod = 0; i < dataLen; i++)
+            int maxK = (l + 1) / (2 * p) + 1;
+            for (int k = 1; k <= maxK; k++)
             {
-                if (skip)
+                int _2k1 = 2 * k - 1;
+                for (int t = _2k1 * p; t < (_2k1 + 1) * p && t <= l; t++)
                 {
-                    if (++mod == p)
-                    {
-                        skip = false;
-                        mod = 0;
-                    }
-                    continue;
-                }
-
-                array.Add(i);
-                if (++mod == p)
-                {
-                    skip = true;
-                    mod = 0;
+                    array.Add(t - 1);
                 }
             }
 
