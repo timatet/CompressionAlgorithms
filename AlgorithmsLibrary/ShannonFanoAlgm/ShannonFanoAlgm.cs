@@ -1,5 +1,4 @@
 ﻿using AlgorithmsLibrary.CommonClasses;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,7 +34,7 @@ namespace AlgorithmsLibrary
                 int l = leftBorder;
                 int sumLeftPart = nodes[l++].Weight, sumRightPart = parent.Weight - sumLeftPart;
                 // делим относительно веса попалам
-                while (sumLeftPart < sumRightPart/* && l != r*/)
+                while (sumLeftPart < sumRightPart)
                 {
                     sumLeftPart += nodes[l++].Weight;
                     sumRightPart = parent.Weight - sumLeftPart;
@@ -51,55 +50,6 @@ namespace AlgorithmsLibrary
             }
             return parent;
         }
-        //private static Dictionary<char, string> InOrderTraversal(DoublyNode<char> root)
-        //{
-        //    Dictionary<char, string> codes = new Dictionary<char, string>();
-
-        //    if (root != null)
-        //    {
-        //        Stack<DoublyNode<char>> stack = new Stack<DoublyNode<char>>();
-        //        var current = root;
-        //        bool goLeftNext = true;
-
-        //        stack.Push(current);
-
-        //        string buffer = string.Empty;
-        //        while (stack.Count > 0)
-        //        {
-        //            if (goLeftNext)
-        //            {
-        //                while (current.Previous != null)
-        //                {
-        //                    stack.Push(current);
-        //                    current = current.Previous;
-        //                    buffer += "0";
-        //                }
-        //            }
-
-        //            //проверка является ли вершина обхода листом
-        //            //вершина является листом если ей присвоено значение != default
-        //            if (current.Data != default)
-        //            {
-        //                codes.Add(current.Data, buffer);
-        //            }
-
-        //            if (current.Next != null)
-        //            {
-        //                current = current.Next;
-        //                buffer += "1";
-        //                goLeftNext = true;
-        //            }
-        //            else
-        //            {
-        //                current = stack.Pop();
-        //                buffer = buffer.Remove(buffer.Length - 1);
-        //                goLeftNext = false;
-        //            }
-        //        }
-        //    }
-
-        //    return codes;
-        //}
         private static Dictionary<char, string> InOrderTraversal(DoublyNode<char> root)
         {
             Dictionary<char, string> codes = new Dictionary<char, string>();
@@ -110,7 +60,6 @@ namespace AlgorithmsLibrary
                 var parent = root;
                 var current = root;
                 stack.Push(current);
-                bool goLeftNext = true, goRightNext = true;
 
                 string buffer = string.Empty;
 
@@ -133,7 +82,6 @@ namespace AlgorithmsLibrary
                         if (current == parent.Previous) parent.Previous = null;
                         else parent.Next = null;
                         current = parent;
-                        goLeftNext = false;
                         buffer = buffer.Remove(buffer.Length - 1);
                     }
                     if (current.Next != null)
@@ -141,7 +89,6 @@ namespace AlgorithmsLibrary
                         current = current.Next;
                         stack.Push(current);
                         buffer += "1";
-                        goLeftNext = true;
                     }
                     else
                     {
@@ -151,7 +98,6 @@ namespace AlgorithmsLibrary
                         else parent.Next = null;
                         current = parent;
                         buffer = buffer.Remove(buffer.Length - 1);
-                        goLeftNext = false;
                     }
                 }
             }
