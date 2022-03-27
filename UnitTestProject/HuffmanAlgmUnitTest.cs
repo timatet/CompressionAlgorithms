@@ -15,6 +15,7 @@ namespace UnitTestProject
             
             string expected = "1010111100000101";
             Assert.Equal(expected, encoded);
+            Assert.Equal(8 * 2, encoded.Length);
         }
         [Fact]
         public void EncodingStringAbracadabra()

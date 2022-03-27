@@ -48,6 +48,8 @@ namespace AlgorithmsLibrary
                 nodes.Insert(index, parent);
             }
 
+            //TreeNodePrinter.Print(nodes.FirstOrDefault());
+
             //обходим поулчившееся дерево, приписывая каждому символу свой код
             //return InOrderTraversal(nodes.FirstOrDefault());
             Dictionary<char, string> codes = new Dictionary<char, string>();

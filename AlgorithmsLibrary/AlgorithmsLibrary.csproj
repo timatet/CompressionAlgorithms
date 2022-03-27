@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,6 +49,7 @@
     <Compile Include="ArithmeticCodingAlgm\ArithmeticCodingAlgm.cs" />
     <Compile Include="CommonClasses\Deque.cs" />
     <Compile Include="CommonClasses\DoublyNode.cs" />
+    <Compile Include="CommonClasses\TreeNodePrinter.cs" />
     <Compile Include="Extensions\StringBuilderExtensions.cs" />
     <Compile Include="HammingAlgm\HammingAlgm.cs" />
     <Compile Include="HammingAlgm\DecodedMessage.cs" />
@@ -58,6 +62,7 @@
     <Compile Include="RLEAlgmBWT\RLEAlgmBWT.cs" />
     <Compile Include="RLEAlgmBWT\RLECodeBlock.cs" />
     <Compile Include="ShannonFanoAlgm\ShannonFanoAlgm.cs" />
+    <Compile Include="Testing.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
