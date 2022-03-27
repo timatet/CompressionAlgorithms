@@ -7,6 +7,17 @@ namespace UnitTestProject
     public class HuffmanAlgmUnitTest
     {
         [Fact]
+        public void EncodingStringAabbccdd()
+        {
+            string source = "aabbccdd";
+
+            string encoded = HuffmanAlgm.Encode(source);
+            string expected = "1010111100000101";
+            
+            //Assert.Equal(expected, encoded);
+            Assert.Equal(2 * 8, encoded.Length);
+        }
+        [Fact]
         public void EncodingStringAbracadabra()
         {
             string source = "abracadabra";
