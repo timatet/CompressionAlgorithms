@@ -57,19 +57,22 @@ namespace AlgorithmsLibrary
             if (root != null)
             {
                 Stack<DoublyNode<char>> stack = new Stack<DoublyNode<char>>();
-                var parent = root;
                 var current = root;
+                bool goLeftNext = true;
+
                 stack.Push(current);
 
                 string buffer = string.Empty;
-
-                while (root.Previous != null || root.Next != null)
+                while (stack.Count > 0)
                 {
-                    while (current.Previous != null)
+                    if (goLeftNext)
                     {
-                        current = current.Previous;
-                        stack.Push(current);
-                        buffer += "0";
+                        while (current.Previous != null)
+                        {
+                            stack.Push(current);
+                            current = current.Previous;
+                            buffer += "0";
+                        }
                     }
 
                     //проверка является ли вершина обхода листом
@@ -77,30 +80,27 @@ namespace AlgorithmsLibrary
                     if (current.Data != default)
                     {
                         codes.Add(current.Data, buffer);
-                        stack.Pop();
-                        parent = stack.Peek();
-                        if (current == parent.Previous) parent.Previous = null;
-                        else parent.Next = null;
-                        current = parent;
-                        buffer = buffer.Remove(buffer.Length - 1);
                     }
+
                     if (current.Next != null)
                     {
                         current = current.Next;
-                        stack.Push(current);
                         buffer += "1";
+                        goLeftNext = true;
                     }
                     else
                     {
-                        stack.Pop();
-                        parent = stack.Peek();
-                        if (current == parent.Previous) parent.Previous = null;
-                        else parent.Next = null;
-                        current = parent;
-                        buffer = buffer.Remove(buffer.Length - 1);
+                        int actualLevel = current.Level;
+                        current = stack.Pop();
+                        while (current.Level - actualLevel++ > 0)
+                        {
+                            buffer = buffer.Remove(buffer.Length - 1);
+                        }
+                        goLeftNext = false;
                     }
                 }
             }
+
             return codes;
         }
         private static Dictionary<char, string> GetShannonFanoCodes(Dictionary<char, int> frequencies)
