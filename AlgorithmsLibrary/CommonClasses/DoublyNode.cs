@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AlgorithmsLibrary.CommonClasses
 {
@@ -61,6 +62,56 @@ namespace AlgorithmsLibrary.CommonClasses
             int MaxHeight = Math.Max(left.Level, right.Level);
             left.Level = right.Level = MaxHeight;
             Level = MaxHeight + 1;
+        }
+
+        public Dictionary<T, string> InOrderTraversal()
+        {
+            Dictionary<T, string> codes = new Dictionary<T, string>();
+            Stack<DoublyNode<T>> stack = new Stack<DoublyNode<T>>();
+            var current = this;
+            bool goLeftNext = true;
+
+            stack.Push(current);
+
+            string buffer = string.Empty;
+            while (stack.Count > 0)
+            {
+                if (goLeftNext)
+                {
+                    while (current.Previous != null)
+                    {
+                        stack.Push(current);
+                        current = current.Previous;
+                        buffer += "0";
+                    }
+                }
+
+                //проверка является ли вершина обхода листом
+                //вершина является листом если ей присвоено значение != default
+                if (!current.Data.Equals(default(T)))
+                {
+                    codes.Add(current.Data, buffer);
+                }
+
+                if (current.Next != null)
+                {
+                    current = current.Next;
+                    buffer += "1";
+                    goLeftNext = true;
+                }
+                else
+                {
+                    int actualLevel = current.Level;
+                    current = stack.Pop();
+                    while (current.Level - actualLevel++ > 0)
+                    {
+                        buffer = buffer.Remove(buffer.Length - 1);
+                    }
+                    goLeftNext = false;
+                }
+            }
+
+            return codes;
         }
 
         public int CompareTo(DoublyNode<T> other)

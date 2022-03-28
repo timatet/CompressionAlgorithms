@@ -50,59 +50,7 @@ namespace AlgorithmsLibrary
             }
             return parent;
         }
-        private static Dictionary<char, string> InOrderTraversal(DoublyNode<char> root)
-        {
-            Dictionary<char, string> codes = new Dictionary<char, string>();
-
-            if (root != null)
-            {
-                Stack<DoublyNode<char>> stack = new Stack<DoublyNode<char>>();
-                var current = root;
-                bool goLeftNext = true;
-
-                stack.Push(current);
-
-                string buffer = string.Empty;
-                while (stack.Count > 0)
-                {
-                    if (goLeftNext)
-                    {
-                        while (current.Previous != null)
-                        {
-                            stack.Push(current);
-                            current = current.Previous;
-                            buffer += "0";
-                        }
-                    }
-
-                    //проверка является ли вершина обхода листом
-                    //вершина является листом если ей присвоено значение != default
-                    if (current.Data != default)
-                    {
-                        codes.Add(current.Data, buffer);
-                    }
-
-                    if (current.Next != null)
-                    {
-                        current = current.Next;
-                        buffer += "1";
-                        goLeftNext = true;
-                    }
-                    else
-                    {
-                        int actualLevel = current.Level;
-                        current = stack.Pop();
-                        while (current.Level - actualLevel++ > 0)
-                        {
-                            buffer = buffer.Remove(buffer.Length - 1);
-                        }
-                        goLeftNext = false;
-                    }
-                }
-            }
-
-            return codes;
-        }
+        
         private static Dictionary<char, string> GetShannonFanoCodes(Dictionary<char, int> frequencies)
         {
             //получаем словарь частот и переносим его в список
@@ -118,7 +66,7 @@ namespace AlgorithmsLibrary
             var root = BuildTree(parent, 0, nodes.Count-1, nodes);
 
             //обходим поулчившееся дерево, приписывая каждому символу свой код
-            return InOrderTraversal(root);
+            return root.InOrderTraversal();
         }
 
 
