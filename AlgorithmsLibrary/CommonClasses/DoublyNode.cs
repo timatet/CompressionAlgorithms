@@ -9,6 +9,10 @@ namespace AlgorithmsLibrary.CommonClasses
     /// <typeparam name="T">Тип хранения данных в узле</typeparam>
     public class DoublyNode<T> : IComparable<DoublyNode<T>>, IEquatable<DoublyNode<T>>
     {
+        private int _Level = 1;
+        private int _CountBinaryVertex = 0;
+        private List<DoublyNode<T>> _Nodes;
+
         /// <summary>
         /// Данные, хранящиеся в узле.
         /// </summary>
@@ -24,9 +28,11 @@ namespace AlgorithmsLibrary.CommonClasses
         /// <summary>
         /// Следующий (правый) связный узел.
         /// </summary>
-        public DoublyNode<T> Next { get; set; }
-
-        private int _Level = 1;
+        public DoublyNode<T> Next { get;  set; }
+        /// <summary>
+        /// Родительский узел.
+        /// </summary>
+        public DoublyNode<T> Parent { get; private set; }
         /// <summary>
         /// Количество уровней глубины поддерева.
         /// </summary>
@@ -48,17 +54,36 @@ namespace AlgorithmsLibrary.CommonClasses
         /// <summary>
         /// Число вершин в поддереве из всех вершин поддерева, включая корневую, у которых два потомка.
         /// </summary>
-        public int CountBinaryVertex { get; private set; } = 0;
+        public int CountBinaryVertex {
+            get
+            {
+                return _CountBinaryVertex;
+            }
+            private set
+            {
+                _CountBinaryVertex++;
+                if (Parent != null)
+                    Parent.CountBinaryVertex++;
+            }
+        } 
         /// <summary>
         /// Количество висячих (свободных) узлов в поддереве.
         /// </summary>
         public int CountHangingVertex { get { return CountBinaryVertex + 1; } private set { } }
+        public IEnumerable<DoublyNode<T>> Nodes
+        {
+            get
+            {
+                return _Nodes;
+            }
+        }
 
         public DoublyNode(T data) : this(data, 0) { }
         public DoublyNode(T data, int weight)
         {
             Data = data;
             Weight = weight;
+            _Nodes = new List<DoublyNode<T>> { this };
         }
         /// <summary>
         /// Создает новый узел как объединение двух потомков.
@@ -69,12 +94,17 @@ namespace AlgorithmsLibrary.CommonClasses
             Next = right;
             Weight = Previous.Weight + Next.Weight;
             Data = default;
-
+            left.Parent = right.Parent = this;
+            //Пересчитываем уровень дерева
             int MaxHeight = Math.Max(left.Level, right.Level);
             left.Level = right.Level = MaxHeight;
             Level = MaxHeight + 1;
-
+            //Увеличваем количество бинарных вершин
             CountBinaryVertex = left.CountBinaryVertex + right.CountBinaryVertex + 1;
+            //Объединяем узлы входящие в левое и правое поддерево
+            _Nodes = new List<DoublyNode<T>> { this };
+            _Nodes.AddRange(left.Nodes);
+            _Nodes.AddRange(right.Nodes);
         }
 
         public Dictionary<T, string> InOrderTraversal()
@@ -131,7 +161,6 @@ namespace AlgorithmsLibrary.CommonClasses
         {
             return Weight.CompareTo(other.Weight);
         }
-
         public bool Equals(DoublyNode<T> other)
         {
             return Data.Equals(other.Data) && Weight == other.Weight;
