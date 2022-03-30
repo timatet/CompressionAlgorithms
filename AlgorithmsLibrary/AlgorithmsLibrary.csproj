@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArithmeticCodingAlgm\ArithmeticCodingAlgm.cs" />
+    <Compile Include="ArithmeticCodingAlgm\Symbol.cs" />
     <Compile Include="CommonClasses\Deque.cs" />
     <Compile Include="CommonClasses\DoublyNode.cs" />
     <Compile Include="CommonClasses\TreeNodePrinter.cs" />

@@ -26,7 +26,10 @@ namespace AlgorithmsLibrary.CommonClasses
         /// </summary>
         public DoublyNode<T> Next { get; set; }
 
-        public int _Level;
+        private int _Level = 1;
+        /// <summary>
+        /// Количество уровней глубины поддерева.
+        /// </summary>
         public int Level
         {
             get
@@ -41,7 +44,15 @@ namespace AlgorithmsLibrary.CommonClasses
                 if (Next != null)
                     Next.Level = value - 1;
             }
-        } 
+        }
+        /// <summary>
+        /// Число вершин в поддереве из всех вершин поддерева, включая корневую, у которых два потомка.
+        /// </summary>
+        public int CountBinaryVertex { get; private set; } = 0;
+        /// <summary>
+        /// Количество висячих (свободных) узлов в поддереве.
+        /// </summary>
+        public int CountHangingVertex { get { return CountBinaryVertex + 1; } private set { } }
 
         public DoublyNode(T data) : this(data, 0) { }
         public DoublyNode(T data, int weight)
@@ -62,6 +73,8 @@ namespace AlgorithmsLibrary.CommonClasses
             int MaxHeight = Math.Max(left.Level, right.Level);
             left.Level = right.Level = MaxHeight;
             Level = MaxHeight + 1;
+
+            CountBinaryVertex = left.CountBinaryVertex + right.CountBinaryVertex + 1;
         }
 
         public Dictionary<T, string> InOrderTraversal()
