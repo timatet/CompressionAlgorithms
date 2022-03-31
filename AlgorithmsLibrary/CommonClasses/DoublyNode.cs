@@ -11,7 +11,6 @@ namespace AlgorithmsLibrary.CommonClasses
     {
         private int _Level = 1;
         private int _CountBinaryVertex = 0;
-        private List<DoublyNode<T>> _Nodes;
 
         /// <summary>
         /// Данные, хранящиеся в узле.
@@ -70,20 +69,12 @@ namespace AlgorithmsLibrary.CommonClasses
         /// Количество висячих (свободных) узлов в поддереве.
         /// </summary>
         public int CountHangingVertex { get { return CountBinaryVertex + 1; } private set { } }
-        public IEnumerable<DoublyNode<T>> Nodes
-        {
-            get
-            {
-                return _Nodes;
-            }
-        }
 
         public DoublyNode(T data) : this(data, 0) { }
         public DoublyNode(T data, int weight)
         {
             Data = data;
             Weight = weight;
-            _Nodes = new List<DoublyNode<T>> { this };
         }
         /// <summary>
         /// Создает новый узел как объединение двух потомков.
@@ -101,10 +92,6 @@ namespace AlgorithmsLibrary.CommonClasses
             Level = MaxHeight + 1;
             //Увеличваем количество бинарных вершин
             CountBinaryVertex = left.CountBinaryVertex + right.CountBinaryVertex + 1;
-            //Объединяем узлы входящие в левое и правое поддерево
-            _Nodes = new List<DoublyNode<T>> { this };
-            _Nodes.AddRange(left.Nodes);
-            _Nodes.AddRange(right.Nodes);
         }
 
         public Dictionary<T, string> InOrderTraversal()
