@@ -6,7 +6,7 @@ namespace AlgorithmsLibrary
 {
     public static class RLEAlgm
     {
-        public static List<RLECodeBlock> Encode(string inputString)
+        public static IAlgmEncoded<List<RLECodeBlock>> Encode(string inputString)
         {
             if (string.IsNullOrEmpty(inputString))
             {
@@ -34,10 +34,10 @@ namespace AlgorithmsLibrary
                 currentSymbol = symbol;
             }
 
-            return result;
+            return new EncodedMessage<List<RLECodeBlock>>(result);
         }
 
-        public static string Decode(List<RLECodeBlock> encodedString)
+        public static IAlgmEncoded<string> Decode(List<RLECodeBlock> encodedString)
         {
             if (encodedString.Count < 2)
             {
@@ -53,7 +53,7 @@ namespace AlgorithmsLibrary
             }
 
             var result = BurrowsWheelerTransform.Decode(decompressedString.ToString(), encodedString[0].Repeats);
-            return result;
+            return new EncodedMessage<string>(result);
         }
 
         public static double CalculateCompressionRatio(string sourceString, List<RLECodeBlock> compressionString)

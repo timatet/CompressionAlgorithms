@@ -11,10 +11,10 @@ namespace UnitTestProject
         {
             string source = "aabcb";
 
-            string encoded = ArithmeticCodingAlgm.Encode(source);
+            var encoded = ArithmeticCodingAlgm.Encode(source);
             string expected = "125";
 
-            Assert.Equal(expected, encoded);
+            Assert.Equal(expected, encoded.GetAnswer());
         }
         [Fact]
         public void DecodingStringAabcb()
@@ -25,10 +25,10 @@ namespace UnitTestProject
                 {'a', 2}, {'b', 2}, {'c', 1}
             };
 
-            string decoded = ArithmeticCodingAlgm.Decode(frequencies, encoded, 5);
+            var decoded = ArithmeticCodingAlgm.Decode(frequencies, encoded, 5);
             string expected = "aabcb";
 
-            Assert.Equal(expected, decoded);
+            Assert.Equal(expected, decoded.GetAnswer());
         }
     }
 }

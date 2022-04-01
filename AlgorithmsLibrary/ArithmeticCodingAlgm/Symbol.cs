@@ -32,6 +32,5 @@ namespace AlgorithmsLibrary
         {
             return Frequency.CompareTo(other.Frequency);
         }
-
     }
 }

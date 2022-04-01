@@ -14,7 +14,7 @@ namespace UnitTestProject
 
             var expectedCodeBlocks = new List<CodeBlock>();
 
-            Assert.Equal(expectedCodeBlocks, result);
+            Assert.Equal(expectedCodeBlocks, result.GetAnswer());
         }
         
         [Fact]
@@ -27,7 +27,7 @@ namespace UnitTestProject
                 new CodeBlock(0,0,'a')
             };
 
-            Assert.Equal(expectedCodeBlocks, result);
+            Assert.Equal(expectedCodeBlocks, result.GetAnswer());
         }
 
         [Fact]
@@ -42,7 +42,9 @@ namespace UnitTestProject
                 new CodeBlock(0,0,'d') 
             };
 
-            Assert.Equal(expectedCodeBlocks, result);
+            var test = LZ77Algm.Decode(expectedCodeBlocks);
+
+            Assert.Equal(expectedCodeBlocks, result.GetAnswer());
         }
         
         [Fact]
@@ -53,9 +55,10 @@ namespace UnitTestProject
             var expectedCodeBlocks = new List<CodeBlock> {
                 new CodeBlock(0,0,'a'),
                 new CodeBlock(0,0,'b'), 
-                new CodeBlock(2,2,'$') };
+                new CodeBlock(2,2,'$') 
+            };
 
-            Assert.Equal(expectedCodeBlocks, result);
+            Assert.Equal(expectedCodeBlocks, result.GetAnswer());
         }
         
         [Fact]
@@ -72,7 +75,7 @@ namespace UnitTestProject
                 new CodeBlock(7,4,'a'), 
                 new CodeBlock(11,10,'$') };
 
-            Assert.Equal(expectedCodeBlocks, result);
+            Assert.Equal(expectedCodeBlocks, result.GetAnswer());
         }
         
         [Fact]
@@ -81,7 +84,7 @@ namespace UnitTestProject
             string stringForEncoding = "abracadabraabracadabra";
             var result = LZ77Algm.Encode(stringForEncoding);
 
-            double actual = Math.Round(LZ77Algm.CalculateCompressionRatio(stringForEncoding, result), 2);
+            double actual = Math.Round(LZ77Algm.CalculateCompressionRatio(stringForEncoding, result.GetAnswer()), 2);
             double expected = 2.05;
 
             Assert.Equal(expected, actual);
@@ -98,9 +101,9 @@ namespace UnitTestProject
         {
             var result = LZ77Algm.Encode(stringForEncoding);
 
-            string decodeResult = LZ77Algm.Decode(result);
+            var decodeResult = LZ77Algm.Decode(result.GetAnswer());
 
-            Assert.Equal(stringForEncoding, decodeResult);
+            Assert.Equal(stringForEncoding, decodeResult.GetAnswer());
         }
 
 

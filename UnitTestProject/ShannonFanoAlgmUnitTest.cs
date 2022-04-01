@@ -11,10 +11,10 @@ namespace UnitTestProject
         {
             string source = "abracadabra";
 
-            string encoded = ShannonFanoAlgm.Encode(source);
+            var encoded = ShannonFanoAlgm.Encode(source);
             string expected = "001001001110011000100100";
 
-            Assert.Equal(expected, encoded);
+            Assert.Equal(expected, encoded.GetAnswer());
         }
 
         [Fact]
@@ -22,10 +22,10 @@ namespace UnitTestProject
         {
             string source = "aabbccdd";
 
-            string encoded = ShannonFanoAlgm.Encode(source);
+            var encoded = ShannonFanoAlgm.Encode(source);
             string expected = "1111101001010000";
 
-            Assert.Equal(expected, encoded);
+            Assert.Equal(expected, encoded.GetAnswer());
         }
         [Fact]
         public void DecodeStringAbracadabraWithFrequencies()
@@ -37,10 +37,10 @@ namespace UnitTestProject
                 {'a', 5}, {'b', 2}, {'r', 2}, {'c', 1}, {'d', 1}
             };
 
-            string encoded = ShannonFanoAlgm.Decode(frequencies, decoded);
+            var encoded = ShannonFanoAlgm.Decode(frequencies, decoded);
             string expected = "abracadabra";
 
-            Assert.Equal(expected, encoded);
+            Assert.Equal(expected, encoded.GetAnswer());
         }
 
         [Fact]
@@ -53,10 +53,10 @@ namespace UnitTestProject
                 {'a', "0"}, {'b', "110"}, {'r', "10"}, {'c', "1110"}, {'d', "1111"}
             };
 
-            string encoded = ShannonFanoAlgm.Decode(codes, decoded);
+            var encoded = ShannonFanoAlgm.Decode(codes, decoded);
             string expected = "abracadabra";
 
-            Assert.Equal(expected, encoded);
+            Assert.Equal(expected, encoded.GetAnswer());
         }
     }
 }

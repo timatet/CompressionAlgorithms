@@ -76,7 +76,7 @@ namespace AlgorithmsLibrary
         /// </summary>
         /// <param name="source">Source string.</param>
         /// <returns>Encoded string.</returns>
-        public static string Encode(string source)
+        public static IAlgmEncoded<string, Dictionary<char, string>> Encode(string source)
         {
             StringBuilder encoded = new StringBuilder(string.Empty);
             Dictionary<char, string> codes = GetShannonFanoCodes(source);
@@ -84,7 +84,7 @@ namespace AlgorithmsLibrary
             foreach (char c in source)
                 encoded.Append(codes[c]);
 
-            return encoded.ToString();
+            return new EncodedMessage<string, Dictionary<char, string>>(encoded.ToString(), codes);
         }       
 
         private static Dictionary<string, char> GetReverseCodes(Dictionary<char, string> codes)
@@ -98,7 +98,7 @@ namespace AlgorithmsLibrary
         /// <param name="frequencies">A dictionary where each character has its own frequency.</param>
         /// <param name="encoded">Encoded string.</param>
         /// <returns>Decoded string.</returns>
-        public static string Decode(Dictionary<char, int> frequencies, string encoded)
+        public static IAlgmEncoded<string> Decode(Dictionary<char, int> frequencies, string encoded)
         {
             var codesForDecoding = GetShannonFanoCodes(frequencies);
 
@@ -111,7 +111,7 @@ namespace AlgorithmsLibrary
         /// <param name="codes">A dictionary where each character corresponds to its code.</param>
         /// <param name="encoded">Encoded string.</param>
         /// <returns>Decoded string.</returns>
-        public static string Decode(Dictionary<char, string> codes, string encoded)
+        public static IAlgmEncoded<string> Decode(Dictionary<char, string> codes, string encoded)
         {
             StringBuilder decoded = new StringBuilder(string.Empty);
             var codesForDecoding = GetReverseCodes(codes);
@@ -127,7 +127,7 @@ namespace AlgorithmsLibrary
                 }
             }
 
-            return decoded.ToString();
+            return new EncodedMessage<string>(decoded.ToString());
         }
 
         /// <summary>
