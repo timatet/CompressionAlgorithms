@@ -44,7 +44,7 @@ namespace AlgorithmsLibrary
             return nodes;
         }
 
-        public static string Encode(string source)
+        public static IAlgmEncoded<string, Dictionary<char, int>> Encode(string source)
         {
             List<Symbol> codes = GetSymbolsRanges(source);
             decimal HighRange = 1, LowRange = 0, h, l;
@@ -62,25 +62,25 @@ namespace AlgorithmsLibrary
                 dec *= 10;
                 result = (int)(HighRange * dec) / dec;
             }
-            return ((int)(result*dec)).ToString();
+            return new EncodedMessage<string, Dictionary<char, int>>(((int)(result * dec)).ToString(), GetFrequencies(source));
         }
-        public static string Decode(Dictionary<char, int> frequencies, string encoded, int CountOfAllSymbols)
+        public static IAlgmEncoded<string> Decode(Dictionary<char, int> frequencies, string encoded, int CountOfAllSymbols)
         {
             List<Symbol> codes = GetSymbolsRanges(frequencies, CountOfAllSymbols);
             StringBuilder decoded = new StringBuilder(string.Empty);
 
             decimal code = int.Parse(encoded) / (decimal)Math.Pow(10, encoded.Length);
             decimal HighRange = 1, LowRange = 0, h, l;
-            for (int i=0; i< CountOfAllSymbols; i++)
+            for (int i = 0; i < CountOfAllSymbols; i++)
             {
                 h = HighRange; l = LowRange;
-                Symbol item = codes.Find(x => l + (h - l) *x.HighRange>code && l + (h - l) *x.LowRange<=code);
+                Symbol item = codes.Find(x => l + (h - l) * x.HighRange > code && l + (h - l) * x.LowRange <= code);
                 decoded.Append(item.Data);
                 HighRange = l + (h - l) * item.HighRange;
                 LowRange = l + (h - l) * item.LowRange;
             }
 
-            return decoded.ToString();
+            return new EncodedMessage<string>(decoded.ToString());
         }
     }
 }

@@ -1,7 +1,7 @@
-﻿using Xunit;
-using AlgorithmsLibrary;
-using System.Collections.Generic;
+﻿using AlgorithmsLibrary;
 using System;
+using System.Collections.Generic;
+using Xunit;
 
 namespace UnitTestProject
 {
@@ -35,7 +35,7 @@ namespace UnitTestProject
             string input = "abracadabra";
 
             var actual = RLEAlgm.Encode(input);
-            var expected = new List<RLECodeBlock> { 
+            var expected = new List<RLECodeBlock> {
                 new RLECodeBlock(default, 2),
                 new RLECodeBlock('r', 1),
                 new RLECodeBlock('d', 1),
@@ -46,7 +46,7 @@ namespace UnitTestProject
                 new RLECodeBlock('b', 2),
             };
 
-            Assert.Equal(expected, actual);
+            Assert.Equal(expected, actual.GetAnswer());
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace UnitTestProject
             var actual = RLEAlgm.Decode(decoded);
             var expected = "abracadabra";
 
-            Assert.Equal(expected, actual);
+            Assert.Equal(expected, actual.GetAnswer());
         }
 
         [Fact]
@@ -100,7 +100,7 @@ namespace UnitTestProject
                 new RLECodeBlock(' ', 1)
             };
 
-            Assert.Equal(expected, decoded);
+            Assert.Equal(expected, decoded.GetAnswer());
         }
 
         [Fact]
@@ -114,7 +114,7 @@ namespace UnitTestProject
             var encoded = RLEAlgm.Decode(decoded);
             var expected = " ";
 
-            Assert.Equal(expected, encoded);
+            Assert.Equal(expected, encoded.GetAnswer());
         }
     }
 }

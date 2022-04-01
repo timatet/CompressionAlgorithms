@@ -18,6 +18,11 @@ namespace AlgorithmsLibrary
             this.NextChar = nextChar;
         }
 
+        public override string ToString()
+        {
+            return string.Format("({0},{1},{2})", Offset, Length, NextChar);
+        }
+
         public bool Equals(CodeBlock other)
         {
             return Offset == other.Offset && Length == other.Length && NextChar == other.NextChar;

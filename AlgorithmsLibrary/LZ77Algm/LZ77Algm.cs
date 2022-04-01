@@ -12,7 +12,7 @@ namespace AlgorithmsLibrary
         /// </summary>
         /// <param name="inputString">Source string</param>
         /// <returns>Compressed (encoded) string</returns>
-        public static List<CodeBlock> Encode(string inputString)
+        public static IAlgmEncoded<List<CodeBlock>> Encode(string inputString)
         {
             List<CodeBlock> result = new List<CodeBlock>();
             StringBuilder searchBuffer = new StringBuilder();
@@ -77,7 +77,7 @@ namespace AlgorithmsLibrary
                 currentLengthSubString = 0;
             }
 
-            return result;
+            return new EncodedMessage<List<CodeBlock>>(result);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace AlgorithmsLibrary
         /// </summary>
         /// <param name="encodedString">Compressed (encoded) string</param>
         /// <returns>Decoded string</returns>
-        public static string Decode(List<CodeBlock> encodedString)
+        public static IAlgmEncoded<string> Decode(List<CodeBlock> encodedString)
         {
             StringBuilder resultDecoding = new StringBuilder(string.Empty);
 
@@ -127,7 +127,7 @@ namespace AlgorithmsLibrary
             if (resultDecoding.Length > 0 && resultDecoding[resultDecoding.Length - 1].Equals('$'))
                 resultDecoding.Remove(resultDecoding.Length - 1, 1);
 
-            return resultDecoding.ToString();
+            return new EncodedMessage<string>(resultDecoding.ToString());
         }
     }
 

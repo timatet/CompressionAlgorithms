@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System;
-using System.Text;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace AlgorithmsLibrary
 {
@@ -14,7 +14,7 @@ namespace AlgorithmsLibrary
         /// <returns>Число контрольных бит.</returns>
         private static int GetCountOfControlBits(int m)
         {
-            for (int p = 1;; p++)
+            for (int p = 1; ; p++)
             {
                 if ((1 << p) >= (m + p + 1))
                 {
@@ -30,7 +30,7 @@ namespace AlgorithmsLibrary
         /// <param name="l">Длина всего сообщения.</param>
         /// <returns>Список позиций подконтрольных битов в пределах длины сообщения.</returns>
         private static List<int> GetPositionsForContolBitCalculation(int p, int l)
-        { 
+        {
             // [(4k-2)*(p/2), (4k-2)*(p/2)+p-1] - числа в этих отрезках нам нужны
             // [(2k-1)*p, (2k-1)*p+p-1] = [(2k-1)*p, 2kp-1]
             // необходимо определить рамки для k:
@@ -69,7 +69,7 @@ namespace AlgorithmsLibrary
             return string.Join(null, bin);
         }
 
-        public static string EncodeASCII(string source)
+        public static IAlgmEncoded<string> EncodeASCII(string source)
         {
             string sourceASCII = string.Join(null, Encoding.ASCII.GetBytes(source).Select(x => GetBinary(x)));
 
@@ -86,11 +86,11 @@ namespace AlgorithmsLibrary
             return result;
         }
 
-        public static string DecodeASCII(string source)
+        public static IAlgmEncoded<string> DecodeASCII(string source)
         {
-            var restored = Decode(source).decodedMessage;
+            var restored = Decode(source).GetAnswer();
 
-            return Encoding.ASCII.GetString(GetByteArray(restored));
+            return new EncodedMessage<string>(Encoding.ASCII.GetString(GetByteArray(restored)));
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace AlgorithmsLibrary
         /// </summary>
         /// <param name="source">Source message.</param>
         /// <returns>Encoded message.</returns>
-        public static string Encode(string source)
+        public static IAlgmEncoded<string> Encode(string source)
         {
             int cntOfContolBits = GetCountOfControlBits(source.Length);
             int dataLen = source.Length + cntOfContolBits;
@@ -124,7 +124,7 @@ namespace AlgorithmsLibrary
                 DataArray[contolBit] = positions.Select(p => DataArray[p]).Sum() % 2;
             }
 
-            return string.Join(null, DataArray);
+            return new EncodedMessage<string>(string.Join(null, DataArray));
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace AlgorithmsLibrary
         /// </summary>
         /// <param name="encodedWithOneError">Transmitted message.</param>
         /// <returns>Restored message indicating the bit where the error was made.</returns>
-        public static DecodedMessage Decode(string encodedWithOneError)
+        public static IAlgmEncoded<string> Decode(string encodedWithOneError)
         {
             //задача пересчитать контрольные биты. Найти те, которые отличаются
             //сумма позиций этих битов и есть номер бита в котором была ошибка
@@ -173,7 +173,7 @@ namespace AlgorithmsLibrary
                 result.Append(encoded[i]);
             }
 
-            return new DecodedMessage(result.ToString(), encodedWithOneError, brakePositions);
+            return new EncodedMessage<string>(result.ToString());
         }
     }
 }

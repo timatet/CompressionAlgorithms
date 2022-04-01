@@ -1,6 +1,6 @@
-using Xunit;
 using AlgorithmsLibrary;
 using System.Collections.Generic;
+using Xunit;
 
 namespace UnitTestProject
 {
@@ -11,23 +11,23 @@ namespace UnitTestProject
         {
             string source = "aabbccdd";
 
-            string encoded = HuffmanAlgm.Encode(source);
-            
+            var encoded = HuffmanAlgm.Encode(source);
+
             string expected = "1010111100000101";
-            Assert.Equal(expected, encoded);
-            Assert.Equal(8 * 2, encoded.Length);
+            Assert.Equal(expected, encoded.GetAnswer());
+            Assert.Equal(8 * 2, encoded.GetAnswer().Length);
         }
         [Fact]
         public void EncodingStringAbracadabra()
         {
             string source = "abracadabra";
 
-            string encoded = HuffmanAlgm.Encode(source);
+            var encoded = HuffmanAlgm.Encode(source);
             string expected = "01101001110011110110100";
-            
-            Assert.Equal(expected, encoded);
+
+            Assert.Equal(expected, encoded.GetAnswer());
         }
-        
+
         [Fact]
         public void DecodeStringAbracadabraWithFrequencies()
         {
@@ -38,12 +38,12 @@ namespace UnitTestProject
                 {'a', 5}, {'b', 2}, {'r', 2}, {'c', 1}, {'d', 1}
             };
 
-            string encoded = HuffmanAlgm.Decode(frequencies, decoded);
+            var encoded = HuffmanAlgm.Decode(frequencies, decoded);
             string expected = "abracadabra";
-            
-            Assert.Equal(expected, encoded);
+
+            Assert.Equal(expected, encoded.GetAnswer());
         }
-        
+
         [Fact]
         public void DecodeStringAbracadabraWithCodes()
         {
@@ -54,10 +54,10 @@ namespace UnitTestProject
                 {'a', "0"}, {'b', "110"}, {'r', "10"}, {'c', "1110"}, {'d', "1111"}
             };
 
-            string encoded = HuffmanAlgm.Decode(codes, decoded);
+            var encoded = HuffmanAlgm.Decode(codes, decoded);
             string expected = "abracadabra";
-            
-            Assert.Equal(expected, encoded);
+
+            Assert.Equal(expected, encoded.GetAnswer());
         }
     }
 }

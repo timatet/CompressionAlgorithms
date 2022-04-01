@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace AlgorithmsLibrary
 {
     public class RLECodeBlock : IEquatable<RLECodeBlock>
@@ -15,9 +16,9 @@ namespace AlgorithmsLibrary
         public override string ToString()
         {
             if (Symbol == default)
-                return String.Format("{0}", Repeats);
+                return string.Format("{0}", Repeats);
             else
-                return String.Format("{0}{1}", Symbol, Repeats);
+                return string.Format("{0}{1}", Symbol, Repeats);
         }
 
         public bool Equals(RLECodeBlock other)
