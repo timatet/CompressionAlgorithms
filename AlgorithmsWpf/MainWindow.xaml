@@ -1,0 +1,132 @@
+﻿<Window x:Class="AlgorithmsWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AlgorithmsWpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="80*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="17*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+
+        <!--Основные цвета окна-->
+        <Rectangle Grid.ColumnSpan="5" Grid.RowSpan="5" Fill="{StaticResource ColorOfBackground}"/>
+        <Rectangle Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Fill="{StaticResource ColorOfBoder}"/>
+        <Rectangle Grid.Column="3" Grid.Row="3" Fill="{StaticResource ColorOfBoder}"/>
+        
+        <!--Границы блока для кнопок-->
+        <Rectangle Grid.Column="1" Grid.Row="1" Fill="{StaticResource ColorOfLines}" Height="1" VerticalAlignment="Top"/>
+        <Rectangle Grid.Column="1" Grid.Row="3" Fill="{StaticResource ColorOfLines}" Height="1" VerticalAlignment="Bottom"/>
+        <Rectangle Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Fill="{StaticResource ColorOfLines}" Width="1" HorizontalAlignment="Left"/>
+        <Rectangle Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Fill="{StaticResource ColorOfLines}" Width="1" HorizontalAlignment="Right"/>
+        
+        <!--Границы блока для алгоритмов-->
+        <Rectangle Grid.Column="3" Grid.Row="3" Fill="{StaticResource ColorOfLines}" Height="1" VerticalAlignment="Top"/>
+        <Rectangle Grid.Column="3" Grid.Row="3" Fill="{StaticResource ColorOfLines}" Height="1" VerticalAlignment="Bottom"/>
+        <Rectangle Grid.Column="3" Grid.Row="3" Fill="{StaticResource ColorOfLines}" Width="1" HorizontalAlignment="Left"/>
+        <Rectangle Grid.Column="3" Grid.Row="3" Fill="{StaticResource ColorOfLines}" Width="1" HorizontalAlignment="Right"/>
+        
+        <Rectangle Grid.Column="3" Grid.Row="1" Fill="{StaticResource ColorOfLines}" Height="3" VerticalAlignment="Bottom"/>
+        
+        <!--Блок с кнопками-->
+        <StackPanel Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" VerticalAlignment="Center">
+            <Button Name="BHuffman" Margin="3" Click="HuffmanClicButton">
+                <StackPanel>
+                    <TextBlock Text="Кодирование" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Хаффман" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Name="BShannonFano" Margin="3" Click="ShannonFanoClicButton">
+                <StackPanel>
+                    <TextBlock Text="Коды" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Фано-Шеннона" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Name="BArithmeticCoding" Margin="3" Click="ArithmeticCodingClicButton">
+                <StackPanel>
+                    <TextBlock Text="Арифметическое" HorizontalAlignment="Center"/>
+                    <TextBlock Text="кодирование" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Name="BRLE" Margin="3" Click="RLEClicButton">
+                <StackPanel>
+                    <TextBlock Text="Алгоритм" HorizontalAlignment="Center"/>
+                    <TextBlock Text="RLE" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Name="BLZ77" Margin="3" Click="LZ77ClicButton">
+                <StackPanel>
+                    <TextBlock Text="Метод сжатия" HorizontalAlignment="Center"/>
+                    <TextBlock Text="LZ77" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Name="BHamming" Margin="3" Click="HammingClicButton">
+                <StackPanel>
+                    <TextBlock Text="Код" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Хэмминга" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Name="BLinearCodesType52" Margin="3" Click="LinearCodesType52ClicButton">
+                <StackPanel>
+                    <TextBlock Text="Линейный код" HorizontalAlignment="Center"/>
+                    <TextBlock Text="типа (5, 2)" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <TextBlock Name="NameOfAlgorithm" Grid.Column="3" Grid.Row="1"
+                   HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+
+        <Border Name="Huf_Fano_Arith_Boder" Grid.Column="3" Grid.Row="3">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="13*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <!--Таблица с кнопками-->
+                <Grid Grid.ColumnSpan="11" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>
