@@ -94,7 +94,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="5*"/>
-                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="16*"/>
                     <RowDefinition Height="3*"/>
                     <RowDefinition Height="7*"/>
                     <RowDefinition Height="10*"/>
@@ -115,16 +115,65 @@
                     <ColumnDefinition Width="13*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-                <!--Таблица с кнопками-->
+                <!--Таблица с горизонтальными кнопками-->
                 <Grid Grid.ColumnSpan="11" Grid.Row="1">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.3*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.3*"/>
                     </Grid.ColumnDefinitions>
+                    
+                    <Button Name="BEncode" Margin="3" Click="EncodeClicButton" Grid.Column="1">
+                        <TextBlock Text="Закодировать" HorizontalAlignment="Center" FontSize="12"/>
+                    </Button>
+                    <Button Name="BDecode" Margin="3" Click="DecodeClicButton" Grid.Column="2">
+                        <TextBlock Text="Декодировать" HorizontalAlignment="Center" FontSize="12"/>
+                    </Button>
+                    <Button Name="BEncodeFromFile" Margin="3" Click="EncodeFromFileClicButton" Grid.Column="3">
+                        <StackPanel>
+                            <TextBlock Text="Закодировать" HorizontalAlignment="Center" FontSize="12"/>
+                            <TextBlock Text="из файла" HorizontalAlignment="Center" FontSize="12"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Name="BDecodeFromFile" Margin="3" Click="DecodeFromFileClicButton" Grid.Column="4">
+                        <StackPanel>
+                            <TextBlock Text="Декодировать" HorizontalAlignment="Center" FontSize="12"/>
+                            <TextBlock Text="из файла" HorizontalAlignment="Center" FontSize="12"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Name="BClearAll" Margin="3" Click="ClearAllClicButton" Grid.Column="5">
+                        <TextBlock Text="Очистить все" HorizontalAlignment="Center" FontSize="12"/>
+                    </Button>
                 </Grid>
+                <!--Блоки для отображения информации-->
+                <TextBox Name="TextForEncoding" BorderBrush="{StaticResource ColorOfLines}"
+                         Grid.Column="1" Grid.Row="4" Grid.RowSpan="4"
+                         Background="{StaticResource ColorOfAccent}" />
+                <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
+                         Grid.Column="3" Grid.Row="4" Grid.RowSpan="4">
+                <TextBlock Name="TextAfterDecoding" 
+                         Background="{StaticResource ColorOfAccent}" />
+                </Border>
+                <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
+                         Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="3">
+                <TextBlock Name="EncodedText"
+                         Background="{StaticResource ColorOfAccent}" />
+                </Border>
+                <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
+                         Grid.Column="5" Grid.Row="4">
+                <TextBlock Name="CompressionRatio" TextAlignment="Center"
+                         Background="{StaticResource ColorOfAccent}" />
+                </Border>
+                <!--другой контейнер Нужно обработать enter-->
+                <TextBox Name="FriqDictionary" 
+                         Grid.Column="5" Grid.Row="7" Grid.RowSpan="4"
+                         Background="{StaticResource ColorOfAccent}" />
+
+
             </Grid>
         </Border>
 
