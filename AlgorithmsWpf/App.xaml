@@ -1,0 +1,55 @@
+﻿<Application x:Class="AlgorithmsWpf.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:AlgorithmsWpf"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <FontFamily x:Key="CommonFont">Times New Roman</FontFamily>
+        <SolidColorBrush Color="#fc5404" x:Key="ColorOfLines" />
+        <SolidColorBrush Color="#f98404" x:Key="ColorOfBackground" />
+        <SolidColorBrush Color="#ffb134" x:Key="ColorOfBoder" />
+        <SolidColorBrush Color="#fff8a6" x:Key="ColorOfAccent" />
+        <SolidColorBrush Color="#ffe040" x:Key="ColorOfButtons" />
+        <SolidColorBrush Color="#f9b208" x:Key="ColorOfButtonsMouseOver" />
+        <SolidColorBrush Color="#f7fd04" x:Key="ColorOfButtonsMousePressed" />
+        <Style TargetType="Button">
+            <Setter Property="FontFamily" Value="{StaticResource CommonFont}"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border x:Name="ButtonBorder" CornerRadius="10" Background="{StaticResource ColorOfButtons}"  Padding="5">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!--Срабатывает при наведении мыши-->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" >
+                                    <Setter.Value>
+                                        <LinearGradientBrush SpreadMethod="Reflect" StartPoint="0,0" EndPoint="0,0.5">
+                                            <GradientStop Color="#ffe040" Offset="0"></GradientStop>
+                                            <GradientStop Color="#f9b208" Offset="0.5"></GradientStop>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+            </Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="{StaticResource ColorOfButtonsMousePressed}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+    </Application.Resources>
+</Application>
