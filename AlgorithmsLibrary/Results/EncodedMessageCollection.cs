@@ -17,6 +17,11 @@ namespace AlgorithmsLibrary
         }
         public override string ToString()
         {
+            if (typeof(T1) == typeof(string))
+            {
+                return answer.ToString();
+            }
+
             return base.ToString();
         }
 
