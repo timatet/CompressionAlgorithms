@@ -1,7 +1,7 @@
-﻿using Xunit;
-using AlgorithmsLibrary;
-using System.Collections.Generic;
+﻿using AlgorithmsLibrary;
 using System;
+using System.Collections.Generic;
+using Xunit;
 
 namespace UnitTestProject
 {
@@ -35,7 +35,7 @@ namespace UnitTestProject
             string input = "abracadabra";
 
             var actual = RLEAlgm.Encode(input);
-            var expected = new List<RLECodeBlock> { 
+            var expected = new List<RLECodeBlock> {
                 new RLECodeBlock(default, 2),
                 new RLECodeBlock('r', 1),
                 new RLECodeBlock('d', 1),

@@ -50,7 +50,7 @@ namespace AlgorithmsLibrary
             }
             return parent;
         }
-        
+
         private static Dictionary<char, string> GetShannonFanoCodes(Dictionary<char, int> frequencies)
         {
             //получаем словарь частот и переносим его в список
@@ -63,7 +63,7 @@ namespace AlgorithmsLibrary
             //поскольку список узлов с частотами упорядочен, то идя с начала находим, 
             //где список можно поделить попалам (относительно веса), продолжаем, пока не дойдем до листа
             var parent = new DoublyNode<char>(default, nodes.Sum(x => x.Weight));
-            var root = BuildTree(parent, 0, nodes.Count-1, nodes);
+            var root = BuildTree(parent, 0, nodes.Count - 1, nodes);
 
             //обходим поулчившееся дерево, приписывая каждому символу свой код
             return root.InOrderTraversal();
@@ -85,7 +85,7 @@ namespace AlgorithmsLibrary
                 encoded.Append(codes[c]);
 
             return new EncodedMessage<string, Dictionary<char, string>>(encoded.ToString(), codes);
-        }       
+        }
 
         private static Dictionary<string, char> GetReverseCodes(Dictionary<char, string> codes)
         {

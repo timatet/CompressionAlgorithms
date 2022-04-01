@@ -1,6 +1,6 @@
-﻿using Xunit;
-using AlgorithmsLibrary;
+﻿using AlgorithmsLibrary;
 using System;
+using Xunit;
 
 namespace UnitTestProject
 {
@@ -13,7 +13,7 @@ namespace UnitTestProject
             string expected = "011101001011100";
             Assert.Equal(expected, encoded.GetAnswer());
         }
-        
+
         [Theory]
         [InlineData("011101001011100", 0)]
         [InlineData("111101001011100", 1)]
@@ -34,11 +34,11 @@ namespace UnitTestProject
         public void DecodeHamming(string input, int errorbit)
         {
             var encoded = HammingAlgm.Decode(input);
-            string expected = "10101011100"; 
+            string expected = "10101011100";
             Assert.Equal(expected, encoded.GetAnswer());
             //Assert.Equal(errorbit, encoded.ErrorBit);
         }
-        
+
         [Fact]
         public void EncodeHammingOneChar()
         {

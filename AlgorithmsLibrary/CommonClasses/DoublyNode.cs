@@ -27,7 +27,7 @@ namespace AlgorithmsLibrary.CommonClasses
         /// <summary>
         /// Следующий (правый) связный узел.
         /// </summary>
-        public DoublyNode<T> Next { get;  set; }
+        public DoublyNode<T> Next { get; set; }
         /// <summary>
         /// Родительский узел.
         /// </summary>
@@ -53,7 +53,8 @@ namespace AlgorithmsLibrary.CommonClasses
         /// <summary>
         /// Число вершин в поддереве из всех вершин поддерева, включая корневую, у которых два потомка.
         /// </summary>
-        public int CountBinaryVertex {
+        public int CountBinaryVertex
+        {
             get
             {
                 return _CountBinaryVertex;
@@ -64,7 +65,7 @@ namespace AlgorithmsLibrary.CommonClasses
                 if (Parent != null)
                     Parent.CountBinaryVertex++;
             }
-        } 
+        }
         /// <summary>
         /// Количество висячих (свободных) узлов в поддереве.
         /// </summary>

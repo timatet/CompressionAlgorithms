@@ -1,6 +1,6 @@
-﻿using Xunit;
-using AlgorithmsLibrary;
+﻿using AlgorithmsLibrary;
 using System.Collections.Generic;
+using Xunit;
 
 namespace UnitTestProject
 {

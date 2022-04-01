@@ -1,6 +1,6 @@
-using Xunit;
 using AlgorithmsLibrary;
 using System.Collections.Generic;
+using Xunit;
 
 namespace UnitTestProject
 {
@@ -12,7 +12,7 @@ namespace UnitTestProject
             string source = "aabbccdd";
 
             var encoded = HuffmanAlgm.Encode(source);
-            
+
             string expected = "1010111100000101";
             Assert.Equal(expected, encoded.GetAnswer());
             Assert.Equal(8 * 2, encoded.GetAnswer().Length);
@@ -24,10 +24,10 @@ namespace UnitTestProject
 
             var encoded = HuffmanAlgm.Encode(source);
             string expected = "01101001110011110110100";
-            
+
             Assert.Equal(expected, encoded.GetAnswer());
         }
-        
+
         [Fact]
         public void DecodeStringAbracadabraWithFrequencies()
         {
@@ -40,10 +40,10 @@ namespace UnitTestProject
 
             var encoded = HuffmanAlgm.Decode(frequencies, decoded);
             string expected = "abracadabra";
-            
+
             Assert.Equal(expected, encoded.GetAnswer());
         }
-        
+
         [Fact]
         public void DecodeStringAbracadabraWithCodes()
         {

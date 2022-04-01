@@ -62,7 +62,7 @@ namespace AlgorithmsLibrary
                 dec *= 10;
                 result = (int)(HighRange * dec) / dec;
             }
-            return new EncodedMessage<string, Dictionary<char, int>>(((int)(result*dec)).ToString(), GetFrequencies(source));
+            return new EncodedMessage<string, Dictionary<char, int>>(((int)(result * dec)).ToString(), GetFrequencies(source));
         }
         public static IAlgmEncoded<string> Decode(Dictionary<char, int> frequencies, string encoded, int CountOfAllSymbols)
         {
@@ -71,10 +71,10 @@ namespace AlgorithmsLibrary
 
             decimal code = int.Parse(encoded) / (decimal)Math.Pow(10, encoded.Length);
             decimal HighRange = 1, LowRange = 0, h, l;
-            for (int i=0; i< CountOfAllSymbols; i++)
+            for (int i = 0; i < CountOfAllSymbols; i++)
             {
                 h = HighRange; l = LowRange;
-                Symbol item = codes.Find(x => l + (h - l) *x.HighRange>code && l + (h - l) *x.LowRange<=code);
+                Symbol item = codes.Find(x => l + (h - l) * x.HighRange > code && l + (h - l) * x.LowRange <= code);
                 decoded.Append(item.Data);
                 HighRange = l + (h - l) * item.HighRange;
                 LowRange = l + (h - l) * item.LowRange;

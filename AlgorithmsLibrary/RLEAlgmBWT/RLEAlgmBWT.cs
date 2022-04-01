@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
-using System;
 
 namespace AlgorithmsLibrary
 {
@@ -28,7 +28,7 @@ namespace AlgorithmsLibrary
                     countRepeatsSymbols++;
                     continue;
                 }
-                
+
                 result.Add(new RLECodeBlock(currentSymbol, countRepeatsSymbols));
                 countRepeatsSymbols = 1;
                 currentSymbol = symbol;

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AlgorithmsLibrary
+﻿namespace AlgorithmsLibrary
 {
     internal class EncodedMessage<T1, T2> : IAlgmEncoded<T1, T2>
     {

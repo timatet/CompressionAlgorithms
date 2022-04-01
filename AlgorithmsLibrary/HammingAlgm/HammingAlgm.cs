@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System;
-using System.Text;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace AlgorithmsLibrary
 {
@@ -14,7 +14,7 @@ namespace AlgorithmsLibrary
         /// <returns>Число контрольных бит.</returns>
         private static int GetCountOfControlBits(int m)
         {
-            for (int p = 1;; p++)
+            for (int p = 1; ; p++)
             {
                 if ((1 << p) >= (m + p + 1))
                 {
@@ -30,7 +30,7 @@ namespace AlgorithmsLibrary
         /// <param name="l">Длина всего сообщения.</param>
         /// <returns>Список позиций подконтрольных битов в пределах длины сообщения.</returns>
         private static List<int> GetPositionsForContolBitCalculation(int p, int l)
-        { 
+        {
             // [(4k-2)*(p/2), (4k-2)*(p/2)+p-1] - числа в этих отрезках нам нужны
             // [(2k-1)*p, (2k-1)*p+p-1] = [(2k-1)*p, 2kp-1]
             // необходимо определить рамки для k:

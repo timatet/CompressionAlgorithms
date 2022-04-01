@@ -1,7 +1,7 @@
-﻿using Xunit;
-using AlgorithmsLibrary;
-using System.Collections.Generic;
+﻿using AlgorithmsLibrary;
 using System;
+using System.Collections.Generic;
+using Xunit;
 
 namespace UnitTestProject
 {
@@ -16,7 +16,7 @@ namespace UnitTestProject
 
             Assert.Equal(expectedCodeBlocks, result.GetAnswer());
         }
-        
+
         [Fact]
         public void EncodeOneCharString()
         {
@@ -39,14 +39,14 @@ namespace UnitTestProject
                 new CodeBlock(0,0,'a'),
                 new CodeBlock(0,0,'b'),
                 new CodeBlock(0,0,'c'),
-                new CodeBlock(0,0,'d') 
+                new CodeBlock(0,0,'d')
             };
 
             var test = LZ77Algm.Decode(expectedCodeBlocks);
 
             Assert.Equal(expectedCodeBlocks, result.GetAnswer());
         }
-        
+
         [Fact]
         public void EncodeStringWithRepeats()
         {
@@ -54,13 +54,13 @@ namespace UnitTestProject
 
             var expectedCodeBlocks = new List<CodeBlock> {
                 new CodeBlock(0,0,'a'),
-                new CodeBlock(0,0,'b'), 
-                new CodeBlock(2,2,'$') 
+                new CodeBlock(0,0,'b'),
+                new CodeBlock(2,2,'$')
             };
 
             Assert.Equal(expectedCodeBlocks, result.GetAnswer());
         }
-        
+
         [Fact]
         public void EncodeStringWithRepeatsLongString()
         {
@@ -68,16 +68,16 @@ namespace UnitTestProject
 
             var expectedCodeBlocks = new List<CodeBlock> {
                 new CodeBlock(0,0,'a'),
-                new CodeBlock(0,0,'b'), 
-                new CodeBlock(0,0,'r'), 
-                new CodeBlock(3,1,'c'), 
-                new CodeBlock(5,1,'d'), 
-                new CodeBlock(7,4,'a'), 
+                new CodeBlock(0,0,'b'),
+                new CodeBlock(0,0,'r'),
+                new CodeBlock(3,1,'c'),
+                new CodeBlock(5,1,'d'),
+                new CodeBlock(7,4,'a'),
                 new CodeBlock(11,10,'$') };
 
             Assert.Equal(expectedCodeBlocks, result.GetAnswer());
         }
-        
+
         [Fact]
         public void CalculateCompressionRatioOfLongStringWithRepeats()
         {

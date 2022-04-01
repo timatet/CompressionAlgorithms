@@ -25,8 +25,9 @@ namespace AlgorithmsLibrary
                     stringBuilder.Append(item.ToString());
                 }
 
-                return stringBuilder.ToString();    
-            } else if (typeof(T) == typeof(string))
+                return stringBuilder.ToString();
+            }
+            else if (typeof(T) == typeof(string))
             {
                 return answer.ToString();
             }

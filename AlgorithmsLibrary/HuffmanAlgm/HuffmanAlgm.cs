@@ -1,5 +1,4 @@
 ﻿using AlgorithmsLibrary.CommonClasses;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,7 +32,7 @@ namespace AlgorithmsLibrary
             //получаем словарь частот и переносим его в список
             var nodes = frequencies.Select(x => new DoublyNode<char>(x.Key, x.Value)).ToList();
 
-            nodes.Sort(); 
+            nodes.Sort();
 
             //строим дерево хаффмана
             //поскольку список узлов с частотами упорядочен, то выбираем два первых (наименьших) узла
@@ -62,7 +61,7 @@ namespace AlgorithmsLibrary
         public static IAlgmEncoded<string, Dictionary<char, string>> Encode(string source)
         {
             StringBuilder encoded = new StringBuilder(string.Empty);
-            Dictionary<char, string> codes = GetHuffmanCodes(source);            
+            Dictionary<char, string> codes = GetHuffmanCodes(source);
 
             foreach (char c in source)
                 encoded.Append(codes[c]);
