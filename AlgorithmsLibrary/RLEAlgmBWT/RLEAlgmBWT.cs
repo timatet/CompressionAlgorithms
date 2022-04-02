@@ -60,6 +60,22 @@ namespace AlgorithmsLibrary
         {
             List<RLECodeBlock> list = new List<RLECodeBlock>();
             //написать метод, который строку преобразует в нужный список
+
+            if (!char.IsDigit(compressionString[0]) || (compressionString.Length - 1) % 2 != 0)
+            {
+                throw new ArgumentException("compression string is failed");
+            }
+
+            list.Add(new RLECodeBlock(default, compressionString[0] - '0'));
+            for (int i = 1; i < compressionString.Length - 1; i += 2)
+            {
+                if (!char.IsDigit(compressionString[i + 1]))
+                {
+                    throw new ArgumentException("compression string is failed");
+                }
+                list.Add(new RLECodeBlock(compressionString[i], compressionString[i + 1] - '0'));
+            }
+
             double countBitsSourceString = 8 * sourceString.Length;
 
             double countBitsCompressionString = 0;

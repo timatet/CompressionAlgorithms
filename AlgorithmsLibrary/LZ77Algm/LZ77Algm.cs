@@ -90,6 +90,16 @@ namespace AlgorithmsLibrary
         {
             List<CodeBlock> list = new List<CodeBlock>();
             //написать метод, который строку преобразует в список
+            string[] cmpString = compressionString.Split(new char[] {'(', ')', ',', ' ', '\n', '\r', '\t'}, StringSplitOptions.RemoveEmptyEntries);
+                        
+            for (int i = 0; i < cmpString.Length - 2; i += 3)
+            {
+                if (!char.IsDigit(cmpString[i][0]) || !char.IsDigit(cmpString[i + 1][0]) || cmpString.Length % 3 != 0)
+                {
+                    throw new ArgumentException("compression string is failed");
+                }
+                list.Add(new CodeBlock(int.Parse(cmpString[i]), int.Parse(cmpString[i + 1]), cmpString[i + 2][0]));
+            }
 
             //Считаем что в стандартной кодировке один символ = 8бит
             double countBitsSourceString = 8 * sourceString.Length;

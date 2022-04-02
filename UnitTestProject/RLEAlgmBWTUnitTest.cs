@@ -17,6 +17,18 @@ namespace UnitTestProject
 
             Assert.Equal(expected, actual.encoded);
         }
+        
+        [Fact]
+        public void CalculateCompressionRatio()
+        {
+            string input = "abracadabra";
+
+            var encoded = RLEAlgm.Encode(input);
+            double expected = 1.294;
+            double actual = RLEAlgm.CalculateCompressionRatio(input, encoded.ToString());
+
+            Assert.Equal(expected, actual);
+        }
 
         [Fact]
         public void CalculateReverseBWTForAbracadabraString()
