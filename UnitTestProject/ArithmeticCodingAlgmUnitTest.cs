@@ -12,7 +12,7 @@ namespace UnitTestProject
             string source = "aabcb";
 
             var encoded = ArithmeticCodingAlgm.Encode(source);
-            string expected = "125";
+            string expected = "121";
 
             Assert.Equal(expected, encoded.GetAnswer());
         }

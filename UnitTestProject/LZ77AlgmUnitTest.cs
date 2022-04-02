@@ -84,7 +84,7 @@ namespace UnitTestProject
             string stringForEncoding = "abracadabraabracadabra";
             var result = LZ77Algm.Encode(stringForEncoding);
 
-            double actual = Math.Round(LZ77Algm.CalculateCompressionRatio(stringForEncoding, result.GetAnswer()), 2);
+            double actual = 0;// Math.Round(LZ77Algm.CalculateCompressionRatio(stringForEncoding, result.GetAnswer()), 2);
             double expected = 2.05;
 
             Assert.Equal(expected, actual);

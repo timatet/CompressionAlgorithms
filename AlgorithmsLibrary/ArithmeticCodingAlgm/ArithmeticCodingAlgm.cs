@@ -55,14 +55,40 @@ namespace AlgorithmsLibrary
                 HighRange = l + (h - l) * item.HighRange;
                 LowRange = l + (h - l) * item.LowRange;
             }
-            decimal dec = 10;
-            decimal result = (int)(HighRange * dec) / dec;
-            while (!(result >= LowRange && result < HighRange))
+            string answer = "0";
+            if (LowRange != 0)
             {
-                dec *= 10;
-                result = (int)(HighRange * dec) / dec;
+                int[] number = new int[28];
+                string str = LowRange.ToString();
+                int cnt = 0;
+                for (int i = 2; i < str.Length; i++)
+                    number[cnt++] = int.Parse(str[i].ToString());
+                int k = 1;
+                decimal result = Convert.ToDecimal(convertToString(number, k));
+                while (!(result >= LowRange && result < HighRange))
+                {
+                    if (result < LowRange)
+                        number[k - 1]++;
+                    if (result >= HighRange)
+                    {
+                        number[k - 1] = int.Parse(str[k + 1].ToString());
+                        k++;
+                    }
+                    result = Convert.ToDecimal(convertToString(number, k));
+                }
+                answer = "";
+                for (int i = 0; i < k; i++)
+                    answer += number[i].ToString();
             }
-            return new EncodedMessage<string, IAlgmEncoded<int, Dictionary<char, int>>>(((int)(result * dec)).ToString(), new EncodedMessage<int, Dictionary<char, int>>(source.Length, GetFrequencies(source)));
+
+            return new EncodedMessage<string, IAlgmEncoded<int, Dictionary<char, int>>>(answer, new EncodedMessage<int, Dictionary<char, int>>(source.Length, GetFrequencies(source)));
+        }
+        private static string convertToString(int[] number, int index)
+        {
+            string str = "0,";
+            for (int i = 0; i < index; i++)
+                str += number[i].ToString();
+            return str;
         }
         public static IAlgmEncoded<string> Decode(Dictionary<char, int> frequencies, string encoded, int CountOfAllSymbols)
         {
