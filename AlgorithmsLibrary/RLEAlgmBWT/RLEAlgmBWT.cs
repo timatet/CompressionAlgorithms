@@ -56,12 +56,14 @@ namespace AlgorithmsLibrary
             return new EncodedMessage<string>(result);
         }
 
-        public static double CalculateCompressionRatio(string sourceString, List<RLECodeBlock> compressionString)
+        public static double CalculateCompressionRatio(string sourceString, string compressionString)
         {
+            List<RLECodeBlock> list = new List<RLECodeBlock>();
+            //написать метод, который строку преобразует в нужный список
             double countBitsSourceString = 8 * sourceString.Length;
 
             double countBitsCompressionString = 0;
-            foreach (RLECodeBlock compression in compressionString)
+            foreach (RLECodeBlock compression in list)
             {
                 int countBitsChar = 8;
                 int countBitsRepeats = Convert.ToString(compression.Repeats, 2).Length;
@@ -71,7 +73,7 @@ namespace AlgorithmsLibrary
 
             countBitsCompressionString -= 8; //в процессе подсчета был посчитан лишний байт, так как один кодовый блок
             //используется только для хранения индекса, где была расположена первоначальная строчка 
-            return countBitsSourceString / countBitsCompressionString;
+            return Math.Round(countBitsSourceString / countBitsCompressionString, 3);
         }
     }
 }

@@ -79,8 +79,11 @@ namespace AlgorithmsLibrary
                 HighRange = l + (h - l) * item.HighRange;
                 LowRange = l + (h - l) * item.LowRange;
             }
-
             return new EncodedMessage<string>(decoded.ToString());
+        }
+        public static double CalculateCompressionRatio(string sourceString, string compressionString)
+        {
+            return Math.Round((double)((sourceString.Length * 8)/Convert.ToString(compressionString.Length, 2).Length), 3);
         }
     }
 }

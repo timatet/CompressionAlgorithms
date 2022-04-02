@@ -1,4 +1,5 @@
 ﻿using AlgorithmsLibrary.CommonClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -124,7 +125,7 @@ namespace AlgorithmsLibrary
             double countBitsSourceString = 8 * sourceString.Length;
             double countBitsCompressionString = compressionString.Length;
 
-            return countBitsSourceString / countBitsCompressionString;
+            return Math.Round(countBitsSourceString / countBitsCompressionString, 3);
         }
     }
 }

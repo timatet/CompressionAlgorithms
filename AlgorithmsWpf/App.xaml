@@ -33,7 +33,7 @@
                                             <GradientStop Color="#f9b208" Offset="0.5"></GradientStop>
                                         </LinearGradientBrush>
                                     </Setter.Value>
-            </Setter>
+                                </Setter>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
                                 <Setter TargetName="ButtonBorder" Property="Background" Value="{StaticResource ColorOfButtonsMousePressed}" />

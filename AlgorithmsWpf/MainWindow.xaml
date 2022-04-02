@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlgorithmsWpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" MinHeight="675" MinWidth="1200">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
@@ -43,43 +43,43 @@
         
         <!--Блок с кнопками-->
         <StackPanel Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" VerticalAlignment="Center">
-            <Button Name="BHuffman" Margin="3" Click="HuffmanClicButton">
+            <Button Name="BHuffman" Margin="7, 3" Click="HuffmanClicButton">
                 <StackPanel>
                     <TextBlock Text="Кодирование" HorizontalAlignment="Center"/>
                     <TextBlock Text="Хаффман" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Name="BShannonFano" Margin="3" Click="ShannonFanoClicButton">
+            <Button Name="BShannonFano" Margin="7, 3" Click="ShannonFanoClicButton">
                 <StackPanel>
                     <TextBlock Text="Коды" HorizontalAlignment="Center"/>
                     <TextBlock Text="Фано-Шеннона" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Name="BArithmeticCoding" Margin="3" Click="ArithmeticCodingClicButton">
+            <Button Name="BArithmeticCoding" Margin="7, 3" Click="ArithmeticCodingClicButton">
                 <StackPanel>
                     <TextBlock Text="Арифметическое" HorizontalAlignment="Center"/>
                     <TextBlock Text="кодирование" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Name="BRLE" Margin="3" Click="RLEClicButton">
+            <Button Name="BRLE" Margin="7, 3" Click="RLEClicButton">
                 <StackPanel>
                     <TextBlock Text="Алгоритм" HorizontalAlignment="Center"/>
                     <TextBlock Text="RLE" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Name="BLZ77" Margin="3" Click="LZ77ClicButton">
+            <Button Name="BLZ77" Margin="7, 3" Click="LZ77ClicButton">
                 <StackPanel>
                     <TextBlock Text="Метод сжатия" HorizontalAlignment="Center"/>
                     <TextBlock Text="LZ77" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Name="BHamming" Margin="3" Click="HammingClicButton">
+            <Button Name="BHamming" Margin="7, 3" Click="HammingClicButton">
                 <StackPanel>
                     <TextBlock Text="Код" HorizontalAlignment="Center"/>
                     <TextBlock Text="Хэмминга" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Name="BLinearCodesType52" Margin="3" Click="LinearCodesType52ClicButton">
+            <Button Name="BLinearCodesType52" Margin="7, 3" Click="LinearCodesType52ClicButton">
                 <StackPanel>
                     <TextBlock Text="Линейный код" HorizontalAlignment="Center"/>
                     <TextBlock Text="типа (5, 2)" HorizontalAlignment="Center"/>
@@ -87,10 +87,10 @@
             </Button>
         </StackPanel>
 
-        <TextBlock Name="NameOfAlgorithm" Grid.Column="3" Grid.Row="1"
-                   HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <TextBlock Name="NameOfAlgorithm" Grid.Column="3" Grid.Row="1" FontSize="16"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
-        <Border Name="Huf_Fano_Arith_Boder" Grid.Column="3" Grid.Row="3">
+        <Border Name="Huf_Fano_Arith_Border" Grid.Column="3" Grid.Row="3" Visibility="Hidden">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="5*"/>
@@ -128,54 +128,219 @@
                     </Grid.ColumnDefinitions>
                     
                     <Button Name="BEncode" Margin="3" Click="EncodeClicButton" Grid.Column="1">
-                        <TextBlock Text="Закодировать" HorizontalAlignment="Center" FontSize="12"/>
+                        <TextBlock Text="Закодировать" HorizontalAlignment="Center" />
                     </Button>
                     <Button Name="BDecode" Margin="3" Click="DecodeClicButton" Grid.Column="2">
-                        <TextBlock Text="Декодировать" HorizontalAlignment="Center" FontSize="12"/>
+                        <TextBlock Text="Декодировать" HorizontalAlignment="Center" />
                     </Button>
                     <Button Name="BEncodeFromFile" Margin="3" Click="EncodeFromFileClicButton" Grid.Column="3">
                         <StackPanel>
-                            <TextBlock Text="Закодировать" HorizontalAlignment="Center" FontSize="12"/>
-                            <TextBlock Text="из файла" HorizontalAlignment="Center" FontSize="12"/>
+                            <TextBlock Text="Закодировать" HorizontalAlignment="Center" />
+                            <TextBlock Text="из файла" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
                     <Button Name="BDecodeFromFile" Margin="3" Click="DecodeFromFileClicButton" Grid.Column="4">
                         <StackPanel>
-                            <TextBlock Text="Декодировать" HorizontalAlignment="Center" FontSize="12"/>
-                            <TextBlock Text="из файла" HorizontalAlignment="Center" FontSize="12"/>
+                            <TextBlock Text="Декодировать" HorizontalAlignment="Center" />
+                            <TextBlock Text="из файла" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
                     <Button Name="BClearAll" Margin="3" Click="ClearAllClicButton" Grid.Column="5">
-                        <TextBlock Text="Очистить все" HorizontalAlignment="Center" FontSize="12"/>
+                        <TextBlock Text="Очистить все" HorizontalAlignment="Center" />
                     </Button>
                 </Grid>
                 <!--Блоки для отображения информации-->
                 <TextBox Name="TextForEncoding" BorderBrush="{StaticResource ColorOfLines}"
                          Grid.Column="1" Grid.Row="4" Grid.RowSpan="4"
-                         Background="{StaticResource ColorOfAccent}" />
+                         Background="{StaticResource ColorOfAccent}" TextWrapping="Wrap"/>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
                          Grid.Column="3" Grid.Row="4" Grid.RowSpan="4">
-                <TextBlock Name="TextAfterDecoding" 
+                <TextBlock Name="TextAfterDecoding"  TextWrapping="Wrap" FontSize="12"
                          Background="{StaticResource ColorOfAccent}" />
                 </Border>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
                          Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="3">
-                <TextBlock Name="EncodedText"
+                <TextBlock Name="EncodedText" TextWrapping="Wrap" FontSize="12"
                          Background="{StaticResource ColorOfAccent}" />
                 </Border>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
-                         Grid.Column="5" Grid.Row="4">
-                <TextBlock Name="CompressionRatio" TextAlignment="Center"
-                         Background="{StaticResource ColorOfAccent}" />
+                         Grid.Column="5" Grid.Row="4"
+                         Background="{StaticResource ColorOfAccent}" >
+                    <TextBlock Name="CompressionRatio" TextAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
-                <!--другой контейнер Нужно обработать enter-->
-                <TextBox Name="FriqDictionary" 
-                         Grid.Column="5" Grid.Row="7" Grid.RowSpan="4"
-                         Background="{StaticResource ColorOfAccent}" />
-
+                <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
+                         Grid.Column="5" Grid.Row="7" Grid.RowSpan="4">                
+                <TextBox Name="FriqDictionary" KeyDown="EnterDown_Dictionary"
+                         Background="{StaticResource ColorOfAccent}" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+                </Border>
+                <!--Подписи блоков-->
+                <TextBlock Grid.Column="1" Grid.Row="3" Text="Исходный текст:" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="3" Grid.Row="3" Text="Декодированный текст:" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Grid.Row="9" Text="Закодированный текст:" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="5" Grid.Row="3" Text="Коэффициент сжатия:" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="5" Grid.Row="6" Text="Коды:" VerticalAlignment="Center"/>
 
             </Grid>
         </Border>
+        <Border Name="RLE_LZ77_Border" Grid.Column="3" Grid.Row="3" Visibility="Hidden">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="16*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="20*"/>
+                    <ColumnDefinition Width="5*"/>
+                    <ColumnDefinition Width="13*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <!--Таблица с горизонтальными кнопками-->
+                <Grid Grid.ColumnSpan="11" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.3*"/>
+                    </Grid.ColumnDefinitions>
 
+                    <Button Name="B1Encode" Margin="3" Click="EncodeClicButton" Grid.Column="1">
+                        <TextBlock Text="Закодировать" HorizontalAlignment="Center" />
+                    </Button>
+                    <Button Name="B1Decode" Margin="3" Click="DecodeClicButton" Grid.Column="2">
+                        <TextBlock Text="Декодировать" HorizontalAlignment="Center" />
+                    </Button>
+                    <Button Name="B1EncodeFromFile" Margin="3" Click="EncodeFromFileClicButton" Grid.Column="3">
+                        <StackPanel>
+                            <TextBlock Text="Закодировать" HorizontalAlignment="Center" />
+                            <TextBlock Text="из файла" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Name="B1DecodeFromFile" Margin="3" Click="DecodeFromFileClicButton" Grid.Column="4">
+                        <StackPanel>
+                            <TextBlock Text="Декодировать" HorizontalAlignment="Center" />
+                            <TextBlock Text="из файла" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Name="B1ClearAll" Margin="3" Click="ClearAllClicButton" Grid.Column="5">
+                        <TextBlock Text="Очистить все" HorizontalAlignment="Center" />
+                    </Button>
+                </Grid>
+                <!--Блоки для отображения информации-->
+                <TextBox Name="Text1ForEncoding" BorderBrush="{StaticResource ColorOfLines}"
+                         Grid.Column="1" Grid.Row="4" Grid.RowSpan="4"
+                         Background="{StaticResource ColorOfAccent}" TextWrapping="Wrap"/>
+                <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
+                         Grid.Column="3" Grid.Row="4" Grid.RowSpan="4">
+                    <TextBlock Name="Text1AfterDecoding"  TextWrapping="Wrap" FontSize="12"
+                         Background="{StaticResource ColorOfAccent}" />
+                </Border>
+                <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
+                         Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="3">
+                    <TextBlock Name="Encoded1Text" TextWrapping="Wrap" FontSize="12"
+                         Background="{StaticResource ColorOfAccent}" />
+                </Border>
+                <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
+                         Grid.Column="5" Grid.Row="4"
+                         Background="{StaticResource ColorOfAccent}" >
+                    <TextBlock Name="CompressionRatio1" TextAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+                <!--Подписи блоков-->
+                <TextBlock Grid.Column="1" Grid.Row="3" Text="Исходный текст:" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="3" Grid.Row="3" Text="Декодированный текст:" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Grid.Row="9" Text="Закодированный текст:" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="5" Grid.Row="3" Text="Коэффициент сжатия:" VerticalAlignment="Center"/>
+
+            </Grid>
+        </Border>
+        <Border Name="Ham_Border" Grid.Column="3" Grid.Row="3" Visibility="Hidden">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="16*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="80*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <!--Таблица с горизонтальными кнопками-->
+                <Grid Grid.ColumnSpan="3" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.3*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Name="B2Encode" Margin="3" Click="EncodeClicButton" Grid.Column="1">
+                        <TextBlock Text="Закодировать" HorizontalAlignment="Center" />
+                    </Button>
+                    <Button Name="B2Decode" Margin="3" Click="DecodeClicButton" Grid.Column="2">
+                        <TextBlock Text="Декодировать" HorizontalAlignment="Center" />
+                    </Button>
+                    <Button Name="B2EncodeFromFile" Margin="3" Click="EncodeFromFileClicButton" Grid.Column="3">
+                        <StackPanel>
+                            <TextBlock Text="Закодировать" HorizontalAlignment="Center" />
+                            <TextBlock Text="из файла" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Name="B2DecodeFromFile" Margin="3" Click="DecodeFromFileClicButton" Grid.Column="4">
+                        <StackPanel>
+                            <TextBlock Text="Декодировать" HorizontalAlignment="Center" />
+                            <TextBlock Text="из файла" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Name="B2ClearAll" Margin="3" Click="ClearAllClicButton" Grid.Column="5">
+                        <TextBlock Text="Очистить все" HorizontalAlignment="Center" />
+                    </Button>
+                </Grid>
+                <!--Блоки для отображения информации-->
+                <TextBox Name="Text2ForEncoding" BorderBrush="{StaticResource ColorOfLines}"
+                         Grid.Column="1" Grid.Row="4" 
+                         Background="{StaticResource ColorOfAccent}" TextWrapping="Wrap"/>
+                <TextBox Name="Text2AfterDecoding"  TextWrapping="Wrap"
+                         Grid.Column="1" Grid.Row="7" BorderThickness="1"
+                         Background="{StaticResource ColorOfAccent}" BorderBrush="{StaticResource ColorOfLines}"/>
+                <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
+                         Grid.Column="1" Grid.Row="10" >
+                    <TextBlock Name="Encoded2Text" TextWrapping="Wrap" FontSize="12"
+                         Background="{StaticResource ColorOfAccent}" />
+                </Border>
+                <!--Подписи блоков-->
+                <TextBlock Grid.Column="1" Grid.Row="3" Text="Исходная последовательность:" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Grid.Row="6" Text="Последовательность с ошибкой (допустите одну ошибку):" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Grid.Row="9" Text="Исправленная последовательность:" VerticalAlignment="Center"/>
+
+            </Grid>
+        </Border>
     </Grid>
 </Window>

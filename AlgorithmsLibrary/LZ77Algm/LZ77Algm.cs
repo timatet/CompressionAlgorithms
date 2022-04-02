@@ -86,13 +86,16 @@ namespace AlgorithmsLibrary
         /// <param name="sourceString">Source string</param>
         /// <param name="compressionString">Compressed (encoded) string</param>
         /// <returns>Compression ratio</returns>
-        public static double CalculateCompressionRatio(string sourceString, List<CodeBlock> compressionString)
+        public static double CalculateCompressionRatio(string sourceString, string compressionString)
         {
+            List<CodeBlock> list = new List<CodeBlock>();
+            //написать метод, который строку преобразует в список
+
             //Считаем что в стандартной кодировке один символ = 8бит
             double countBitsSourceString = 8 * sourceString.Length;
 
             double countBitsCompressionString = 0;
-            foreach (CodeBlock compression in compressionString)
+            foreach (CodeBlock compression in list)
             {
                 int countBitsOffset = Convert.ToString(compression.Offset, 2).Length;
                 int countBitsLength = Convert.ToString(compression.Length, 2).Length;
@@ -101,7 +104,7 @@ namespace AlgorithmsLibrary
                 countBitsCompressionString += countBitsOffset + countBitsOffset + countBitsChar;
             }
 
-            return countBitsSourceString / countBitsCompressionString;
+            return Math.Round(countBitsSourceString / countBitsCompressionString, 3);
         }
 
         /// <summary>
