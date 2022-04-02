@@ -44,7 +44,7 @@ namespace AlgorithmsLibrary
             return nodes;
         }
 
-        public static IAlgmEncoded<string, Dictionary<char, int>> Encode(string source)
+        public static IAlgmEncoded<string, IAlgmEncoded<int, Dictionary<char, int>>> Encode(string source)
         {
             List<Symbol> codes = GetSymbolsRanges(source);
             decimal HighRange = 1, LowRange = 0, h, l;
@@ -62,7 +62,7 @@ namespace AlgorithmsLibrary
                 dec *= 10;
                 result = (int)(HighRange * dec) / dec;
             }
-            return new EncodedMessage<string, Dictionary<char, int>>(((int)(result * dec)).ToString(), GetFrequencies(source));
+            return new EncodedMessage<string, IAlgmEncoded<int, Dictionary<char, int>>>(((int)(result * dec)).ToString(), new EncodedMessage<int, Dictionary<char, int>>(source.Length, GetFrequencies(source)));
         }
         public static IAlgmEncoded<string> Decode(Dictionary<char, int> frequencies, string encoded, int CountOfAllSymbols)
         {
