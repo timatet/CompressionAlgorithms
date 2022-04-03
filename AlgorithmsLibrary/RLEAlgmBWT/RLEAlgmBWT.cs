@@ -34,7 +34,7 @@ namespace AlgorithmsLibrary
                 currentSymbol = symbol;
             }
 
-            return new EncodedMessage<List<RLECodeBlock>>(result);
+            return new EncodedMessage<List<RLECodeBlock>>(result, CalculateCompressionRatio(inputString, result));
         }
 
         public static IAlgmEncoded<string> Decode(List<RLECodeBlock> encodedString)
@@ -53,33 +53,15 @@ namespace AlgorithmsLibrary
             }
 
             var result = BurrowsWheelerTransform.Decode(decompressedString.ToString(), encodedString[0].Repeats);
-            return new EncodedMessage<string>(result);
+            return new EncodedMessage<string>(result, CalculateCompressionRatio(result, encodedString));
         }
 
-        public static double CalculateCompressionRatio(string sourceString, string compressionString)
-        {
-            List<RLECodeBlock> list = new List<RLECodeBlock>();
-            //написать метод, который строку преобразует в нужный список
-
-            if (!char.IsDigit(compressionString[0]) || (compressionString.Length - 1) % 2 != 0)
-            {
-                throw new ArgumentException("compression string is failed");
-            }
-
-            list.Add(new RLECodeBlock(default, compressionString[0] - '0'));
-            for (int i = 1; i < compressionString.Length - 1; i += 2)
-            {
-                if (!char.IsDigit(compressionString[i + 1]))
-                {
-                    throw new ArgumentException("compression string is failed");
-                }
-                list.Add(new RLECodeBlock(compressionString[i], compressionString[i + 1] - '0'));
-            }
-
+        private static double CalculateCompressionRatio(string sourceString, List<RLECodeBlock> compressionString)
+        { 
             double countBitsSourceString = 8 * sourceString.Length;
 
             double countBitsCompressionString = 0;
-            foreach (RLECodeBlock compression in list)
+            foreach (RLECodeBlock compression in compressionString)
             {
                 int countBitsChar = 8;
                 int countBitsRepeats = Convert.ToString(compression.Repeats, 2).Length;

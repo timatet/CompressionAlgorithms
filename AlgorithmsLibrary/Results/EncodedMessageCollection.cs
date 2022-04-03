@@ -4,6 +4,8 @@
     {
         private T1 answer;
         private T2 data;
+        private double compressionRatio;
+
         public T1 GetAnswer()
         {
             return answer;
@@ -23,10 +25,16 @@
             return base.ToString();
         }
 
-        public EncodedMessage(T1 answer, T2 frequencies)
+        public double GetCompressionRatio()
+        {
+            return compressionRatio;
+        }
+
+        public EncodedMessage(T1 answer, T2 frequencies, double compressionRatio)
         {
             this.answer = answer;
             this.data = frequencies;
+            this.compressionRatio= compressionRatio;
         }
     }
 }

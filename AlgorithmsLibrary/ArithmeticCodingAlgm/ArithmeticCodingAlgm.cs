@@ -81,7 +81,8 @@ namespace AlgorithmsLibrary
                     answer += number[i].ToString();
             }
 
-            return new EncodedMessage<string, IAlgmEncoded<int, Dictionary<char, int>>>(answer, new EncodedMessage<int, Dictionary<char, int>>(source.Length, GetFrequencies(source)));
+            double compressionRatio = CalculateCompressionRatio(source, answer);
+            return new EncodedMessage<string, IAlgmEncoded<int, Dictionary<char, int>>>(answer, new EncodedMessage<int, Dictionary<char, int>>(source.Length, GetFrequencies(source), compressionRatio), compressionRatio);
         }
         private static string convertToString(int[] number, int index)
         {
@@ -105,9 +106,11 @@ namespace AlgorithmsLibrary
                 HighRange = l + (h - l) * item.HighRange;
                 LowRange = l + (h - l) * item.LowRange;
             }
-            return new EncodedMessage<string>(decoded.ToString());
+
+            var decodedString = decoded.ToString();
+            return new EncodedMessage<string>(decodedString, CalculateCompressionRatio(decodedString, encoded));
         }
-        public static double CalculateCompressionRatio(string sourceString, string compressionString)
+        private static double CalculateCompressionRatio(string sourceString, string compressionString)
         {
             return Math.Round((double)((sourceString.Length * 8)/Convert.ToString(compressionString.Length, 2).Length), 3);
         }

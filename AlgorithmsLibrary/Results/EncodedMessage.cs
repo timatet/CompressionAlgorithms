@@ -6,6 +6,7 @@ namespace AlgorithmsLibrary
     internal class EncodedMessage<T> : IAlgmEncoded<T>
     {
         private T answer;
+        private double compressionRatio;
 
         public T GetAnswer()
         {
@@ -35,9 +36,15 @@ namespace AlgorithmsLibrary
             return base.ToString();
         }
 
-        public EncodedMessage(T answer)
+        public double GetCompressionRatio()
+        {
+            return compressionRatio;
+        }
+
+        public EncodedMessage(T answer, double compressionRatio)
         {
             this.answer = answer;
+            this.compressionRatio = compressionRatio;
         }
     }
 }

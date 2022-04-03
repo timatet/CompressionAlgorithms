@@ -5,7 +5,7 @@
     /// Если ошибки допущено не было, то ErrorBit = -1.
     /// В остальных ситуациях его значение - позиция бита с ошибкой в sourceMessageWithError.
     /// </summary>
-    public class DecodedMessage : IAlgmEncoded<string>
+    public class DecodedMessage
     {
         /// <summary>
         /// Исправленное декодированное сообщение.

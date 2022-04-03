@@ -8,6 +8,7 @@
     {
         string ToString();
         T GetAnswer();
+        double GetCompressionRatio();
     }
 
     /// <summary>
@@ -20,5 +21,6 @@
         string ToString();
         T1 GetAnswer();
         T2 GetData();
+        double GetCompressionRatio();
     }
 }

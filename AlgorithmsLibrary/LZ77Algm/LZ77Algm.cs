@@ -77,7 +77,7 @@ namespace AlgorithmsLibrary
                 currentLengthSubString = 0;
             }
 
-            return new EncodedMessage<List<CodeBlock>>(result);
+            return new EncodedMessage<List<CodeBlock>>(result, CalculateCompressionRatio(inputString, result));
         }
 
         /// <summary>
@@ -86,26 +86,13 @@ namespace AlgorithmsLibrary
         /// <param name="sourceString">Source string</param>
         /// <param name="compressionString">Compressed (encoded) string</param>
         /// <returns>Compression ratio</returns>
-        public static double CalculateCompressionRatio(string sourceString, string compressionString)
+        private static double CalculateCompressionRatio(string sourceString, List<CodeBlock> compressionString)
         {
-            List<CodeBlock> list = new List<CodeBlock>();
-            //написать метод, который строку преобразует в список
-            string[] cmpString = compressionString.Split(new char[] {'(', ')', ',', ' ', '\n', '\r', '\t'}, StringSplitOptions.RemoveEmptyEntries);
-                        
-            for (int i = 0; i < cmpString.Length - 2; i += 3)
-            {
-                if (!char.IsDigit(cmpString[i][0]) || !char.IsDigit(cmpString[i + 1][0]) || cmpString.Length % 3 != 0)
-                {
-                    throw new ArgumentException("compression string is failed");
-                }
-                list.Add(new CodeBlock(int.Parse(cmpString[i]), int.Parse(cmpString[i + 1]), cmpString[i + 2][0]));
-            }
-
             //Считаем что в стандартной кодировке один символ = 8бит
             double countBitsSourceString = 8 * sourceString.Length;
 
             double countBitsCompressionString = 0;
-            foreach (CodeBlock compression in list)
+            foreach (CodeBlock compression in compressionString)
             {
                 int countBitsOffset = Convert.ToString(compression.Offset, 2).Length;
                 int countBitsLength = Convert.ToString(compression.Length, 2).Length;
@@ -140,7 +127,8 @@ namespace AlgorithmsLibrary
             if (resultDecoding.Length > 0 && resultDecoding[resultDecoding.Length - 1].Equals('$'))
                 resultDecoding.Remove(resultDecoding.Length - 1, 1);
 
-            return new EncodedMessage<string>(resultDecoding.ToString());
+            var decodedString  = resultDecoding.ToString();
+            return new EncodedMessage<string>(decodedString, CalculateCompressionRatio(decodedString, encodedString));
         }
     }
 

@@ -85,7 +85,8 @@ namespace AlgorithmsLibrary
             foreach (char c in source)
                 encoded.Append(codes[c]);
 
-            return new EncodedMessage<string, Dictionary<char, string>>(encoded.ToString(), codes);
+            var encodedString = encoded.ToString();
+            return new EncodedMessage<string, Dictionary<char, string>>(encodedString, codes, CalculateCompressionRatio(source, encodedString));
         }
 
         private static Dictionary<string, char> GetReverseCodes(Dictionary<char, string> codes)
@@ -128,7 +129,8 @@ namespace AlgorithmsLibrary
                 }
             }
 
-            return new EncodedMessage<string>(decoded.ToString());
+            var decodedString = decoded.ToString();
+            return new EncodedMessage<string>(decodedString, CalculateCompressionRatio(decodedString, encoded));
         }
 
         /// <summary>
@@ -137,7 +139,7 @@ namespace AlgorithmsLibrary
         /// <param name="sourceString">Source string.</param>
         /// <param name="compressionString">Compression string.</param>
         /// <returns>Compression ratio.</returns>
-        public static double CalculateCompressionRatio(string sourceString, string compressionString)
+        private static double CalculateCompressionRatio(string sourceString, string compressionString)
         {
             double countBitsSourceString = 8 * sourceString.Length;
             double countBitsCompressionString = compressionString.Length;

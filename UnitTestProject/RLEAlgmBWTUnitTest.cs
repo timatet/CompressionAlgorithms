@@ -25,7 +25,7 @@ namespace UnitTestProject
 
             var encoded = RLEAlgm.Encode(input);
             double expected = 1.294;
-            double actual = RLEAlgm.CalculateCompressionRatio(input, encoded.ToString());
+            double actual = encoded.GetCompressionRatio();
 
             Assert.Equal(expected, actual);
         }

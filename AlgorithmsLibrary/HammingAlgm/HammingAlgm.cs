@@ -90,7 +90,7 @@ namespace AlgorithmsLibrary
         {
             var restored = Decode(source).GetAnswer();
 
-            return new EncodedMessage<string>(Encoding.ASCII.GetString(GetByteArray(restored)));
+            return new EncodedMessage<string>(Encoding.ASCII.GetString(GetByteArray(restored)), 0.0);
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace AlgorithmsLibrary
                 DataArray[contolBit] = positions.Select(p => DataArray[p]).Sum() % 2;
             }
 
-            return new EncodedMessage<string>(string.Join(null, DataArray));
+            return new EncodedMessage<string>(string.Join(null, DataArray), 0.0);
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace AlgorithmsLibrary
                 result.Append(encoded[i]);
             }
 
-            return new EncodedMessage<string>(result.ToString());
+            return new EncodedMessage<string>(result.ToString(), 0.0);
         }
     }
 }
