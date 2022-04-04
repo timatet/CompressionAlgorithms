@@ -147,7 +147,7 @@ namespace AlgorithmsLibrary
             }
 
             int brakePositions = 0;
-            for (int i = 0; i < cntOfContolBits; i++)
+            for (int i = 0; i < cntOfContolBits + 1; i++)
             { //осталось вычислить значения контрольных битов
                 var positions = GetPositionsForContolBitCalculation(1 << i, dataLen);
 

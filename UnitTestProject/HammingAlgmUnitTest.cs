@@ -14,6 +14,48 @@ namespace UnitTestProject
             Assert.Equal(expected, encoded.GetAnswer());
         }
 
+        [Fact]
+        public void EncodeHamming2()
+        {
+            var encoded = HammingAlgm.Encode("10100101010010100101");
+            string expected = "1011010001010100010100101";
+            Assert.Equal(expected, encoded.GetAnswer());
+        }
+
+        [Theory]
+        [InlineData("1011010001010100010100101", 0)] // 0bit
+        [InlineData("1011010001010100010100100", 25)] // 25bit
+        [InlineData("1011010001010100010100111", 24)] // 24bit
+        [InlineData("1011010001010100010100001", 23)] // 23bit
+        [InlineData("1011010001010100010101101", 22)] // 22bit
+        [InlineData("1011010001010100010110101", 21)] // 21bit
+        [InlineData("1011010001010100010000101", 20)] // 20bit
+        [InlineData("1011010001010100011100101", 19)] // 19bit
+        [InlineData("1011010001010100000100101", 18)] // 18bit
+        [InlineData("1011010001010100110100101", 17)] // 17bit
+        [InlineData("1011010001010101010100101", 16)] // 16bit
+        [InlineData("1011010001010110010100101", 15)] // 15bit
+        [InlineData("1011010001010000010100101", 14)] // 14bit
+        [InlineData("1011010001011100010100101", 13)] // 13bit
+        [InlineData("1011010001000100010100101", 12)] // 12bit
+        [InlineData("1011010001110100010100101", 11)] // 11bit
+        [InlineData("1011010000010100010100101", 10)] // 10bit
+        [InlineData("1011010011010100010100101", 9)] // 9bit
+        [InlineData("1011010101010100010100101", 8)] // 8bit
+        [InlineData("1011011001010100010100101", 7)] // 7bit
+        [InlineData("1011000001010100010100101", 6)] // 6bit
+        [InlineData("1011110001010100010100101", 5)] // 5bit
+        [InlineData("1010010001010100010100101", 4)] // 4bit
+        [InlineData("1001010001010100010100101", 3)] // 3bit
+        [InlineData("1111010001010100010100101", 2)] // 2bit
+        [InlineData("0011010001010100010100101", 1)] // 1bit
+        public void DecodeHamming2(string decode, int biterr)
+        {
+            var encoded = HammingAlgm.Decode(decode);
+            string expected = "10100101010010100101";
+            Assert.Equal(expected, encoded.GetAnswer());
+        }
+
         [Theory]
         [InlineData("011101001011100", 0)]
         [InlineData("111101001011100", 1)]
