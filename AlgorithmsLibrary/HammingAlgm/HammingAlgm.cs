@@ -137,7 +137,7 @@ namespace AlgorithmsLibrary
             //задача пересчитать контрольные биты. Найти те, которые отличаются
             //сумма позиций этих битов и есть номер бита в котором была ошибка
             int dataLen = encodedWithOneError.Length;
-            int cntOfContolBits = GetCountOfControlBits(dataLen) - 1;
+            int cntOfContolBits = GetCountOfControlBits(dataLen);
             var DataArray = new int[dataLen];
             for (int i = 0; i < dataLen; i++)
             {
@@ -147,7 +147,7 @@ namespace AlgorithmsLibrary
             }
 
             int brakePositions = 0;
-            for (int i = 0; i < cntOfContolBits + 1; i++)
+            for (int i = 0; i < cntOfContolBits; i++)
             { //осталось вычислить значения контрольных битов
                 var positions = GetPositionsForContolBitCalculation(1 << i, dataLen);
 
