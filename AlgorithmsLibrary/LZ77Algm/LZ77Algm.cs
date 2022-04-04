@@ -104,16 +104,25 @@ namespace AlgorithmsLibrary
             return Math.Round(countBitsSourceString / countBitsCompressionString, 3);
         }
 
+        private static List<CodeBlock> ParseEncodedString(string encodedString)
+        {
+            List<CodeBlock> encodedStringParsed = new List<CodeBlock>();
+
+            return encodedStringParsed;
+        }
+
         /// <summary>
         /// Decoding strings compressed by the LZ77 algorithm
         /// </summary>
         /// <param name="encodedString">Compressed (encoded) string</param>
         /// <returns>Decoded string</returns>
-        public static IAlgmEncoded<string> Decode(List<CodeBlock> encodedString)
+        public static IAlgmEncoded<string> Decode(string encodedString)
         {
+            var encodedStringParsed = ParseEncodedString(encodedString);
+
             StringBuilder resultDecoding = new StringBuilder(string.Empty);
 
-            foreach (CodeBlock codeBlock in encodedString)
+            foreach (CodeBlock codeBlock in encodedStringParsed)
             {
                 if (codeBlock.Length > 0)
                 {
@@ -128,7 +137,7 @@ namespace AlgorithmsLibrary
                 resultDecoding.Remove(resultDecoding.Length - 1, 1);
 
             var decodedString  = resultDecoding.ToString();
-            return new EncodedMessage<string>(decodedString, CalculateCompressionRatio(decodedString, encodedString));
+            return new EncodedMessage<string>(decodedString, CalculateCompressionRatio(decodedString, encodedStringParsed));
         }
     }
 

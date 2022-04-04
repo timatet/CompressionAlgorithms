@@ -37,23 +37,34 @@ namespace AlgorithmsLibrary
             return new EncodedMessage<List<RLECodeBlock>>(result, CalculateCompressionRatio(inputString, result));
         }
 
-        public static IAlgmEncoded<string> Decode(List<RLECodeBlock> encodedString)
+        private static List<RLECodeBlock> ParseEncodedString(string encodedString)
         {
-            if (encodedString.Count < 2)
+            List<RLECodeBlock> encodedStringParsed = new List<RLECodeBlock>();
+
+            return encodedStringParsed;
+        }
+
+        public static IAlgmEncoded<string> Decode(string encodedString)
+        {
+            var encodedStringParsed = ParseEncodedString(encodedString);
+
+            //0 блок хранит номер строки в матрице BWT 
+            //1 блок хранит хотя бы один символ
+            if (encodedStringParsed.Count < 2)
             {
                 throw new ArgumentNullException("string for decoding is null or empty");
             }
 
             StringBuilder decompressedString = new StringBuilder(string.Empty);
 
-            for (int i = 1; i < encodedString.Count; i++)
+            for (int i = 1; i < encodedStringParsed.Count; i++)
             {
-                for (int j = 0; j < encodedString[i].Repeats; j++)
-                    decompressedString.Append(encodedString[i].Symbol);
+                for (int j = 0; j < encodedStringParsed[i].Repeats; j++)
+                    decompressedString.Append(encodedStringParsed[i].Symbol);
             }
 
-            var result = BurrowsWheelerTransform.Decode(decompressedString.ToString(), encodedString[0].Repeats);
-            return new EncodedMessage<string>(result, CalculateCompressionRatio(result, encodedString));
+            var result = BurrowsWheelerTransform.Decode(decompressedString.ToString(), encodedStringParsed[0].Repeats);
+            return new EncodedMessage<string>(result, CalculateCompressionRatio(result, encodedStringParsed));
         }
 
         private static double CalculateCompressionRatio(string sourceString, List<RLECodeBlock> compressionString)
