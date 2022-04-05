@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace AlgorithmsLibrary
 {
@@ -40,6 +41,39 @@ namespace AlgorithmsLibrary
         private static List<RLECodeBlock> ParseEncodedString(string encodedString)
         {
             List<RLECodeBlock> encodedStringParsed = new List<RLECodeBlock>();
+            // вид кодового блока {0}{1}
+            // {0} - 1 символ
+            // {1} - число
+            // причем в любой закодированной строке первым стоит так же число - это номер строки в матрице
+            Regex intRegex = new Regex(@"\d+"); //регулярка числа
+            Regex intRegexEndString = new Regex(@"\d+(?=$)"); //регулярка числа
+            //прроверка всей входной строки на строгое соответствие
+            //1(-,1)...( ,1)
+            Regex globalRLE = new Regex(@"(?=^)(\d+)([{](.|\n|\r|\t)[,](\d+)+[}])+(?=$)");
+            //проверка на соответсвие одному блоку (-,1)
+            Regex blockRLE = new Regex(@"(?<={)(.|\n|\r|\t)[,](\d+)+(?=})");
+
+            //если входная строка не подходит под паттерн то выбрасывается ошибка
+            if (!globalRLE.IsMatch(encodedString))
+            {
+                throw new ArgumentException();
+            }
+
+            //получаем число как номер строки в матрице
+            int num = int.Parse(intRegex.Match(encodedString).Value);
+            encodedStringParsed.Add(new RLECodeBlock(default, num));
+
+            //иначе разделяю строку на RLE блоки
+            MatchCollection matches = blockRLE.Matches(encodedString);
+            foreach (Match match in matches)
+            {
+                string codeBlock = match.Value;
+                char cb = codeBlock[0]; // берем символ
+                //и получаем цифру
+                int intg = int.Parse(intRegexEndString.Match(codeBlock).Value);
+
+                encodedStringParsed.Add(new RLECodeBlock(cb, intg));
+            }
 
             return encodedStringParsed;
         }

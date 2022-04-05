@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace AlgorithmsLibrary
 {
@@ -107,6 +108,25 @@ namespace AlgorithmsLibrary
         private static List<CodeBlock> ParseEncodedString(string encodedString)
         {
             List<CodeBlock> encodedStringParsed = new List<CodeBlock>();
+            // вид кодового блока:
+            //({0},{1},{2})...({0},{1},{2})
+            //парсит всю строку на блоки
+            //globalCode - проверяет всю строку, подходит ли она для декодирования
+            Regex globalCode = new Regex(@"(?=^)(([(](\d+)([,])(\d+)([,])(.|\n|\r|\t)[)])|(\s)|(\n)|(\r))+(?=$)");
+            Regex regex = new Regex(@"([(](\d+)([,])(\d+)([,])(.|\n|\r|\t)[)])"); //регулярка кодового блока
+            Regex intRegex = new Regex(@"\d+"); //регулярка цыфры
+            if (!globalCode.IsMatch(encodedString))
+            {
+                throw new ArgumentException();
+            }
+
+            MatchCollection matches = regex.Matches(encodedString);
+            foreach (Match match in matches)
+            {
+                string codeBlock = match.Value;
+                MatchCollection matchesBlock = intRegex.Matches(codeBlock);
+                encodedStringParsed.Add(new CodeBlock(int.Parse(matchesBlock[0].Value), int.Parse(matchesBlock[1].Value), codeBlock[codeBlock.Length - 2]));
+            }
 
             return encodedStringParsed;
         }

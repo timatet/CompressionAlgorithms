@@ -18,7 +18,7 @@ namespace AlgorithmsLibrary
             if (Symbol == default)
                 return string.Format("{0}", Repeats);
             else
-                return string.Format("{0}{1}", Symbol, Repeats);
+                return "{" + Symbol + "," + Repeats + "}";
         }
 
         public bool Equals(RLECodeBlock other)
