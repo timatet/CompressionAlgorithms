@@ -155,12 +155,12 @@
                          Background="{StaticResource ColorOfAccent}" TextWrapping="Wrap"/>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
                          Grid.Column="3" Grid.Row="4" Grid.RowSpan="4">
-                <TextBlock Name="TextAfterDecoding"  TextWrapping="Wrap" FontSize="12"
+                <TextBox Name="TextAfterDecoding"  TextWrapping="Wrap" FontSize="12" 
                          Background="{StaticResource ColorOfAccent}" />
                 </Border>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
                          Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="3">
-                <TextBlock Name="EncodedText" TextWrapping="Wrap" FontSize="12"
+                <TextBox Name="EncodedText" TextWrapping="Wrap" FontSize="12"
                          Background="{StaticResource ColorOfAccent}" />
                 </Border>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
@@ -247,12 +247,12 @@
                          Background="{StaticResource ColorOfAccent}" TextWrapping="Wrap"/>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
                          Grid.Column="3" Grid.Row="4" Grid.RowSpan="4">
-                    <TextBlock Name="Text1AfterDecoding"  TextWrapping="Wrap" FontSize="12"
+                    <TextBox Name="Text1AfterDecoding"  TextWrapping="Wrap" FontSize="12"
                          Background="{StaticResource ColorOfAccent}" />
                 </Border>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
                          Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="3">
-                    <TextBlock Name="Encoded1Text" TextWrapping="Wrap" FontSize="12"
+                    <TextBox Name="Encoded1Text" TextWrapping="Wrap" FontSize="12"
                          Background="{StaticResource ColorOfAccent}" />
                 </Border>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"

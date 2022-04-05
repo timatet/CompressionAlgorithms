@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using AlgorithmsLibrary;
@@ -12,7 +14,6 @@ namespace AlgorithmsWpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        // создать булевскй массив для определения алгоритма
         List<string> ArrayNameOfAlgorithm = new List<string>() {"Кодирование Хаффмана", "Коды Фано-Шеннона",
             "Арифметическое кодирование", "Алгоритм RLE и преобразование Барроуза-Уилера",
             "Словарный метод сжатия LZ77", "Код Хемминга", "Линейный код тима (5,2)" };
@@ -99,14 +100,12 @@ namespace AlgorithmsWpf
         private void EncodeClicButton(object sender, RoutedEventArgs e)
         {
             string str = "";
-            if (TextForEncoding.Text == "")
-            {
-                //MessageWindow
-            }
+            bool NoTextForEncoding = false;
             switch (IndexOfCurrentAlgorithm)
             {
                 case 0:
                     TextAfterDecoding.Text = string.Empty;
+                    if (TextForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
 
                     var Huf = HuffmanAlgm.Encode(TextForEncoding.Text);
                     EncodedText.Text = Huf.GetAnswer();
@@ -117,6 +116,7 @@ namespace AlgorithmsWpf
                     break;
                 case 1:
                     TextAfterDecoding.Text = string.Empty;
+                    if (TextForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
 
                     var Sha = ShannonFanoAlgm.Encode(TextForEncoding.Text);
                     EncodedText.Text = Sha.GetAnswer();
@@ -127,6 +127,7 @@ namespace AlgorithmsWpf
                     break;
                 case 2:
                     TextAfterDecoding.Text = string.Empty;
+                    if (TextForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
 
                     var Ari = ArithmeticCodingAlgm.Encode(TextForEncoding.Text);
                     EncodedText.Text = Ari.GetAnswer();
@@ -136,79 +137,137 @@ namespace AlgorithmsWpf
                     CompressionRatio.Text = Ari.GetCompressionRatio().ToString();
                     break;
                 case 3:
+                    Text1AfterDecoding.Text = string.Empty;
+                    if (Text1ForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
+
                     var Rle = RLEAlgm.Encode(Text1ForEncoding.Text);
                     foreach (var i in Rle.GetAnswer())
                         str += i.ToString();
                     Encoded1Text.Text = str;
-                    // отловить ошибку
                     CompressionRatio1.Text = Rle.GetCompressionRatio().ToString();
                     break;
                 case 4:
+                    Text1AfterDecoding.Text = string.Empty;
+                    if (Text1ForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
+
                     var Lz = LZ77Algm.Encode(Text1ForEncoding.Text);
                     foreach (var i in Lz.GetAnswer())
                         str += i.ToString();
                     Encoded1Text.Text = str;
-                    // отловить ошибку
                     CompressionRatio1.Text = Lz.GetCompressionRatio().ToString();
                     break;
                 case 5:
+                    Text2AfterDecoding.Text = string.Empty;
+                    if (Text2ForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
+
                     var Ham = HammingAlgm.Encode(Text2ForEncoding.Text);
                     Encoded2Text.Text = Ham.GetAnswer();
                     break;
                 case 6:
                     break;
             }
+            if (NoTextForEncoding)
+            {
+                // открыть сообщение о том, что нет текста для кодирования
+            }
         }
 
         private void DecodeClicButton(object sender, RoutedEventArgs e)
         {
-
-            // в зависимости от алгоритма запустить декодировку
-            // проверка на пустоту полей для исходого текста
-            if (TextForEncoding.Text == "")
-            {
-                //MessageWindow
-            }
+            bool NoTextForDecoding = false, NoDictionaryForDecoding = false;
             switch (IndexOfCurrentAlgorithm)
             {
                 case 0:
+                    if (EncodedText.Text.Length == 0) { NoTextForDecoding = true; break; }
+                    if (FriqDictionary.Text.Length == 0) { NoDictionaryForDecoding = true; break; }
+
                     var Huf = HuffmanAlgm.Decode(CreateDictionary(FriqDictionary.Text), EncodedText.Text);
                     TextAfterDecoding.Text = Huf.GetAnswer();
                     break;
                 case 1:
+                    if (EncodedText.Text.Length == 0) { NoTextForDecoding = true; break; }
+                    if (FriqDictionary.Text.Length == 0) { NoDictionaryForDecoding = true; break; }
+
                     var Sha = ShannonFanoAlgm.Decode(CreateDictionary(FriqDictionary.Text), EncodedText.Text);
                    TextAfterDecoding.Text = Sha.GetAnswer();
                     break;
                 case 2:
+                    if (EncodedText.Text.Length == 0) { NoTextForDecoding = true; break; }
+                    if (FriqDictionary.Text.Length == 0) { NoDictionaryForDecoding = true; break; }
+
                     var Ari = ArithmeticCodingAlgm.Decode(CreateDictionary(FriqDictionary.Text).ToDictionary(x => x.Key, x=> int.Parse(x.Value)), 
                         EncodedText.Text, TextForEncoding.Text.Length) ;
                     TextAfterDecoding.Text = Ari.GetAnswer();
                     break;
                 case 3:
-                    //var Rle = RLEAlgm.Decode(Encoded1Text.Text);
-                    //Text1AfterDecoding.Text = Rle.GetAnswer();
-                    Text1AfterDecoding.Text = "Пока не готово";
+                    if (Encoded1Text.Text.Length == 0) { NoTextForDecoding = true; break; }
+
+                    var Rle = RLEAlgm.Decode(Encoded1Text.Text);
+                    Text1AfterDecoding.Text = Rle.GetAnswer();
+                    //Text1AfterDecoding.Text = "Пока не готово";
                     // отловить ошибку
                     break;
                 case 4:
-                    //var Lz = LZ77Algm.Decode(Encoded1Text.Text);
-                    //Text1AfterDecoding.Text = Lz.GetAnswer();
-                    Text1AfterDecoding.Text = "Пока не готово";
+                    if (Encoded1Text.Text.Length == 0) { NoTextForDecoding = true; break; }
+
+                    var Lz = LZ77Algm.Decode(Encoded1Text.Text);
+                    Text1AfterDecoding.Text = Lz.GetAnswer();
+                    //Text1AfterDecoding.Text = "Пока не готово";
                     // отловить ошибку
                     break;
                 case 5:
-                    // пока не готово
+                    if (Encoded2Text.Text.Length == 0) { NoTextForDecoding = true; break; }
+
                     var Ham = HammingAlgm.Decode(Encoded2Text.Text);
                     Text2AfterDecoding.Text = Ham.GetAnswer();
                     break;
                 case 6:
                     break;
             }
+            if (NoTextForDecoding)
+            {
+               // открыть сообщение о том, что нет текста для декодирования
+            }
+            if (NoDictionaryForDecoding)
+            {
+               // открыть сообщение о том, что нет кодов для декодирования
+            }
         }
 
         private void EncodeFromFileClicButton(object sender, RoutedEventArgs e)
         {
-            // диалоговое окно
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".txt";
+            dlg.Filter = "Files|*.txt";
+            Nullable<bool> result = dlg.ShowDialog();
+            if (result == true)
+            {
+                string filename = dlg.FileName;
+                if (new List<int>() { 0, 1, 2 }.Contains(IndexOfCurrentAlgorithm))
+                {
+                    ClearHuf_Fano_Arith_Border();
+                    using (StreamReader sr = new StreamReader(filename))
+                        TextForEncoding.Text = sr.ReadToEnd();
+                }
+                if (new List<int>() { 3, 4 }.Contains(IndexOfCurrentAlgorithm))
+                {
+                    ClearRLE_LZ77_Border();
+                    using (StreamReader sr = new StreamReader(filename))
+                        Text1ForEncoding.Text = sr.ReadToEnd();
+                }
+                if (new List<int>() { 5 }.Contains(IndexOfCurrentAlgorithm))
+                {
+                    ClearHam_Border();
+                    using (StreamReader sr = new StreamReader(filename))
+                        Text2ForEncoding.Text = sr.ReadToEnd();
+                }
+                // добавить для линейного кодирования
+            }
+        }
+
+        private void DecodeFromFileClicButton(object sender, RoutedEventArgs e)
+        {
+            //диалоговое окно для открытия файла
 
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.DefaultExt = ".txt";
@@ -218,32 +277,38 @@ namespace AlgorithmsWpf
             {
                 string filename = dlg.FileName;
 
+                // НУЖНО ОПРЕДЕЛИТЬСЯ С ФОРМАТОМ ВХОДНОГО ФАЙКА ( КАКОЙ РАЗДЕЛИТЕЛЬ МЕЖДУ ДАННЫМИ)
+                                            
+                //if (new List<int>() { 0, 1, 2 }.Contains(IndexOfCurrentAlgorithm))
+                //{
+                //    ClearHuf_Fano_Arith_Border();
+                //    using (StreamReader sr = new StreamReader(filename))
+                //        TextForEncoding.Text = sr.ReadToEnd();
+                //}
+                //if (new List<int>() { 3, 4 }.Contains(IndexOfCurrentAlgorithm))
+                //{
+                //    ClearRLE_LZ77_Border();
+                //    using (StreamReader sr = new StreamReader(filename))
+                //        Text1ForEncoding.Text = sr.ReadToEnd();
+                //}
+                //if (new List<int>() { 5 }.Contains(IndexOfCurrentAlgorithm))
+                //{
+                //    ClearHam_Border();
+                //    using (StreamReader sr = new StreamReader(filename))
+                //        Text2ForEncoding.Text = sr.ReadToEnd();
+                //}
+                // добавить для линейного кодирования
             }
-        }
-
-        private void DecodeFromFileClicButton(object sender, RoutedEventArgs e)
-        {
-            //диалоговое окно
         }
 
         private void ClearAllClicButton(object sender, RoutedEventArgs e)
         {
-            //в зависимости от алгоритма очистить поля
             if (new List<int>() { 0, 1, 2 }.Contains(IndexOfCurrentAlgorithm))
                 ClearHuf_Fano_Arith_Border();
             if (new List<int>() { 3, 4 }.Contains(IndexOfCurrentAlgorithm))
                 ClearRLE_LZ77_Border();
             if (new List<int>() { 5 }.Contains(IndexOfCurrentAlgorithm))
                 ClearHam_Border();
-        }
-
-        private void EnterDown_Dictionary(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (e.Key == System.Windows.Input.Key.Enter)
-            {
-                FriqDictionary.Text += '\n';
-                FriqDictionary.SelectionStart = FriqDictionary.Text.Length;
-            }
         }
 
         void ClearHuf_Fano_Arith_Border()
@@ -268,14 +333,26 @@ namespace AlgorithmsWpf
             Text2AfterDecoding.Text = string.Empty;
 
         }
+
+        private void EnterDown_Dictionary(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                FriqDictionary.Text += '\n';
+                FriqDictionary.SelectionStart = FriqDictionary.Text.Length;
+            }
+        }// Написать такие методы для всех полей
+        
         Dictionary<char, string> CreateDictionary(string str)
         {
             Dictionary<char, string> dic = new Dictionary<char, string>();
-            string[] item = str.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (var it in item)
+            int i =0, index = 1;
+            while ( index <str.Length)
             {
-                string[] s = it.Split();
-                dic.Add(it[0], s[s.Length-1]);
+                index = str.IndexOf('\n', ++index);
+                dic.Add(str[i], str.Substring(i + 2, index - i - 2));
+                index++;
+                i = index;
             }
             return dic;
         }

@@ -75,6 +75,7 @@ namespace AlgorithmsLibrary
                         k++;
                     }
                     result = Convert.ToDecimal(convertToString(number, k));
+                    if (k == 28) break;
                 }
                 answer = "";
                 for (int i = 0; i < k; i++)
@@ -86,6 +87,7 @@ namespace AlgorithmsLibrary
         }
         private static string convertToString(int[] number, int index)
         {
+            //if (index > 28) index = 28;
             string str = "0,";
             for (int i = 0; i < index; i++)
                 str += number[i].ToString();
