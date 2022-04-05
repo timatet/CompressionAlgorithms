@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using AlgorithmsLibrary;
@@ -96,6 +98,7 @@ namespace AlgorithmsWpf
 
         private void EncodeClicButton(object sender, RoutedEventArgs e)
         {
+            string str = "";
             if (TextForEncoding.Text == "")
             {
                 //MessageWindow
@@ -103,40 +106,53 @@ namespace AlgorithmsWpf
             switch (IndexOfCurrentAlgorithm)
             {
                 case 0:
+                    TextAfterDecoding.Text = string.Empty;
+
                     var Huf = HuffmanAlgm.Encode(TextForEncoding.Text);
                     EncodedText.Text = Huf.GetAnswer();
                     foreach (var i in Huf.GetData())
-                        FriqDictionary.Text += i.Key.ToString() + " " + i.Value.ToString()+'\n';
-                    CompressionRatio.Text = HuffmanAlgm.CalculateCompressionRatio(TextForEncoding.Text, EncodedText.Text).ToString();
+                        str += i.Key.ToString() + " " + i.Value.ToString()+'\n';
+                    FriqDictionary.Text = str;
+                    CompressionRatio.Text = Huf.GetCompressionRatio().ToString();
                     break;
                 case 1:
+                    TextAfterDecoding.Text = string.Empty;
+
                     var Sha = ShannonFanoAlgm.Encode(TextForEncoding.Text);
                     EncodedText.Text = Sha.GetAnswer();
                     foreach (var i in Sha.GetData())
-                        FriqDictionary.Text += i.Key.ToString() + " " + i.Value.ToString()+'\n';
-                    CompressionRatio.Text = ShannonFanoAlgm.CalculateCompressionRatio(TextForEncoding.Text, EncodedText.Text).ToString();
+                        str += i.Key.ToString() + " " + i.Value.ToString()+'\n';
+                    FriqDictionary.Text = str;
+                    CompressionRatio.Text = Sha.GetCompressionRatio().ToString();
                     break;
                 case 2:
+                    TextAfterDecoding.Text = string.Empty;
+
                     var Ari = ArithmeticCodingAlgm.Encode(TextForEncoding.Text);
                     EncodedText.Text = Ari.GetAnswer();
                     foreach (var i in Ari.GetData().GetData())
-                        FriqDictionary.Text += i.Key.ToString() + " " + i.Value.ToString()+'\n';
-                    CompressionRatio.Text = ArithmeticCodingAlgm.CalculateCompressionRatio(TextForEncoding.Text, EncodedText.Text).ToString();
+                        str += i.Key.ToString() + " " + i.Value.ToString()+'\n';
+                    FriqDictionary.Text = str;
+                    CompressionRatio.Text = Ari.GetCompressionRatio().ToString();
                     break;
                 case 3:
                     var Rle = RLEAlgm.Encode(Text1ForEncoding.Text);
                     foreach (var i in Rle.GetAnswer())
-                        Encoded1Text.Text += i.ToString(); 
-                    CompressionRatio.Text = RLEAlgm.CalculateCompressionRatio(Text1ForEncoding.Text, Encoded1Text.Text).ToString();
+                        str += i.ToString();
+                    Encoded1Text.Text = str;
+                    // отловить ошибку
+                    CompressionRatio1.Text = Rle.GetCompressionRatio().ToString();
                     break;
                 case 4:
                     var Lz = LZ77Algm.Encode(Text1ForEncoding.Text);
                     foreach (var i in Lz.GetAnswer())
-                        Encoded1Text.Text += i.ToString();
-                    CompressionRatio.Text = LZ77Algm.CalculateCompressionRatio(Text1ForEncoding.Text, Encoded1Text.Text).ToString();
+                        str += i.ToString();
+                    Encoded1Text.Text = str;
+                    // отловить ошибку
+                    CompressionRatio1.Text = Lz.GetCompressionRatio().ToString();
                     break;
                 case 5:
-                    var Ham = HammingAlgm.Encode(Text1ForEncoding.Text);
+                    var Ham = HammingAlgm.Encode(Text2ForEncoding.Text);
                     Encoded2Text.Text = Ham.GetAnswer();
                     break;
                 case 6:
@@ -149,11 +165,60 @@ namespace AlgorithmsWpf
 
             // в зависимости от алгоритма запустить декодировку
             // проверка на пустоту полей для исходого текста
+            if (TextForEncoding.Text == "")
+            {
+                //MessageWindow
+            }
+            switch (IndexOfCurrentAlgorithm)
+            {
+                case 0:
+                    var Huf = HuffmanAlgm.Decode(CreateDictionary(FriqDictionary.Text), EncodedText.Text);
+                    TextAfterDecoding.Text = Huf.GetAnswer();
+                    break;
+                case 1:
+                    var Sha = ShannonFanoAlgm.Decode(CreateDictionary(FriqDictionary.Text), EncodedText.Text);
+                   TextAfterDecoding.Text = Sha.GetAnswer();
+                    break;
+                case 2:
+                    var Ari = ArithmeticCodingAlgm.Decode(CreateDictionary(FriqDictionary.Text).ToDictionary(x => x.Key, x=> int.Parse(x.Value)), 
+                        EncodedText.Text, TextForEncoding.Text.Length) ;
+                    TextAfterDecoding.Text = Ari.GetAnswer();
+                    break;
+                case 3:
+                    //var Rle = RLEAlgm.Decode(Encoded1Text.Text);
+                    //Text1AfterDecoding.Text = Rle.GetAnswer();
+                    Text1AfterDecoding.Text = "Пока не готово";
+                    // отловить ошибку
+                    break;
+                case 4:
+                    //var Lz = LZ77Algm.Decode(Encoded1Text.Text);
+                    //Text1AfterDecoding.Text = Lz.GetAnswer();
+                    Text1AfterDecoding.Text = "Пока не готово";
+                    // отловить ошибку
+                    break;
+                case 5:
+                    // пока не готово
+                    var Ham = HammingAlgm.Decode(Encoded2Text.Text);
+                    Text2AfterDecoding.Text = Ham.GetAnswer();
+                    break;
+                case 6:
+                    break;
+            }
         }
 
         private void EncodeFromFileClicButton(object sender, RoutedEventArgs e)
         {
             // диалоговое окно
+
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".txt";
+            dlg.Filter = "Files|*.txt";
+            Nullable<bool> result = dlg.ShowDialog();
+            if (result == true)
+            {
+                string filename = dlg.FileName;
+
+            }
         }
 
         private void DecodeFromFileClicButton(object sender, RoutedEventArgs e)
@@ -164,6 +229,12 @@ namespace AlgorithmsWpf
         private void ClearAllClicButton(object sender, RoutedEventArgs e)
         {
             //в зависимости от алгоритма очистить поля
+            if (new List<int>() { 0, 1, 2 }.Contains(IndexOfCurrentAlgorithm))
+                ClearHuf_Fano_Arith_Border();
+            if (new List<int>() { 3, 4 }.Contains(IndexOfCurrentAlgorithm))
+                ClearRLE_LZ77_Border();
+            if (new List<int>() { 5 }.Contains(IndexOfCurrentAlgorithm))
+                ClearHam_Border();
         }
 
         private void EnterDown_Dictionary(object sender, System.Windows.Input.KeyEventArgs e)
@@ -196,6 +267,17 @@ namespace AlgorithmsWpf
             Encoded2Text.Text = string.Empty;
             Text2AfterDecoding.Text = string.Empty;
 
+        }
+        Dictionary<char, string> CreateDictionary(string str)
+        {
+            Dictionary<char, string> dic = new Dictionary<char, string>();
+            string[] item = str.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var it in item)
+            {
+                string[] s = it.Split();
+                dic.Add(it[0], s[s.Length-1]);
+            }
+            return dic;
         }
     }
 }

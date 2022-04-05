@@ -96,7 +96,8 @@ namespace AlgorithmsLibrary
             List<Symbol> codes = GetSymbolsRanges(frequencies, CountOfAllSymbols);
             StringBuilder decoded = new StringBuilder(string.Empty);
 
-            decimal code = int.Parse(encoded) / (decimal)Math.Pow(10, encoded.Length);
+            //decimal code = int.Parse(encoded) / (decimal)Math.Pow(10, encoded.Length);
+            decimal code = Convert.ToDecimal("0,"+encoded);
             decimal HighRange = 1, LowRange = 0, h, l;
             for (int i = 0; i < CountOfAllSymbols; i++)
             {

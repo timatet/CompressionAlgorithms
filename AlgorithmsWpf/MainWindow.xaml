@@ -43,43 +43,43 @@
         
         <!--Блок с кнопками-->
         <StackPanel Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" VerticalAlignment="Center">
-            <Button Name="BHuffman" Margin="7, 3" Click="HuffmanClicButton">
+            <Button Name="BHuffman" Margin="7, 9" Click="HuffmanClicButton">
                 <StackPanel>
                     <TextBlock Text="Кодирование" HorizontalAlignment="Center"/>
-                    <TextBlock Text="Хаффман" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Хаффмана" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Name="BShannonFano" Margin="7, 3" Click="ShannonFanoClicButton">
+            <Button Name="BShannonFano" Margin="7, 9" Click="ShannonFanoClicButton">
                 <StackPanel>
                     <TextBlock Text="Коды" HorizontalAlignment="Center"/>
                     <TextBlock Text="Фано-Шеннона" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Name="BArithmeticCoding" Margin="7, 3" Click="ArithmeticCodingClicButton">
+            <Button Name="BArithmeticCoding" Margin="7, 9" Click="ArithmeticCodingClicButton">
                 <StackPanel>
                     <TextBlock Text="Арифметическое" HorizontalAlignment="Center"/>
                     <TextBlock Text="кодирование" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Name="BRLE" Margin="7, 3" Click="RLEClicButton">
+            <Button Name="BRLE" Margin="7, 9" Click="RLEClicButton">
                 <StackPanel>
                     <TextBlock Text="Алгоритм" HorizontalAlignment="Center"/>
                     <TextBlock Text="RLE" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Name="BLZ77" Margin="7, 3" Click="LZ77ClicButton">
+            <Button Name="BLZ77" Margin="7, 9" Click="LZ77ClicButton">
                 <StackPanel>
                     <TextBlock Text="Метод сжатия" HorizontalAlignment="Center"/>
                     <TextBlock Text="LZ77" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Name="BHamming" Margin="7, 3" Click="HammingClicButton">
+            <Button Name="BHamming" Margin="7, 9" Click="HammingClicButton">
                 <StackPanel>
                     <TextBlock Text="Код" HorizontalAlignment="Center"/>
                     <TextBlock Text="Хэмминга" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Name="BLinearCodesType52" Margin="7, 3" Click="LinearCodesType52ClicButton">
+            <Button Name="BLinearCodesType52" Margin="7, 9" Click="LinearCodesType52ClicButton">
                 <StackPanel>
                     <TextBlock Text="Линейный код" HorizontalAlignment="Center"/>
                     <TextBlock Text="типа (5, 2)" HorizontalAlignment="Center"/>
@@ -88,7 +88,7 @@
         </StackPanel>
 
         <TextBlock Name="NameOfAlgorithm" Grid.Column="3" Grid.Row="1" FontSize="16"
-                   HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                   HorizontalAlignment="Left" VerticalAlignment="Center" Text="Выберите алгоритм"/>
 
         <Border Name="Huf_Fano_Arith_Border" Grid.Column="3" Grid.Row="3" Visibility="Hidden">
             <Grid>
@@ -328,11 +328,11 @@
                          Grid.Column="1" Grid.Row="4" 
                          Background="{StaticResource ColorOfAccent}" TextWrapping="Wrap"/>
                 <TextBox Name="Text2AfterDecoding"  TextWrapping="Wrap"
-                         Grid.Column="1" Grid.Row="7" BorderThickness="1"
+                         Grid.Column="1" Grid.Row="10" BorderThickness="1"
                          Background="{StaticResource ColorOfAccent}" BorderBrush="{StaticResource ColorOfLines}"/>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
-                         Grid.Column="1" Grid.Row="10" >
-                    <TextBlock Name="Encoded2Text" TextWrapping="Wrap" FontSize="12"
+                         Grid.Column="1" Grid.Row="7" >
+                    <TextBox Name="Encoded2Text" TextWrapping="Wrap" FontSize="12"
                          Background="{StaticResource ColorOfAccent}" />
                 </Border>
                 <!--Подписи блоков-->
