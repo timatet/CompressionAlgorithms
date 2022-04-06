@@ -17,7 +17,7 @@ namespace UnitTestProject
 
             Assert.Equal(expected, actual.encoded);
         }
-        
+
         [Fact]
         public void CalculateCompressionRatio()
         {

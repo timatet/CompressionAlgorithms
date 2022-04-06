@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AlgorithmsLibrary.CommonClasses;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -56,7 +57,7 @@ namespace AlgorithmsLibrary
             //если входная строка не подходит под паттерн то выбрасывается ошибка
             if (!globalRLE.IsMatch(encodedString))
             {
-                throw new ArgumentException();
+                throw new CodingException();
             }
 
             //получаем число как номер строки в матрице
@@ -102,7 +103,7 @@ namespace AlgorithmsLibrary
         }
 
         private static double CalculateCompressionRatio(string sourceString, List<RLECodeBlock> compressionString)
-        { 
+        {
             double countBitsSourceString = 8 * sourceString.Length;
 
             double countBitsCompressionString = 0;

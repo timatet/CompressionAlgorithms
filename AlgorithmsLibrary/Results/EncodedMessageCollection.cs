@@ -34,7 +34,7 @@
         {
             this.answer = answer;
             this.data = frequencies;
-            this.compressionRatio= compressionRatio;
+            this.compressionRatio = compressionRatio;
         }
     }
 }

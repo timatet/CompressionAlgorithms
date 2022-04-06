@@ -1,4 +1,5 @@
-﻿using AlgorithmsLibrary.StringBuilderExtensions;
+﻿using AlgorithmsLibrary.CommonClasses;
+using AlgorithmsLibrary.StringBuilderExtensions;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -117,7 +118,7 @@ namespace AlgorithmsLibrary
             Regex intRegex = new Regex(@"\d+"); //регулярка цыфры
             if (!globalCode.IsMatch(encodedString))
             {
-                throw new ArgumentException();
+                throw new CodingException();
             }
 
             MatchCollection matches = regex.Matches(encodedString);
@@ -156,7 +157,7 @@ namespace AlgorithmsLibrary
             if (resultDecoding.Length > 0 && resultDecoding[resultDecoding.Length - 1].Equals('$'))
                 resultDecoding.Remove(resultDecoding.Length - 1, 1);
 
-            var decodedString  = resultDecoding.ToString();
+            var decodedString = resultDecoding.ToString();
             return new EncodedMessage<string>(decodedString, CalculateCompressionRatio(decodedString, encodedStringParsed));
         }
     }

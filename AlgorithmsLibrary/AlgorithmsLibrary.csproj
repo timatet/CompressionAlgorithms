@@ -50,6 +50,7 @@
     <Compile Include="ArithmeticCodingAlgm\Symbol.cs" />
     <Compile Include="CommonClasses\Deque.cs" />
     <Compile Include="CommonClasses\DoublyNode.cs" />
+    <Compile Include="CommonClasses\Exception.cs" />
     <Compile Include="CommonClasses\TreeNodePrinter.cs" />
     <Compile Include="Extensions\StringBuilderExtensions.cs" />
     <Compile Include="Results\EncodedMessage.cs" />

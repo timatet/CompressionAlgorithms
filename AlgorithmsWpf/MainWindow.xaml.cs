@@ -1,11 +1,10 @@
-﻿using System;
+﻿using AlgorithmsLibrary;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using AlgorithmsLibrary;
 
 namespace AlgorithmsWpf
 {
@@ -110,7 +109,7 @@ namespace AlgorithmsWpf
                     var Huf = HuffmanAlgm.Encode(TextForEncoding.Text);
                     EncodedText.Text = Huf.GetAnswer();
                     foreach (var i in Huf.GetData())
-                        str += i.Key.ToString() + " " + i.Value.ToString()+'\n';
+                        str += i.Key.ToString() + " " + i.Value.ToString() + '\n';
                     FriqDictionary.Text = str;
                     CompressionRatio.Text = Huf.GetCompressionRatio().ToString();
                     break;
@@ -121,7 +120,7 @@ namespace AlgorithmsWpf
                     var Sha = ShannonFanoAlgm.Encode(TextForEncoding.Text);
                     EncodedText.Text = Sha.GetAnswer();
                     foreach (var i in Sha.GetData())
-                        str += i.Key.ToString() + " " + i.Value.ToString()+'\n';
+                        str += i.Key.ToString() + " " + i.Value.ToString() + '\n';
                     FriqDictionary.Text = str;
                     CompressionRatio.Text = Sha.GetCompressionRatio().ToString();
                     break;
@@ -132,7 +131,7 @@ namespace AlgorithmsWpf
                     var Ari = ArithmeticCodingAlgm.Encode(TextForEncoding.Text);
                     EncodedText.Text = Ari.GetAnswer();
                     foreach (var i in Ari.GetData().GetData())
-                        str += i.Key.ToString() + " " + i.Value.ToString()+'\n';
+                        str += i.Key.ToString() + " " + i.Value.ToString() + '\n';
                     FriqDictionary.Text = str;
                     CompressionRatio.Text = Ari.GetCompressionRatio().ToString();
                     break;
@@ -189,14 +188,14 @@ namespace AlgorithmsWpf
                     if (FriqDictionary.Text.Length == 0) { NoDictionaryForDecoding = true; break; }
 
                     var Sha = ShannonFanoAlgm.Decode(CreateDictionary(FriqDictionary.Text), EncodedText.Text);
-                   TextAfterDecoding.Text = Sha.GetAnswer();
+                    TextAfterDecoding.Text = Sha.GetAnswer();
                     break;
                 case 2:
                     if (EncodedText.Text.Length == 0) { NoTextForDecoding = true; break; }
                     if (FriqDictionary.Text.Length == 0) { NoDictionaryForDecoding = true; break; }
 
-                    var Ari = ArithmeticCodingAlgm.Decode(CreateDictionary(FriqDictionary.Text).ToDictionary(x => x.Key, x=> int.Parse(x.Value)), 
-                        EncodedText.Text, TextForEncoding.Text.Length) ;
+                    var Ari = ArithmeticCodingAlgm.Decode(CreateDictionary(FriqDictionary.Text).ToDictionary(x => x.Key, x => int.Parse(x.Value)),
+                        EncodedText.Text, TextForEncoding.Text.Length);
                     TextAfterDecoding.Text = Ari.GetAnswer();
                     break;
                 case 3:
@@ -226,11 +225,11 @@ namespace AlgorithmsWpf
             }
             if (NoTextForDecoding)
             {
-               // открыть сообщение о том, что нет текста для декодирования
+                // открыть сообщение о том, что нет текста для декодирования
             }
             if (NoDictionaryForDecoding)
             {
-               // открыть сообщение о том, что нет кодов для декодирования
+                // открыть сообщение о том, что нет кодов для декодирования
             }
         }
 
@@ -278,7 +277,7 @@ namespace AlgorithmsWpf
                 string filename = dlg.FileName;
 
                 // НУЖНО ОПРЕДЕЛИТЬСЯ С ФОРМАТОМ ВХОДНОГО ФАЙКА ( КАКОЙ РАЗДЕЛИТЕЛЬ МЕЖДУ ДАННЫМИ)
-                                            
+
                 //if (new List<int>() { 0, 1, 2 }.Contains(IndexOfCurrentAlgorithm))
                 //{
                 //    ClearHuf_Fano_Arith_Border();
@@ -342,12 +341,12 @@ namespace AlgorithmsWpf
                 FriqDictionary.SelectionStart = FriqDictionary.Text.Length;
             }
         }// Написать такие методы для всех полей
-        
+
         Dictionary<char, string> CreateDictionary(string str)
         {
             Dictionary<char, string> dic = new Dictionary<char, string>();
-            int i =0, index = 1;
-            while ( index <str.Length)
+            int i = 0, index = 1;
+            while (index < str.Length)
             {
                 index = str.IndexOf('\n', ++index);
                 dic.Add(str[i], str.Substring(i + 2, index - i - 2));

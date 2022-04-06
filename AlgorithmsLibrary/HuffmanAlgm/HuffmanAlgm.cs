@@ -67,7 +67,7 @@ namespace AlgorithmsLibrary
             foreach (char c in source)
                 encoded.Append(codes[c]);
 
-            var encodedString= encoded.ToString();
+            var encodedString = encoded.ToString();
             return new EncodedMessage<string, Dictionary<char, string>>(encodedString, codes, CalculateCompressionRatio(source, encodedString));
         }
 
