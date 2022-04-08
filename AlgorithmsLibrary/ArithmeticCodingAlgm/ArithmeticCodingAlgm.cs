@@ -48,14 +48,22 @@ namespace AlgorithmsLibrary
         {
             List<Symbol> codes = GetSymbolsRanges(source);
             decimal HighRange = 1, LowRange = 0, h, l;
+
+            //List<char> TheImmutablePart = new List<char>();
+            StringBuilder TheImmutablePart = new StringBuilder();
+
             foreach (char c in source)
             {
                 Symbol item = codes.Find(x => x.Data == c);
                 h = HighRange; l = LowRange;
                 HighRange = l + (h - l) * item.HighRange;
                 LowRange = l + (h - l) * item.LowRange;
+                DiscardTheImmutablePart(ref TheImmutablePart, ref HighRange, ref LowRange);
             }
-            string answer = "0";
+
+            // ищем оптимальное представление числа
+            StringBuilder answer = new StringBuilder();
+            answer.Append('0');
             if (LowRange != 0)
             {
                 int[] number = new int[28];
@@ -77,14 +85,80 @@ namespace AlgorithmsLibrary
                     result = Convert.ToDecimal(convertToString(number, k));
                     if (k == 28) break;
                 }
-                answer = "";
+                answer.Clear();
+                answer.Append(TheImmutablePart);
+                //foreach (char c in TheImmutablePart)
+                //    answer += c;
                 for (int i = 0; i < k; i++)
-                    answer += number[i].ToString();
+                    answer.Append(number[i].ToString());
             }
 
-            double compressionRatio = CalculateCompressionRatio(source, answer);
-            return new EncodedMessage<string, IAlgmEncoded<int, Dictionary<char, int>>>(answer, new EncodedMessage<int, Dictionary<char, int>>(source.Length, GetFrequencies(source), compressionRatio), compressionRatio);
+            double compressionRatio = CalculateCompressionRatio(source, answer.ToString());
+            return new EncodedMessage<string, IAlgmEncoded<int, Dictionary<char, int>>>(answer.ToString(), new EncodedMessage<int, Dictionary<char, int>>(source.Length, GetFrequencies(source), compressionRatio), compressionRatio);
         }
+
+        private static void DiscardTheImmutablePart(ref StringBuilder theImmutablePart, ref decimal highRange, ref decimal lowRange)
+        {
+            string lr = lowRange.ToString();
+            string hr = highRange.ToString();
+            int i=0, cnt =0;
+            while (i<lr.Length && i<hr.Length && lr[i]==hr[i])
+            {
+                if (!((i == 0 && lr[i] == '0') || lr[i] == ','))
+                {
+                    theImmutablePart.Append(lr[i]);
+                    highRange *= 10; highRange -= (int)highRange % 10;
+                    lowRange *= 10; lowRange -= (int)lowRange % 10;
+                    //cnt++;
+                }
+
+                i++;
+            }
+            //highRange *= (decimal)Math.Pow(10, cnt);
+            //highRange -= (int)highRange;
+            //lowRange *= (decimal)Math.Pow(10, cnt);
+            //lowRange -= (int)lowRange;
+        }
+
+        private static void DiscardTheImmutablePart(ref decimal highRange, ref decimal lowRange, ref decimal code, ref int index, string encoded, 
+            ref bool thePreviousDigitIsZero, ref int CntOfZero)
+        {
+            string lr = lowRange.ToString();
+            string hr = highRange.ToString();
+            string c = code.ToString();
+            int i = 0, encodedLength = encoded.Length;
+            while (i < lr.Length && i < hr.Length &&  i < c.Length && lr[i] == hr[i] && lr[i]==c[i])
+            {
+                if (!((i == 0 && lr[i] == '0') || lr[i] == ','))
+                {
+                    highRange *= 10; highRange -= (int)highRange % 10;
+                    lowRange *= 10; lowRange -= (int)lowRange % 10;
+                    code = Convert.ToDecimal("0," + (index<encodedLength?encoded.Substring(index, Math.Min(28, encodedLength - index)):"0" ));
+                    index++;
+                    //code *= 10; code -= (int)code % 10;  
+                    //if (index<encodedLength)
+                    //{
+                    //    if (encoded[index]=='0')
+                    //    {
+                    //        CntOfZero++; index++;
+                    //        thePreviousDigitIsZero = true;
+                    //    }
+                    //    else
+                    //    {
+                            
+                    //    if (thePreviousDigitIsZero)
+                    //    {
+                    //        code += (decimal)(int.Parse(encoded[index++].ToString()) / Math.Pow(10, c.Length - 2+CntOfZero));
+                    //    }
+                    //    else
+                        
+                    //    }
+                    //}         
+                }
+                i++;
+            }
+        }
+
         private static string convertToString(int[] number, int index)
         {
             //if (index > 28) index = 28;
@@ -98,8 +172,14 @@ namespace AlgorithmsLibrary
             List<Symbol> codes = GetSymbolsRanges(frequencies, CountOfAllSymbols);
             StringBuilder decoded = new StringBuilder(string.Empty);
 
-            //decimal code = int.Parse(encoded) / (decimal)Math.Pow(10, encoded.Length);
-            decimal code = Convert.ToDecimal("0," + encoded);
+            bool thePreviousDigitIsZero = false;
+            int CntOfZero = 0;
+            int IndexInEncodedString = 1;
+            decimal code = Convert.ToDecimal("0," + encoded.Substring(0, Math.Min(28, encoded.Length)));
+            //int IndexInEncodedString = 28;
+            //if (encoded.Length < 28)
+            //    IndexInEncodedString = encoded.Length - 1;
+            //decimal code = Convert.ToDecimal("0," + encoded.Substring(0, IndexInEncodedString));
             decimal HighRange = 1, LowRange = 0, h, l;
             for (int i = 0; i < CountOfAllSymbols; i++)
             {
@@ -108,6 +188,7 @@ namespace AlgorithmsLibrary
                 decoded.Append(item.Data);
                 HighRange = l + (h - l) * item.HighRange;
                 LowRange = l + (h - l) * item.LowRange;
+                DiscardTheImmutablePart(ref HighRange, ref LowRange, ref code, ref IndexInEncodedString, encoded, ref thePreviousDigitIsZero, ref CntOfZero);
             }
 
             var decodedString = decoded.ToString();
