@@ -245,6 +245,7 @@ namespace AlgorithmsWpf
                 if (new List<int>() { 0, 1, 2 }.Contains(IndexOfCurrentAlgorithm))
                 {
                     ClearHuf_Fano_Arith_Border();
+                    TextForEncoding.Text = "Загрузка текста";
                     using (StreamReader sr = new StreamReader(filename))
                         TextForEncoding.Text = sr.ReadToEnd();
                 }

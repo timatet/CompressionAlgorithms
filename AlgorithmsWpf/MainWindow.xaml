@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlgorithmsWpf"
         mc:Ignorable="d"
+        Icon="fire.ico"
         Title="MainWindow" MinHeight="675" MinWidth="1200">
     <Grid>
         <Grid.RowDefinitions>
@@ -151,16 +152,16 @@
                 </Grid>
                 <!--Блоки для отображения информации-->
                 <TextBox Name="TextForEncoding" BorderBrush="{StaticResource ColorOfLines}"
-                         Grid.Column="1" Grid.Row="4" Grid.RowSpan="4"
+                         Grid.Column="1" Grid.Row="4" Grid.RowSpan="4" ScrollViewer.VerticalScrollBarVisibility="Auto"
                          Background="{StaticResource ColorOfAccent}" TextWrapping="Wrap"/>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
                          Grid.Column="3" Grid.Row="4" Grid.RowSpan="4">
-                <TextBox Name="TextAfterDecoding"  TextWrapping="Wrap" FontSize="12" 
+                    <TextBox Name="TextAfterDecoding"  TextWrapping="Wrap" FontSize="12"  ScrollViewer.VerticalScrollBarVisibility="Auto"
                          Background="{StaticResource ColorOfAccent}" />
                 </Border>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
                          Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="3">
-                <TextBox Name="EncodedText" TextWrapping="Wrap" FontSize="12"
+                    <TextBox Name="EncodedText" TextWrapping="Wrap" FontSize="12"  ScrollViewer.VerticalScrollBarVisibility="Auto"
                          Background="{StaticResource ColorOfAccent}" />
                 </Border>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
@@ -170,7 +171,7 @@
                 </Border>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
                          Grid.Column="5" Grid.Row="7" Grid.RowSpan="4">                
-                <TextBox Name="FriqDictionary" KeyDown="EnterDown_Dictionary"
+                <TextBox Name="FriqDictionary" KeyDown="EnterDown_Dictionary" 
                          Background="{StaticResource ColorOfAccent}" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
                 </Border>
                 <!--Подписи блоков-->
@@ -243,17 +244,17 @@
                 </Grid>
                 <!--Блоки для отображения информации-->
                 <TextBox Name="Text1ForEncoding" BorderBrush="{StaticResource ColorOfLines}"
-                         Grid.Column="1" Grid.Row="4" Grid.RowSpan="4"
+                         Grid.Column="1" Grid.Row="4" Grid.RowSpan="4" ScrollViewer.VerticalScrollBarVisibility="Auto"
                          Background="{StaticResource ColorOfAccent}" TextWrapping="Wrap"/>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
                          Grid.Column="3" Grid.Row="4" Grid.RowSpan="4">
                     <TextBox Name="Text1AfterDecoding"  TextWrapping="Wrap" FontSize="12"
-                         Background="{StaticResource ColorOfAccent}" />
+                         Background="{StaticResource ColorOfAccent}" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
                 </Border>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
                          Grid.Column="1" Grid.Row="10" Grid.ColumnSpan="3">
                     <TextBox Name="Encoded1Text" TextWrapping="Wrap" FontSize="12"
-                         Background="{StaticResource ColorOfAccent}" />
+                         Background="{StaticResource ColorOfAccent}" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
                 </Border>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
                          Grid.Column="5" Grid.Row="4"
@@ -325,15 +326,15 @@
                 </Grid>
                 <!--Блоки для отображения информации-->
                 <TextBox Name="Text2ForEncoding" BorderBrush="{StaticResource ColorOfLines}"
-                         Grid.Column="1" Grid.Row="4" 
+                         Grid.Column="1" Grid.Row="4" ScrollViewer.VerticalScrollBarVisibility="Auto"
                          Background="{StaticResource ColorOfAccent}" TextWrapping="Wrap"/>
                 <TextBox Name="Text2AfterDecoding"  TextWrapping="Wrap"
-                         Grid.Column="1" Grid.Row="10" BorderThickness="1"
+                         Grid.Column="1" Grid.Row="10" BorderThickness="1" ScrollViewer.VerticalScrollBarVisibility="Auto"
                          Background="{StaticResource ColorOfAccent}" BorderBrush="{StaticResource ColorOfLines}"/>
                 <Border BorderBrush="{StaticResource ColorOfLines}" BorderThickness="1"
                          Grid.Column="1" Grid.Row="7" >
                     <TextBox Name="Encoded2Text" TextWrapping="Wrap" FontSize="12"
-                         Background="{StaticResource ColorOfAccent}" />
+                         Background="{StaticResource ColorOfAccent}" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
                 </Border>
                 <!--Подписи блоков-->
                 <TextBlock Grid.Column="1" Grid.Row="3" Text="Исходная последовательность:" VerticalAlignment="Center"/>

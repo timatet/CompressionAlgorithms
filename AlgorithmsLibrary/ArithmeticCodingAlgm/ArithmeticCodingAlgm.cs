@@ -48,8 +48,7 @@ namespace AlgorithmsLibrary
         {
             List<Symbol> codes = GetSymbolsRanges(source);
             decimal HighRange = 1, LowRange = 0, h, l;
-
-            //List<char> TheImmutablePart = new List<char>();
+            
             StringBuilder TheImmutablePart = new StringBuilder();
 
             foreach (char c in source)
@@ -87,8 +86,6 @@ namespace AlgorithmsLibrary
                 }
                 answer.Clear();
                 answer.Append(TheImmutablePart);
-                //foreach (char c in TheImmutablePart)
-                //    answer += c;
                 for (int i = 0; i < k; i++)
                     answer.Append(number[i].ToString());
             }
@@ -101,7 +98,7 @@ namespace AlgorithmsLibrary
         {
             string lr = lowRange.ToString();
             string hr = highRange.ToString();
-            int i=0, cnt =0;
+            int i=0;
             while (i<lr.Length && i<hr.Length && lr[i]==hr[i])
             {
                 if (!((i == 0 && lr[i] == '0') || lr[i] == ','))
@@ -109,15 +106,9 @@ namespace AlgorithmsLibrary
                     theImmutablePart.Append(lr[i]);
                     highRange *= 10; highRange -= (int)highRange % 10;
                     lowRange *= 10; lowRange -= (int)lowRange % 10;
-                    //cnt++;
                 }
-
                 i++;
             }
-            //highRange *= (decimal)Math.Pow(10, cnt);
-            //highRange -= (int)highRange;
-            //lowRange *= (decimal)Math.Pow(10, cnt);
-            //lowRange -= (int)lowRange;
         }
 
         private static void DiscardTheImmutablePart(ref decimal highRange, ref decimal lowRange, ref decimal code, ref int index, string encoded, 
@@ -134,26 +125,7 @@ namespace AlgorithmsLibrary
                     highRange *= 10; highRange -= (int)highRange % 10;
                     lowRange *= 10; lowRange -= (int)lowRange % 10;
                     code = Convert.ToDecimal("0," + (index<encodedLength?encoded.Substring(index, Math.Min(28, encodedLength - index)):"0" ));
-                    index++;
-                    //code *= 10; code -= (int)code % 10;  
-                    //if (index<encodedLength)
-                    //{
-                    //    if (encoded[index]=='0')
-                    //    {
-                    //        CntOfZero++; index++;
-                    //        thePreviousDigitIsZero = true;
-                    //    }
-                    //    else
-                    //    {
-                            
-                    //    if (thePreviousDigitIsZero)
-                    //    {
-                    //        code += (decimal)(int.Parse(encoded[index++].ToString()) / Math.Pow(10, c.Length - 2+CntOfZero));
-                    //    }
-                    //    else
-                        
-                    //    }
-                    //}         
+                    index++;    
                 }
                 i++;
             }
@@ -161,7 +133,6 @@ namespace AlgorithmsLibrary
 
         private static string convertToString(int[] number, int index)
         {
-            //if (index > 28) index = 28;
             string str = "0,";
             for (int i = 0; i < index; i++)
                 str += number[i].ToString();
@@ -196,7 +167,11 @@ namespace AlgorithmsLibrary
         }
         private static double CalculateCompressionRatio(string sourceString, string compressionString)
         {
-            return Math.Round((double)((sourceString.Length * 8) / Convert.ToString(compressionString.Length, 2).Length), 3);
+            //byte[] BigIArray = System.Numerics.BigInteger.Parse(compressionString).ToByteArray();
+            //string BinaryCode = string.Concat(BigIArray.Select(b => Convert.ToString(b, 2).PadLeft(8, '0')).Reverse());
+            //var k = Math.Round(Convert.ToDouble(((decimal)sourceString.Length * 8 / (decimal)BinaryCode.ToString().TrimStart('0').Length).ToString()), 3);
+            return 0;
+            //return Math.Round((double)((sourceString.Length * 8) / Convert.ToString(compressionString.Length, 2).Length), 3);
         }
     }
 }
