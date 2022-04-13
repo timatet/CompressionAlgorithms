@@ -167,10 +167,19 @@ namespace AlgorithmsLibrary
         }
         private static double CalculateCompressionRatio(string sourceString, string compressionString)
         {
-            //byte[] BigIArray = System.Numerics.BigInteger.Parse(compressionString).ToByteArray();
-            //string BinaryCode = string.Concat(BigIArray.Select(b => Convert.ToString(b, 2).PadLeft(8, '0')).Reverse());
-            //var k = Math.Round(Convert.ToDouble(((decimal)sourceString.Length * 8 / (decimal)BinaryCode.ToString().TrimStart('0').Length).ToString()), 3);
-            return 0;
+            var t = compressionString.Length;
+            if (t > 100000)
+                return 0.0;
+
+            //var log = Math.Ceiling(System.Numerics.BigInteger.Log(System.Numerics.BigInteger.Parse(compressionString), 2));
+            //var bite = Math.Ceiling(log / 8);
+            //var k1 = Math.Round(sourceString.Length / bite, 3);
+
+            byte[] BigIArray = System.Numerics.BigInteger.Parse(compressionString).ToByteArray();
+            string BinaryCode = string.Concat(BigIArray.Select(b => Convert.ToString(b, 2).PadLeft(8, '0')).Reverse());
+            var r = BinaryCode.Length;
+            var k = Math.Round(Convert.ToDouble(((decimal)sourceString.Length * 8 / (decimal)BinaryCode.ToString().TrimStart('0').Length).ToString()), 3);
+            return k;
             //return Math.Round((double)((sourceString.Length * 8) / Convert.ToString(compressionString.Length, 2).Length), 3);
         }
     }
