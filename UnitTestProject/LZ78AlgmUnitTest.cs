@@ -1,15 +1,25 @@
 ﻿using AlgorithmsLibrary;
-using System;
+using AlgorithmsLibrary.CommonClasses;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace UnitTestProject
 {
     public class LZ78AlgmUnitTest
     {
+        [Fact]
+        public void EncodingEmptyString()
+        {
+            var result = LZ78Algm.Encode("");
+            var expected = new List<LZ78CodeBlock> { };
+
+            Assert.Equal(expected, result.GetAnswer());
+        }
+        [Fact]
+        public void DecodingEmptyString()
+        {
+            Assert.Throws<CodingException>(() => LZ78Algm.Decode(string.Empty));
+        }
         [Fact]
         public void EncodeStringWithRepeatsLongString()
         {
@@ -31,7 +41,7 @@ namespace UnitTestProject
 
             Assert.Equal(expectedCodeBlocks, result.GetAnswer());
         }
-        
+
         [Fact]
         public void DecodedStringWithRepeatsLongString()
         {

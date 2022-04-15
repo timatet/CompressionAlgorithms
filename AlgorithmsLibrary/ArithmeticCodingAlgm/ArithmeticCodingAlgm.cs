@@ -48,7 +48,7 @@ namespace AlgorithmsLibrary
         {
             List<Symbol> codes = GetSymbolsRanges(source);
             decimal HighRange = 1, LowRange = 0, h, l;
-            
+
             StringBuilder TheImmutablePart = new StringBuilder();
 
             foreach (char c in source)
@@ -98,8 +98,8 @@ namespace AlgorithmsLibrary
         {
             string lr = lowRange.ToString();
             string hr = highRange.ToString();
-            int i=0;
-            while (i<lr.Length && i<hr.Length && lr[i]==hr[i])
+            int i = 0;
+            while (i < lr.Length && i < hr.Length && lr[i] == hr[i])
             {
                 if (!((i == 0 && lr[i] == '0') || lr[i] == ','))
                 {
@@ -111,21 +111,21 @@ namespace AlgorithmsLibrary
             }
         }
 
-        private static void DiscardTheImmutablePart(ref decimal highRange, ref decimal lowRange, ref decimal code, ref int index, string encoded, 
+        private static void DiscardTheImmutablePart(ref decimal highRange, ref decimal lowRange, ref decimal code, ref int index, string encoded,
             ref bool thePreviousDigitIsZero, ref int CntOfZero)
         {
             string lr = lowRange.ToString();
             string hr = highRange.ToString();
             string c = code.ToString();
             int i = 0, encodedLength = encoded.Length;
-            while (i < lr.Length && i < hr.Length &&  i < c.Length && lr[i] == hr[i] && lr[i]==c[i])
+            while (i < lr.Length && i < hr.Length && i < c.Length && lr[i] == hr[i] && lr[i] == c[i])
             {
                 if (!((i == 0 && lr[i] == '0') || lr[i] == ','))
                 {
                     highRange *= 10; highRange -= (int)highRange % 10;
                     lowRange *= 10; lowRange -= (int)lowRange % 10;
-                    code = Convert.ToDecimal("0," + (index<encodedLength?encoded.Substring(index, Math.Min(28, encodedLength - index)):"0" ));
-                    index++;    
+                    code = Convert.ToDecimal("0," + (index < encodedLength ? encoded.Substring(index, Math.Min(28, encodedLength - index)) : "0"));
+                    index++;
                 }
                 i++;
             }

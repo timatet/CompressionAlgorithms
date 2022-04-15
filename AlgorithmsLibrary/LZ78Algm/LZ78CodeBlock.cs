@@ -10,7 +10,7 @@ namespace AlgorithmsLibrary
         public LZ78CodeBlock(int Position, char Char)
         {
             this.Position = Position;
-            this.Char = Char;   
+            this.Char = Char;
         }
 
         public override string ToString()

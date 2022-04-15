@@ -21,7 +21,7 @@ namespace AlgorithmsLibrary.StringBuilderExtensions
                 stringBuilder.Append(@this[i]);
             }
             return stringBuilder.ToString();
-                //@this.ToString().Substring(startpos, length);
+            //@this.ToString().Substring(startpos, length);
         }
 
         public static int IndexOf(this StringBuilder haystack, string needle)
