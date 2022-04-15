@@ -54,6 +54,8 @@
     <Compile Include="CommonClasses\Exception.cs" />
     <Compile Include="CommonClasses\TreeNodePrinter.cs" />
     <Compile Include="Extensions\StringBuilderExtensions.cs" />
+    <Compile Include="LZ78Algm\LZ78Algm.cs" />
+    <Compile Include="LZ78Algm\LZ78CodeBlock.cs" />
     <Compile Include="Results\EncodedMessage.cs" />
     <Compile Include="HammingAlgm\HammingAlgm.cs" />
     <Compile Include="HammingAlgm\DecodedMessage.cs" />
