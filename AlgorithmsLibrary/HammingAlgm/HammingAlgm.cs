@@ -50,6 +50,9 @@ namespace AlgorithmsLibrary
             return array;
         }
 
+        /// <summary>
+        /// Вычисление числа в двочином виде.
+        /// </summary>
         private static string GetBinary(int m)
         {
             int[] bin = new int[8];
