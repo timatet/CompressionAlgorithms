@@ -32,8 +32,9 @@ namespace AlgorithmsLibrary
             decimal frequencyOfOneSymbol = (decimal)1 / CountOfAllSymbols;
             var nodes = frequencies.Select(x => new Symbol(x.Key, x.Value * frequencyOfOneSymbol)).ToList();
 
-            nodes.Sort();
-            nodes.Reverse();
+            //закомментировал чтобы было как у Завода
+            //nodes.Sort();
+            //nodes.Reverse();
 
             decimal current = 0;
             foreach (var item in nodes)

@@ -56,7 +56,9 @@ namespace AlgorithmsLibrary
                     searchBuffer.Append(nextChar);
                     establishingBuffer.Remove(0, 1);
 
-                    result.Add(new CodeBlock(0, 0, nextChar)); //указываем на него метку
+                    var codeblock = new CodeBlock(0, 0, nextChar);
+                    //Console.WriteLine(searchBuffer.ToString() + "\t\t " + establishingBuffer.ToString() + "\t\t " + codeblock);
+                    result.Add(codeblock); //указываем на него метку
                 }
                 else
                 {
@@ -73,7 +75,9 @@ namespace AlgorithmsLibrary
                     establishingBuffer.Remove(0, length + 1);
                     searchBuffer.Append(subInEstablish);
 
-                    result.Add(new CodeBlock(offset, length, nextChar));
+                    var codeblock = new CodeBlock(offset, length, nextChar);
+                    //Console.WriteLine(searchBuffer.ToString() + "\t\t " + establishingBuffer.ToString() + "\t\t " + codeblock);
+                    result.Add(codeblock);
                 }
 
                 currentLengthSubString = 0;
