@@ -9,6 +9,7 @@ namespace AlgorithmsLibrary
 {
     public static class LZ77Algm
     {
+        static bool Zavod = false;
         /// <summary>
         /// String compression using the LZ77 algorithm
         /// </summary>
@@ -57,7 +58,7 @@ namespace AlgorithmsLibrary
                     establishingBuffer.Remove(0, 1);
 
                     var codeblock = new CodeBlock(0, 0, nextChar);
-                    //Console.WriteLine(searchBuffer.ToString() + "\t\t " + establishingBuffer.ToString() + "\t\t " + codeblock);
+                    if (Zavod) Console.WriteLine(searchBuffer.ToString() + "\t\t " + establishingBuffer.ToString() + "\t\t " + codeblock);
                     result.Add(codeblock); //указываем на него метку
                 }
                 else
@@ -76,7 +77,7 @@ namespace AlgorithmsLibrary
                     searchBuffer.Append(subInEstablish);
 
                     var codeblock = new CodeBlock(offset, length, nextChar);
-                    //Console.WriteLine(searchBuffer.ToString() + "\t\t " + establishingBuffer.ToString() + "\t\t " + codeblock);
+                    if (Zavod) Console.WriteLine(searchBuffer.ToString() + "\t\t " + establishingBuffer.ToString() + "\t\t " + codeblock);
                     result.Add(codeblock);
                 }
 

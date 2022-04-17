@@ -12,6 +12,7 @@ namespace AlgorithmsLibrary
     /// </summary>
     public static class LZ78Algm
     {
+        static bool Zavod = false;
         public static IAlgmEncoded<List<LZ78CodeBlock>> Encode(string source)
         {
             string Buffer = ""; //строка для формирования ключа для словаря
@@ -26,8 +27,11 @@ namespace AlgorithmsLibrary
                 else
                 {
                     var codeblock = new LZ78CodeBlock(Dictionary[Buffer], source[i]);
-                    //char c = Buffer.Length == 0 ? source[i] : Buffer[0];
-                    //Console.WriteLine(c + " " + codeblock);
+                    if (Zavod)
+                    {
+                        char c = Buffer.Length == 0 ? source[i] : Buffer[0];
+                        Console.WriteLine(c + " " + codeblock);
+                    }
                     EncodedString.Add(codeblock);  // добавляем пару в ответ
                     Dictionary.Add(Buffer + source[i], Dictionary.Count); // добавляем слово в словарь
                     Buffer = string.Empty;
@@ -39,7 +43,7 @@ namespace AlgorithmsLibrary
                 if (Dictionary.ContainsKey(Buffer))
                 {
                     var codeblock = new LZ78CodeBlock(Dictionary[Buffer], '$');
-                    //Console.WriteLine('$' + " " + codeblock);
+                    if (Zavod) Console.WriteLine('$' + " " + codeblock);
                     EncodedString.Add(codeblock);
                 }
                 else
@@ -48,15 +52,16 @@ namespace AlgorithmsLibrary
                     Buffer = Buffer.Remove(Buffer.Length - 1); // удаляем последний символ из буфера
 
                     var codeblock = new LZ78CodeBlock(Dictionary[Buffer], last_ch);
-                    //Console.WriteLine(Buffer[0] + " " + codeblock);
+                    if (Zavod) Console.WriteLine(Buffer[0] + " " + codeblock);
                     EncodedString.Add(codeblock); // добавляем пару в ответ 
                 }
             }
 
-            //foreach (var item in Dictionary)
-            //{
-            //    Console.WriteLine(item.Key + " " + item.Value);
-            //}
+            if (Zavod)
+                foreach (var item in Dictionary)
+                {
+                    Console.WriteLine(item.Key + " " + item.Value);
+                }
 
             return new EncodedMessage<List<LZ78CodeBlock>>(EncodedString, CalculateCompressionRatio(source, EncodedString));
         }
