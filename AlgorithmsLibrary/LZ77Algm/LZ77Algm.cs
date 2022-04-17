@@ -72,8 +72,8 @@ namespace AlgorithmsLibrary
                         establishingBuffer.Append('$');
                     char nextChar = establishingBuffer[currentLengthSubString];
 
-                    string subInEstablish = establishingBuffer.Substring(0, currentLengthSubString);
-                    establishingBuffer.Remove(0, length);
+                    string subInEstablish = establishingBuffer.Substring(0, currentLengthSubString+1);
+                    establishingBuffer.Remove(0, length+1);
                     searchBuffer.Append(subInEstablish);
 
                     var codeblock = new CodeBlock(offset, length, nextChar);
@@ -155,7 +155,6 @@ namespace AlgorithmsLibrary
                     int start = resultDecoding.Length - codeBlock.Offset;
                     for (int i = 0; i <= codeBlock.Length - 1; i++)
                         resultDecoding.Append(resultDecoding[start + i]);
-                    continue;
                 }
                 resultDecoding.Append(codeBlock.NextChar);
             }
