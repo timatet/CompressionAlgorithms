@@ -74,6 +74,12 @@
                     <TextBlock Text="LZ77" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
+            <Button Name="BLZ78" Margin="7, 9" Click="LZ78ClicButton">
+                <StackPanel>
+                    <TextBlock Text="Метод сжатия" HorizontalAlignment="Center"/>
+                    <TextBlock Text="LZ78" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
             <Button Name="BHamming" Margin="7, 9" Click="HammingClicButton">
                 <StackPanel>
                     <TextBlock Text="Код" HorizontalAlignment="Center"/>
@@ -140,12 +146,12 @@
                             <TextBlock Text="из файла" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
-                    <Button Name="BDecodeFromFile" Margin="3" Click="DecodeFromFileClicButton" Grid.Column="4">
+                    <!--<Button Name="BDecodeFromFile" Margin="3" Click="DecodeFromFileClicButton" Grid.Column="4">
                         <StackPanel>
                             <TextBlock Text="Декодировать" HorizontalAlignment="Center" />
                             <TextBlock Text="из файла" HorizontalAlignment="Center" />
                         </StackPanel>
-                    </Button>
+                    </Button>-->
                     <Button Name="BClearAll" Margin="3" Click="ClearAllClicButton" Grid.Column="5">
                         <TextBlock Text="Очистить все" HorizontalAlignment="Center" />
                     </Button>
@@ -232,12 +238,12 @@
                             <TextBlock Text="из файла" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
-                    <Button Name="B1DecodeFromFile" Margin="3" Click="DecodeFromFileClicButton" Grid.Column="4">
+                    <!--<Button Name="B1DecodeFromFile" Margin="3" Click="DecodeFromFileClicButton" Grid.Column="4">
                         <StackPanel>
                             <TextBlock Text="Декодировать" HorizontalAlignment="Center" />
                             <TextBlock Text="из файла" HorizontalAlignment="Center" />
                         </StackPanel>
-                    </Button>
+                    </Button>-->
                     <Button Name="B1ClearAll" Margin="3" Click="ClearAllClicButton" Grid.Column="5">
                         <TextBlock Text="Очистить все" HorizontalAlignment="Center" />
                     </Button>
@@ -314,12 +320,12 @@
                             <TextBlock Text="из файла" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
-                    <Button Name="B2DecodeFromFile" Margin="3" Click="DecodeFromFileClicButton" Grid.Column="4">
+                    <!--<Button Name="B2DecodeFromFile" Margin="3" Click="DecodeFromFileClicButton" Grid.Column="4">
                         <StackPanel>
                             <TextBlock Text="Декодировать" HorizontalAlignment="Center" />
                             <TextBlock Text="из файла" HorizontalAlignment="Center" />
                         </StackPanel>
-                    </Button>
+                    </Button>-->
                     <Button Name="B2ClearAll" Margin="3" Click="ClearAllClicButton" Grid.Column="5">
                         <TextBlock Text="Очистить все" HorizontalAlignment="Center" />
                     </Button>

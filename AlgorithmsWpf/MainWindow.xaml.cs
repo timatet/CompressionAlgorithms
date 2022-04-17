@@ -15,7 +15,7 @@ namespace AlgorithmsWpf
     {
         List<string> ArrayNameOfAlgorithm = new List<string>() {"Кодирование Хаффмана", "Коды Фано-Шеннона",
             "Арифметическое кодирование", "Алгоритм RLE и преобразование Барроуза-Уилера",
-            "Словарный метод сжатия LZ77", "Код Хемминга", "Линейный код тима (5,2)" };
+            "Словарный метод сжатия LZ77", "Код Хемминга", "Линейный код тима (5,2)", "Словарный метод сжатия LZ78"};
         int IndexOfCurrentAlgorithm = 0;
         List<Border> Borders = new List<Border>();
         public MainWindow()
@@ -72,6 +72,16 @@ namespace AlgorithmsWpf
             foreach (var item in Borders)
                 item.Visibility = Visibility.Hidden;
             NameOfAlgorithm.Text = ArrayNameOfAlgorithm[4];
+            ClearRLE_LZ77_Border();
+            RLE_LZ77_Border.Visibility = Visibility.Visible;
+        }
+
+        private void LZ78ClicButton(object sender, RoutedEventArgs e)
+        {
+            IndexOfCurrentAlgorithm = 7;
+            foreach (var item in Borders)
+                item.Visibility = Visibility.Hidden;
+            NameOfAlgorithm.Text = ArrayNameOfAlgorithm[7];
             ClearRLE_LZ77_Border();
             RLE_LZ77_Border.Visibility = Visibility.Visible;
         }
@@ -164,6 +174,16 @@ namespace AlgorithmsWpf
                     break;
                 case 6:
                     break;
+                case 7:
+                    Text1AfterDecoding.Text = string.Empty;
+                    if (Text1ForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
+
+                    var Lz78 = LZ78Algm.Encode(Text1ForEncoding.Text);
+                    foreach (var i in Lz78.GetAnswer())
+                        str += i.ToString();
+                    Encoded1Text.Text = str;
+                    CompressionRatio1.Text = Lz78.GetCompressionRatio().ToString();
+                    break;
             }
             if (NoTextForEncoding)
             {
@@ -222,6 +242,12 @@ namespace AlgorithmsWpf
                     break;
                 case 6:
                     break;
+                case 7:
+                    if (Encoded1Text.Text.Length == 0) { NoTextForDecoding = true; break; }
+
+                    var Lz78 = LZ78Algm.Decode(Encoded1Text.Text);
+                    Text1AfterDecoding.Text = Lz78.GetAnswer();
+                    break;
             }
             if (NoTextForDecoding)
             {
@@ -249,7 +275,7 @@ namespace AlgorithmsWpf
                     using (StreamReader sr = new StreamReader(filename))
                         TextForEncoding.Text = sr.ReadToEnd();
                 }
-                if (new List<int>() { 3, 4 }.Contains(IndexOfCurrentAlgorithm))
+                if (new List<int>() { 3, 4, 7 }.Contains(IndexOfCurrentAlgorithm))
                 {
                     ClearRLE_LZ77_Border();
                     using (StreamReader sr = new StreamReader(filename))
@@ -277,7 +303,7 @@ namespace AlgorithmsWpf
             {
                 string filename = dlg.FileName;
 
-                // НУЖНО ОПРЕДЕЛИТЬСЯ С ФОРМАТОМ ВХОДНОГО ФАЙКА ( КАКОЙ РАЗДЕЛИТЕЛЬ МЕЖДУ ДАННЫМИ)
+                // НУЖНО ОПРЕДЕЛИТЬСЯ С ФОРМАТОМ ВХОДНОГО ФАЙЛА ( КАКОЙ РАЗДЕЛИТЕЛЬ МЕЖДУ ДАННЫМИ)
 
                 //if (new List<int>() { 0, 1, 2 }.Contains(IndexOfCurrentAlgorithm))
                 //{
@@ -305,7 +331,7 @@ namespace AlgorithmsWpf
         {
             if (new List<int>() { 0, 1, 2 }.Contains(IndexOfCurrentAlgorithm))
                 ClearHuf_Fano_Arith_Border();
-            if (new List<int>() { 3, 4 }.Contains(IndexOfCurrentAlgorithm))
+            if (new List<int>() { 3, 4, 7 }.Contains(IndexOfCurrentAlgorithm))
                 ClearRLE_LZ77_Border();
             if (new List<int>() { 5 }.Contains(IndexOfCurrentAlgorithm))
                 ClearHam_Border();
