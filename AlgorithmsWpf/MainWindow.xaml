@@ -146,6 +146,12 @@
                             <TextBlock Text="из файла" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
+                    <Button Name="BEncodeExtended" Margin="3" Click="ExtendedEncodeClicButton" Grid.Column="4">
+                        <StackPanel>
+                            <TextBlock Text="Подробное" HorizontalAlignment="Center" />
+                            <TextBlock Text="кодирование" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
                     <!--<Button Name="BDecodeFromFile" Margin="3" Click="DecodeFromFileClicButton" Grid.Column="4">
                         <StackPanel>
                             <TextBlock Text="Декодировать" HorizontalAlignment="Center" />
@@ -238,6 +244,12 @@
                             <TextBlock Text="из файла" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
+                    <Button Name="B1EncodeExtended" Margin="3" Click="ExtendedEncodeClicButton" Grid.Column="4">
+                        <StackPanel>
+                            <TextBlock Text="Подробное" HorizontalAlignment="Center" />
+                            <TextBlock Text="кодирование" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
                     <!--<Button Name="B1DecodeFromFile" Margin="3" Click="DecodeFromFileClicButton" Grid.Column="4">
                         <StackPanel>
                             <TextBlock Text="Декодировать" HorizontalAlignment="Center" />
@@ -318,6 +330,12 @@
                         <StackPanel>
                             <TextBlock Text="Закодировать" HorizontalAlignment="Center" />
                             <TextBlock Text="из файла" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Name="B2EncodeExtended" Margin="3" Click="ExtendedEncodeClicButton" Grid.Column="4">
+                        <StackPanel>
+                            <TextBlock Text="Подробное" HorizontalAlignment="Center" />
+                            <TextBlock Text="кодирование" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Button>
                     <!--<Button Name="B2DecodeFromFile" Margin="3" Click="DecodeFromFileClicButton" Grid.Column="4">

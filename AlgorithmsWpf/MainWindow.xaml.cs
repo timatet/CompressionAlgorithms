@@ -18,6 +18,7 @@ namespace AlgorithmsWpf
             "Словарный метод сжатия LZ77", "Код Хемминга", "Линейный код тима (5,2)", "Словарный метод сжатия LZ78"};
         int IndexOfCurrentAlgorithm = 0;
         List<Border> Borders = new List<Border>();
+        bool ExtendedAlgm = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -106,6 +107,13 @@ namespace AlgorithmsWpf
             //_Border.Visibility = Visibility.Visible;
         }
 
+        private void ExtendedEncodeClicButton(object sender, RoutedEventArgs e)
+        {
+            ExtendedAlgm = true;
+            EncodeClicButton(sender, e);
+            ExtendedAlgm = false;
+        }
+
         private void EncodeClicButton(object sender, RoutedEventArgs e)
         {
             string str = "";
@@ -116,7 +124,7 @@ namespace AlgorithmsWpf
                     TextAfterDecoding.Text = string.Empty;
                     if (TextForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
 
-                    var Huf = HuffmanAlgm.Encode(TextForEncoding.Text);
+                    var Huf = HuffmanAlgm.Encode(TextForEncoding.Text, ExtendedAlgm);
                     EncodedText.Text = Huf.ToString();
                     foreach (var i in Huf.GetData())
                         str += i.Key.ToString() + " " + i.Value.ToString() + '\n';
@@ -127,7 +135,7 @@ namespace AlgorithmsWpf
                     TextAfterDecoding.Text = string.Empty;
                     if (TextForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
 
-                    var Sha = ShannonFanoAlgm.Encode(TextForEncoding.Text);
+                    var Sha = ShannonFanoAlgm.Encode(TextForEncoding.Text, ExtendedAlgm);
                     EncodedText.Text = Sha.ToString();
                     foreach (var i in Sha.GetData())
                         str += i.Key.ToString() + " " + i.Value.ToString() + '\n';
@@ -138,7 +146,7 @@ namespace AlgorithmsWpf
                     TextAfterDecoding.Text = string.Empty;
                     if (TextForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
 
-                    var Ari = ArithmeticCodingAlgm.Encode(TextForEncoding.Text);
+                    var Ari = ArithmeticCodingAlgm.Encode(TextForEncoding.Text, ExtendedAlgm);
                     EncodedText.Text = Ari.ToString();
                     foreach (var i in Ari.GetData().GetData())
                         str += i.Key.ToString() + " " + i.Value.ToString() + '\n';
@@ -149,7 +157,7 @@ namespace AlgorithmsWpf
                     Text1AfterDecoding.Text = string.Empty;
                     if (Text1ForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
 
-                    var Rle = RLEAlgm.Encode(Text1ForEncoding.Text);
+                    var Rle = RLEAlgm.Encode(Text1ForEncoding.Text, ExtendedAlgm);
                     Encoded1Text.Text = Rle.ToString();
                     CompressionRatio1.Text = Rle.GetCompressionRatio().ToString();
                     break;
@@ -157,7 +165,7 @@ namespace AlgorithmsWpf
                     Text1AfterDecoding.Text = string.Empty;
                     if (Text1ForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
 
-                    var Lz = LZ77Algm.Encode(Text1ForEncoding.Text);
+                    var Lz = LZ77Algm.Encode(Text1ForEncoding.Text, ExtendedAlgm);
                     Encoded1Text.Text = Lz.ToString();
                     CompressionRatio1.Text = Lz.GetCompressionRatio().ToString();
                     break;
@@ -165,7 +173,7 @@ namespace AlgorithmsWpf
                     Text2AfterDecoding.Text = string.Empty;
                     if (Text2ForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
 
-                    var Ham = HammingAlgm.Encode(Text2ForEncoding.Text);
+                    var Ham = HammingAlgm.Encode(Text2ForEncoding.Text, ExtendedAlgm);
                     Encoded2Text.Text = Ham.ToString();
                     break;
                 case 6:
@@ -174,7 +182,7 @@ namespace AlgorithmsWpf
                     Text1AfterDecoding.Text = string.Empty;
                     if (Text1ForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
 
-                    var Lz78 = LZ78Algm.Encode(Text1ForEncoding.Text);
+                    var Lz78 = LZ78Algm.Encode(Text1ForEncoding.Text, ExtendedAlgm);
                     Encoded1Text.Text = Lz78.ToString();
                     CompressionRatio1.Text = Lz78.GetCompressionRatio().ToString();
                     break;
