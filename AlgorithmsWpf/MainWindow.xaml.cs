@@ -117,7 +117,7 @@ namespace AlgorithmsWpf
                     if (TextForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
 
                     var Huf = HuffmanAlgm.Encode(TextForEncoding.Text);
-                    EncodedText.Text = Huf.GetAnswer();
+                    EncodedText.Text = Huf.ToString();
                     foreach (var i in Huf.GetData())
                         str += i.Key.ToString() + " " + i.Value.ToString() + '\n';
                     FriqDictionary.Text = str;
@@ -128,7 +128,7 @@ namespace AlgorithmsWpf
                     if (TextForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
 
                     var Sha = ShannonFanoAlgm.Encode(TextForEncoding.Text);
-                    EncodedText.Text = Sha.GetAnswer();
+                    EncodedText.Text = Sha.ToString();
                     foreach (var i in Sha.GetData())
                         str += i.Key.ToString() + " " + i.Value.ToString() + '\n';
                     FriqDictionary.Text = str;
@@ -139,7 +139,7 @@ namespace AlgorithmsWpf
                     if (TextForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
 
                     var Ari = ArithmeticCodingAlgm.Encode(TextForEncoding.Text);
-                    EncodedText.Text = Ari.GetAnswer();
+                    EncodedText.Text = Ari.ToString();
                     foreach (var i in Ari.GetData().GetData())
                         str += i.Key.ToString() + " " + i.Value.ToString() + '\n';
                     FriqDictionary.Text = str;
@@ -150,9 +150,7 @@ namespace AlgorithmsWpf
                     if (Text1ForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
 
                     var Rle = RLEAlgm.Encode(Text1ForEncoding.Text);
-                    foreach (var i in Rle.GetAnswer())
-                        str += i.ToString();
-                    Encoded1Text.Text = str;
+                    Encoded1Text.Text = Rle.ToString();
                     CompressionRatio1.Text = Rle.GetCompressionRatio().ToString();
                     break;
                 case 4:
@@ -160,9 +158,7 @@ namespace AlgorithmsWpf
                     if (Text1ForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
 
                     var Lz = LZ77Algm.Encode(Text1ForEncoding.Text);
-                    foreach (var i in Lz.GetAnswer())
-                        str += i.ToString();
-                    Encoded1Text.Text = str;
+                    Encoded1Text.Text = Lz.ToString();
                     CompressionRatio1.Text = Lz.GetCompressionRatio().ToString();
                     break;
                 case 5:
@@ -170,7 +166,7 @@ namespace AlgorithmsWpf
                     if (Text2ForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
 
                     var Ham = HammingAlgm.Encode(Text2ForEncoding.Text);
-                    Encoded2Text.Text = Ham.GetAnswer();
+                    Encoded2Text.Text = Ham.ToString();
                     break;
                 case 6:
                     break;
@@ -179,9 +175,7 @@ namespace AlgorithmsWpf
                     if (Text1ForEncoding.Text.Length == 0) { NoTextForEncoding = true; break; }
 
                     var Lz78 = LZ78Algm.Encode(Text1ForEncoding.Text);
-                    foreach (var i in Lz78.GetAnswer())
-                        str += i.ToString();
-                    Encoded1Text.Text = str;
+                    Encoded1Text.Text = Lz78.ToString();
                     CompressionRatio1.Text = Lz78.GetCompressionRatio().ToString();
                     break;
             }

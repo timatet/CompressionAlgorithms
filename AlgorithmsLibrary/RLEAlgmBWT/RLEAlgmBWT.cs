@@ -8,15 +8,21 @@ namespace AlgorithmsLibrary
 {
     public static class RLEAlgm
     {
-        public static IAlgmEncoded<List<RLECodeBlock>> Encode(string inputString)
+        static bool ExtendedAlgm = false;
+        public static IAlgmEncoded<List<RLECodeBlock>> Encode(string source, bool extended)
         {
-            if (string.IsNullOrEmpty(inputString))
+            ExtendedAlgm = extended;
+            return Encode(source);
+        }
+        public static IAlgmEncoded<List<RLECodeBlock>> Encode(string source)
+        {
+            if (string.IsNullOrEmpty(source))
             {
                 throw new ArgumentNullException("string for encoding is null or empty");
             }
 
             List<RLECodeBlock> result = new List<RLECodeBlock>();
-            var encoded = BurrowsWheelerTransform.Encode(inputString);
+            var encoded = BurrowsWheelerTransform.Encode(source);
 
             result.Add(new RLECodeBlock(default, encoded.index));
             int countRepeatsSymbols = 0;
@@ -36,7 +42,7 @@ namespace AlgorithmsLibrary
                 currentSymbol = symbol;
             }
 
-            return new EncodedMessage<List<RLECodeBlock>>(result, CalculateCompressionRatio(inputString, result));
+            return new EncodedMessage<List<RLECodeBlock>>(result, CalculateCompressionRatio(source, result));
         }
 
         private static List<RLECodeBlock> ParseEncodedString(string encodedString)

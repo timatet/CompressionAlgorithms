@@ -7,6 +7,7 @@ namespace AlgorithmsLibrary
 {
     public static class ArithmeticCodingAlgm
     {
+        static bool ExtendedAlgm = false;
         private static Dictionary<char, int> GetFrequencies(string source)
         {
             Dictionary<char, int> frequencies = new Dictionary<char, int>();
@@ -43,6 +44,12 @@ namespace AlgorithmsLibrary
                 current = item.HighRange;
             }
             return nodes;
+        }
+
+        public static IAlgmEncoded<string, IAlgmEncoded<int, Dictionary<char, int>>> Encode(string source, bool extended)
+        {
+            ExtendedAlgm = extended;
+            return Encode(source);
         }
 
         public static IAlgmEncoded<string, IAlgmEncoded<int, Dictionary<char, int>>> Encode(string source)

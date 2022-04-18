@@ -2,6 +2,7 @@
 {
     internal class EncodedMessage<T1, T2> : IAlgmEncoded<T1, T2>
     {
+        private string extended;
         private T1 answer;
         private T2 data;
         private double compressionRatio;
@@ -30,11 +31,15 @@
             return compressionRatio;
         }
 
-        public EncodedMessage(T1 answer, T2 frequencies, double compressionRatio)
+        public EncodedMessage(T1 answer, T2 frequencies, double compressionRatio) : this(answer, frequencies, compressionRatio, string.Empty)
+        {
+        }
+        public EncodedMessage(T1 answer, T2 frequencies, double compressionRatio, string extended)
         {
             this.answer = answer;
             this.data = frequencies;
             this.compressionRatio = compressionRatio;
+            this.extended = extended;
         }
     }
 }

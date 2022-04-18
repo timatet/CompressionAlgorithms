@@ -10,14 +10,21 @@ namespace AlgorithmsLibrary
     /// <summary>
     /// Здесь идея этого алгоритма.
     /// </summary>
-    public static class LZ78Algm
+    public static class LZ78Algm 
     {
-        static bool Zavod = false;
+        static bool ExtendedAlgm = false;
+        public static IAlgmEncoded<List<LZ78CodeBlock>> Encode(string source, bool extended)
+        {
+            ExtendedAlgm = extended;
+            return Encode(source);
+        }
         public static IAlgmEncoded<List<LZ78CodeBlock>> Encode(string source)
         {
             string Buffer = ""; //строка для формирования ключа для словаря
             Dictionary<string, int> Dictionary = new Dictionary<string, int> { { "", 0 } };
             List<LZ78CodeBlock> EncodedString = new List<LZ78CodeBlock>(); // ответ
+            StringBuilder extended = new StringBuilder(string.Empty);
+
             for (int i = 0; i < source.Length; i++)
             {
                 if (Dictionary.ContainsKey(Buffer + source[i]))
@@ -27,10 +34,10 @@ namespace AlgorithmsLibrary
                 else
                 {
                     var codeblock = new LZ78CodeBlock(Dictionary[Buffer], source[i]);
-                    if (Zavod)
+                    if (ExtendedAlgm)
                     {
                         char c = Buffer.Length == 0 ? source[i] : Buffer[0];
-                        Console.WriteLine(c + " " + codeblock);
+                        extended.Append(c + " " + codeblock + "\n");
                     }
                     EncodedString.Add(codeblock);  // добавляем пару в ответ
                     Dictionary.Add(Buffer + source[i], Dictionary.Count); // добавляем слово в словарь
@@ -43,7 +50,10 @@ namespace AlgorithmsLibrary
                 if (Dictionary.ContainsKey(Buffer))
                 {
                     var codeblock = new LZ78CodeBlock(Dictionary[Buffer], '$');
-                    if (Zavod) Console.WriteLine('$' + " " + codeblock);
+                    if (ExtendedAlgm)
+                    {
+                        extended.Append('$' + " " + codeblock + "\n");
+                    }
                     EncodedString.Add(codeblock);
                 }
                 else
@@ -52,18 +62,23 @@ namespace AlgorithmsLibrary
                     Buffer = Buffer.Remove(Buffer.Length - 1); // удаляем последний символ из буфера
 
                     var codeblock = new LZ78CodeBlock(Dictionary[Buffer], last_ch);
-                    if (Zavod) Console.WriteLine(Buffer[0] + " " + codeblock);
+                    if (ExtendedAlgm)
+                    {
+                        extended.Append(Buffer[0] + " " + codeblock + "\n");
+                    }
                     EncodedString.Add(codeblock); // добавляем пару в ответ 
                 }
             }
 
-            if (Zavod)
+            if (ExtendedAlgm)
+            {
                 foreach (var item in Dictionary)
                 {
-                    Console.WriteLine(item.Key + " " + item.Value);
+                    extended.Append(item.Key + " " + item.Value + "\n");
                 }
+            }
 
-            return new EncodedMessage<List<LZ78CodeBlock>>(EncodedString, CalculateCompressionRatio(source, EncodedString));
+            return new EncodedMessage<List<LZ78CodeBlock>>(EncodedString, CalculateCompressionRatio(source, EncodedString), extended.ToString());
         }
 
         private static List<LZ78CodeBlock> ParseEncodedString(string encodedString)

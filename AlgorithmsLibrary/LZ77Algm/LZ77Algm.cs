@@ -9,17 +9,23 @@ namespace AlgorithmsLibrary
 {
     public static class LZ77Algm
     {
-        static bool Zavod = false;
+        static bool ExtendedAlgm = false;
+        public static IAlgmEncoded<List<LZ77CodeBlock>> Encode(string source, bool extended)
+        {
+            ExtendedAlgm = extended;
+            return Encode(source);
+        }
         /// <summary>
         /// String compression using the LZ77 algorithm
         /// </summary>
         /// <param name="inputString">Source string</param>
         /// <returns>Compressed (encoded) string</returns>
-        public static IAlgmEncoded<List<CodeBlock>> Encode(string inputString)
+        public static IAlgmEncoded<List<LZ77CodeBlock>> Encode(string inputString)
         {
-            List<CodeBlock> result = new List<CodeBlock>();
+            List<LZ77CodeBlock> result = new List<LZ77CodeBlock>();
             StringBuilder searchBuffer = new StringBuilder();
             StringBuilder establishingBuffer = new StringBuilder(inputString);
+            StringBuilder extended = new StringBuilder(string.Empty);
 
             int currentLengthSubString = 0;
             //Кодирование идет до тех пор пока учреждающий буфер (establishingBuffer) не окажется пуст
@@ -57,8 +63,11 @@ namespace AlgorithmsLibrary
                     searchBuffer.Append(nextChar);
                     establishingBuffer.Remove(0, 1);
 
-                    var codeblock = new CodeBlock(0, 0, nextChar);
-                    if (Zavod) Console.WriteLine(searchBuffer.ToString() + "\t\t " + establishingBuffer.ToString() + "\t\t " + codeblock);
+                    var codeblock = new LZ77CodeBlock(0, 0, nextChar);
+                    if (ExtendedAlgm)
+                    {
+                        extended.Append(searchBuffer.ToString() + "\t\t " + establishingBuffer.ToString() + "\t\t " + codeblock + "\n");
+                    }
                     result.Add(codeblock); //указываем на него метку
                 }
                 else
@@ -76,15 +85,18 @@ namespace AlgorithmsLibrary
                     establishingBuffer.Remove(0, length+1);
                     searchBuffer.Append(subInEstablish);
 
-                    var codeblock = new CodeBlock(offset, length, nextChar);
-                    if (Zavod) Console.WriteLine(searchBuffer.ToString() + "\t\t " + establishingBuffer.ToString() + "\t\t " + codeblock);
+                    var codeblock = new LZ77CodeBlock(offset, length, nextChar);
+                    if (ExtendedAlgm)
+                    {
+                        extended.Append(searchBuffer.ToString() + "\t\t " + establishingBuffer.ToString() + "\t\t " + codeblock + "\n");
+                    }
                     result.Add(codeblock);
                 }
 
                 currentLengthSubString = 0;
             }
 
-            return new EncodedMessage<List<CodeBlock>>(result, CalculateCompressionRatio(inputString, result));
+            return new EncodedMessage<List<LZ77CodeBlock>>(result, CalculateCompressionRatio(inputString, result), extended.ToString());
         }
 
         /// <summary>
@@ -93,13 +105,13 @@ namespace AlgorithmsLibrary
         /// <param name="sourceString">Source string</param>
         /// <param name="compressionString">Compressed (encoded) string</param>
         /// <returns>Compression ratio</returns>
-        private static double CalculateCompressionRatio(string sourceString, List<CodeBlock> compressionString)
+        private static double CalculateCompressionRatio(string sourceString, List<LZ77CodeBlock> compressionString)
         {
             //Считаем что в стандартной кодировке один символ = 8бит
             double countBitsSourceString = 8 * sourceString.Length;
 
             double countBitsCompressionString = 0;
-            foreach (CodeBlock compression in compressionString)
+            foreach (LZ77CodeBlock compression in compressionString)
             {
                 int countBitsOffset = Convert.ToString(compression.Offset, 2).Length;
                 int countBitsLength = Convert.ToString(compression.Length, 2).Length;
@@ -111,9 +123,9 @@ namespace AlgorithmsLibrary
             return Math.Round(countBitsSourceString / countBitsCompressionString, 3);
         }
 
-        private static List<CodeBlock> ParseEncodedString(string encodedString)
+        private static List<LZ77CodeBlock> ParseEncodedString(string encodedString)
         {
-            List<CodeBlock> encodedStringParsed = new List<CodeBlock>();
+            List<LZ77CodeBlock> encodedStringParsed = new List<LZ77CodeBlock>();
             // вид кодового блока:
             //({0},{1},{2})...({0},{1},{2})
             //парсит всю строку на блоки
@@ -131,7 +143,7 @@ namespace AlgorithmsLibrary
             {
                 string codeBlock = match.Value;
                 MatchCollection matchesBlock = intRegex.Matches(codeBlock);
-                encodedStringParsed.Add(new CodeBlock(int.Parse(matchesBlock[0].Value), int.Parse(matchesBlock[1].Value), codeBlock[codeBlock.Length - 2]));
+                encodedStringParsed.Add(new LZ77CodeBlock(int.Parse(matchesBlock[0].Value), int.Parse(matchesBlock[1].Value), codeBlock[codeBlock.Length - 2]));
             }
 
             return encodedStringParsed;
@@ -148,7 +160,7 @@ namespace AlgorithmsLibrary
 
             StringBuilder resultDecoding = new StringBuilder(string.Empty);
 
-            foreach (CodeBlock codeBlock in encodedStringParsed)
+            foreach (LZ77CodeBlock codeBlock in encodedStringParsed)
             {
                 if (codeBlock.Length > 0)
                 {

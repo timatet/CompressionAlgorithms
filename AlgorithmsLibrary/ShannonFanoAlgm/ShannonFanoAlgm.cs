@@ -8,6 +8,7 @@ namespace AlgorithmsLibrary
 {
     public static class ShannonFanoAlgm
     {
+        static bool ExtendedAlgm = false;
         private static Dictionary<char, int> GetFrequencies(string source)
         {
             Dictionary<char, int> frequencies = new Dictionary<char, int>();
@@ -69,7 +70,12 @@ namespace AlgorithmsLibrary
             //обходим поулчившееся дерево, приписывая каждому символу свой код
             return root.InOrderTraversal();
         }
-
+        
+        public static IAlgmEncoded<string, Dictionary<char, string>> Encode(string source, bool extended)
+        {
+            ExtendedAlgm = extended;
+            return Encode(source);
+        }
 
         /// <summary>
         /// Encoding. The algorithm compile a dictionary of frequencies from the source string, 

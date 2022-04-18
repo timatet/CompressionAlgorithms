@@ -7,6 +7,7 @@ namespace AlgorithmsLibrary
 {
     public static class HammingAlgm
     {
+        static bool ExtendedAlgm = false;
         /// <summary>
         /// Вычисление количества контрольных бит, необходимых для кодирования сообщения.
         /// </summary>
@@ -94,6 +95,12 @@ namespace AlgorithmsLibrary
             var restored = Decode(source).GetAnswer();
 
             return new EncodedMessage<string>(Encoding.ASCII.GetString(GetByteArray(restored)), 0.0);
+        }
+
+        public static IAlgmEncoded<string> Encode(string source, bool extended)
+        {
+            ExtendedAlgm = extended;
+            return Encode(source);
         }
 
         /// <summary>

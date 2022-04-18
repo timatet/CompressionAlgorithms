@@ -12,7 +12,7 @@ namespace UnitTestProject
         {
             var result = LZ77Algm.Encode("");
 
-            var expectedCodeBlocks = new List<CodeBlock>();
+            var expectedCodeBlocks = new List<LZ77CodeBlock>();
 
             Assert.Equal(expectedCodeBlocks, result.GetAnswer());
         }
@@ -22,9 +22,9 @@ namespace UnitTestProject
         {
             var result = LZ77Algm.Encode("a");
 
-            var expectedCodeBlocks = new List<CodeBlock>
+            var expectedCodeBlocks = new List<LZ77CodeBlock>
             {
-                new CodeBlock(0,0,'a')
+                new LZ77CodeBlock(0,0,'a')
             };
 
             Assert.Equal(expectedCodeBlocks, result.GetAnswer());
@@ -53,10 +53,10 @@ namespace UnitTestProject
         {
             var result = LZ77Algm.Encode("abab");
 
-            var expectedCodeBlocks = new List<CodeBlock> {
-                new CodeBlock(0,0,'a'),
-                new CodeBlock(0,0,'b'),
-                new CodeBlock(2,2,'$')
+            var expectedCodeBlocks = new List<LZ77CodeBlock> {
+                new LZ77CodeBlock(0,0,'a'),
+                new LZ77CodeBlock(0,0,'b'),
+                new LZ77CodeBlock(2,2,'$')
             };
 
             Assert.Equal(expectedCodeBlocks, result.GetAnswer());
@@ -67,14 +67,14 @@ namespace UnitTestProject
         {
             var result = LZ77Algm.Encode("abracadabraabracadabra");
 
-            var expectedCodeBlocks = new List<CodeBlock> {
-                new CodeBlock(0,0,'a'),
-                new CodeBlock(0,0,'b'),
-                new CodeBlock(0,0,'r'),
-                new CodeBlock(3,1,'c'),
-                new CodeBlock(5,1,'d'),
-                new CodeBlock(7,4,'a'),
-                new CodeBlock(11,10,'$') };
+            var expectedCodeBlocks = new List<LZ77CodeBlock> {
+                new LZ77CodeBlock(0,0,'a'),
+                new LZ77CodeBlock(0,0,'b'),
+                new LZ77CodeBlock(0,0,'r'),
+                new LZ77CodeBlock(3,1,'c'),
+                new LZ77CodeBlock(5,1,'d'),
+                new LZ77CodeBlock(7,4,'a'),
+                new LZ77CodeBlock(11,10,'$') };
 
             Assert.Equal(expectedCodeBlocks, result.GetAnswer());
         }
