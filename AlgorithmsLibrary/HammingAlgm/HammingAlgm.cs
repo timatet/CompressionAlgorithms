@@ -32,6 +32,7 @@ namespace AlgorithmsLibrary
         /// <returns>Список позиций подконтрольных битов в пределах длины сообщения.</returns>
         private static List<int> GetPositionsForContolBitCalculation(int p, int l)
         {
+            //для каждого k соответсвует свой отрезок некоторых чисел
             // [(4k-2)*(p/2), (4k-2)*(p/2)+p-1] - числа в этих отрезках нам нужны
             // [(2k-1)*p, (2k-1)*p+p-1] = [(2k-1)*p, 2kp-1]
             // необходимо определить рамки для k:
@@ -80,7 +81,7 @@ namespace AlgorithmsLibrary
             return Encode(sourceASCII);
         }
 
-        private static byte[] GetByteArray(string bin)
+        private static byte[] GetByteArray(string bin) 
         {
             byte[] result = new byte[bin.Length / 8];
             for (int i = 0; i < bin.Length / 8; i++)
