@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace AlgorithmsLibrary
 {
@@ -92,6 +93,92 @@ namespace AlgorithmsLibrary
             }
 
             return matrix;
+        }
+
+        public int GetDeterminant()
+        {
+            if (k != n)
+            {
+                return 0;
+            }
+
+            if (n == 2)
+            {
+                return numbers[0, 0] * numbers[1, 1] - numbers[0, 1] * numbers[1, 0];
+            }
+
+            int result = 0;
+            for (int j = 0; j < n; j++)
+            {
+                var subMatrix = Slice(1, k, 0, j).GetUnion(Slice(1, k, j + 1, n));
+                result += (j % 2 == 1 ? 1 : -1) * numbers[0, j] * subMatrix.GetDeterminant();
+            }
+
+            return result;
+        }
+
+        private int CalculateMinor(int i, int j)
+        {
+            Matrix minor = new Matrix(k - 1, n - 1);
+
+            for (int ii = 0; ii < k; ii++)
+            {
+                for (int jj = 0; jj < n; jj++)
+                {
+                    if (ii == i || jj == j)
+                        continue;
+
+                    if (ii < i && jj < j)
+                    {
+                        minor[ii, jj] = numbers[i, j];
+                    } else if (ii > j && jj > j)
+                    {
+                        minor[ii - 1, jj - 1] = numbers[i, j];
+                    } else if (ii > j && jj < j)
+                    {
+                        minor[ii - 1, jj] = numbers[i, j];
+                    } else if (ii < j && jj > j)
+                    {
+                        minor[ii, jj - 1] = numbers[i, j];
+                    }
+                }
+            }
+
+            return minor.GetDeterminant();
+        }
+
+        public Matrix GetInverseMatrix()
+        {
+            if (k != n)
+                return null;
+            int determinant = GetDeterminant();
+
+            if (determinant == 0)
+                return null;
+
+            var result = new Matrix(k, n);
+            for (int i = 0; i < k; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    result[i, j] = ((i + j) % 2 == 1 ? -1 : 1) *
+                    CalculateMinor(i, j) / determinant;
+                }
+            }          
+
+            return result.GetTransMatrix();
+        }
+
+        public Matrix GetPseudoInverseMatrix()
+        {
+            var T = GetTransMatrix();
+            var AA = T * this;
+            var AInverse = AA.GetInverseMatrix();
+
+            if (AInverse == null)
+                return null;
+
+            return AInverse * T;
         }
 
         public void Union(Matrix other)

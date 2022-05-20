@@ -110,22 +110,46 @@ namespace AlgorithmsLibrary
             Console.WriteLine();
 
             decimal position = 0;
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < R; i++)
             {
-                position += errorSyndrome[0, i] * (2 << (2 - i - 1));
+                position += errorSyndrome[0, i] * (int)Math.Pow(2, R - i - 1);
             }
 
-            Console.WriteLine(position);
+            Console.WriteLine("Position: " + position + "\n");
             var adjClass = AdjClasses[(int)position];
             LinearCodesType52.Print(adjClass);
+            var leaders2 = AdjancencyClassesLeaders[(int)position];
+            Console.WriteLine("Leaders: ");
+            foreach (var leader in leaders2)
+            {
+                for (int i = 0; i < N; i++)
+                {
+                    Console.Write(leader[i] + " ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("\n*****");
 
+            if (leaders2.Count > 1)
+            {
+                Console.WriteLine("Correction can be ambiguous\n" +
+                    "Possible variants:");
+            } else
+            {
+                Console.WriteLine("Correction: ");
+            }
 
+            for (int i = 0; i < leaders2.Count; i++)
+            {
+                Vector vector = new Vector(N);
+                for (int j = 0; j < N; j++)
+                {
+                    vector[j] = (inputWithError[j] + leaders2[i][j]) % 2;
+                    Console.Write(vector[j] + " ");
+                }
+                Console.WriteLine();
+            }
 
-            //Дальше необходимо выбрать векторы с минимальным весом
-            //В лучшем случае такой один. Тогда декодирование будет однозначным.
-            //Прибавляем такой вектор к сообщению с ошибкой
-            //И получаем исходное
-            
             Console.ReadKey();
         }
     }

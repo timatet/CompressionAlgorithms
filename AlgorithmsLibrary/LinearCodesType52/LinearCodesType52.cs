@@ -26,15 +26,25 @@ namespace AlgorithmsLibrary
 
             if (n == 5 && k == 2)
             {
+                //можно ли как то задавать её автоматически?
                 QMatrix = new Matrix(2, 3, new int[,] { 
                     { 1, 1, 1 }, 
                     { 0, 1, 1 } 
                 });
             }
 
+            if (n == 7 && k == 4)
+            {
+                QMatrix = new Matrix(4, 3, new int[,] {
+                    { 1, 1, 1 },
+                    { 1, 0, 1 },
+                    { 0, 1, 1 },
+                    { 1, 1, 0 },
+                });
+            }
+
             return IKMatrix.GetUnion(QMatrix);
         }
-               
 
         public static Matrix GetCheckMatrix(Matrix generatingMatrix) //H
         {
@@ -207,7 +217,7 @@ namespace AlgorithmsLibrary
             {
                 for (int j = 0; j < matrix.n; j++)
                 {
-                    Console.Write("{0:0.0}\t", matrix[i, j]);
+                    Console.Write("{0:0} ", matrix[i, j]);
                 }
 
                 Console.WriteLine();
