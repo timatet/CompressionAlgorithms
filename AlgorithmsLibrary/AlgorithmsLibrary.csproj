@@ -55,6 +55,8 @@
     <Compile Include="CommonClasses\TreeNodePrinter.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Extensions\StringBuilderExtensions.cs" />
+    <Compile Include="LinearCodesType52\Matrix.cs" />
+    <Compile Include="LinearCodesType52\Vector.cs" />
     <Compile Include="LZ78Algm\LZ78Algm.cs" />
     <Compile Include="LZ78Algm\LZ78CodeBlock.cs" />
     <Compile Include="Results\EncodedMessage.cs" />

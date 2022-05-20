@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgorithmsLibrary
 {
@@ -11,44 +12,55 @@ namespace AlgorithmsLibrary
         /// <param name="n">Count output chars (Columns)</param>
         /// <param name="k">Count input chars (Rows)</param>
         /// <returns>Generating matrix G</returns>
-        public static int[,] GetGeneratingMatrix(int n, int k)
+        public static Matrix GetGeneratingMatrix(int n, int k) //G
         {
             int r = n - k; // number of verification characters
 
-            int[,] IKMatrix = new int[k, k];
+            Matrix IKMatrix = new Matrix(k, k);
             for (int i = 0; i < k; i++)
             {
                 IKMatrix[i, i] = 1;
             }
 
-            int[,] QMatrix = new int[k, n - k];
+            Matrix QMatrix = new Matrix(k, n - k);
 
             if (n == 5 && k == 2)
             {
-                QMatrix = new int[2, 3]
-                {
-                    {1, 1, 1 },
-                    {0, 1, 1 }
-                };
+                QMatrix = new Matrix(2, 3, new int[,] { 
+                    { 1, 1, 1 }, 
+                    { 0, 1, 1 } 
+                });
             }
 
-            return UnionMatrixes(IKMatrix, QMatrix);
+            return IKMatrix.GetUnion(QMatrix);
+        }
+               
+
+        public static Matrix GetCheckMatrix(Matrix generatingMatrix) //H
+        {
+            int k = generatingMatrix.k; // строки
+            int n = generatingMatrix.n; // столбцы
+
+            var QMatrix = generatingMatrix.Slice(0, k, n - k - 1, n);
+            var TransQMatrix = QMatrix.GetTransMatrix();
+
+            int kQ = TransQMatrix.k; 
+
+            Matrix IKMatrix = new Matrix(kQ, kQ);
+            for (int i = 0; i < kQ; i++)
+            {
+                IKMatrix[i, i] = 1;
+            }
+
+            return TransQMatrix.GetUnion(IKMatrix);
         }
 
-        public static int[,] GetCheckMatrix(decimal[,] generatingMatrix)
+        private static Vector GetLinearCombination(Vector koef, Matrix generatingMatrix)
         {
-            int k = generatingMatrix.GetLength(0); // строки
-            int n = generatingMatrix.GetLength(1); // столбцы
+            int k = generatingMatrix.k;
+            int n = generatingMatrix.n;
 
-
-        }
-
-        private static decimal[] GetLinearCombination(int[] koef, decimal[,] generatingMatrix)
-        {
-            int k = generatingMatrix.GetLength(0);
-            int n = generatingMatrix.GetLength(1);
-
-            decimal[] result = new decimal[n];
+            Vector result = new Vector(n);
 
             for (int i = 0; i < k; i++)
             {
@@ -66,10 +78,10 @@ namespace AlgorithmsLibrary
             return result;
         }
 
-        private static int[] GetBinary(int m, int l)
+        public static Vector GetBinary(int m, int l)
         {
-            int[] bin = new int[l];
-            int binLen = bin.Length;
+            Vector bin = new Vector(l);
+            int binLen = bin.length;
             for (int i = 0; i < binLen; i++)
             {
                 int degOfTwo = 1 << (binLen - i - 1);
@@ -91,15 +103,15 @@ namespace AlgorithmsLibrary
             return r / n;
         }
 
-        public static decimal[,] GetMatrixCodeWords(decimal[,] generatingMatrix)
+        public static Matrix GetMatrixCodeWords(Matrix generatingMatrix)
         {
-            int k = generatingMatrix.GetLength(0); // строки
-            int n = generatingMatrix.GetLength(1); // столбцы
+            int k = generatingMatrix.k; // строки
+            int n = generatingMatrix.n; // столбцы
 
             int codeCount = 2 << (k - 1); // количество кодовых слов
             // как линейных комбинаций строк генерирующей матрицы
 
-            decimal[,] codeWords = new decimal[codeCount, n];
+            Matrix codeWords = new Matrix(codeCount, n);
 
             for (int i = 0; i < codeCount; i++)
             {
@@ -114,99 +126,92 @@ namespace AlgorithmsLibrary
             return codeWords;
         }
 
-        /// <summary>
-        /// The method reduces the matrix to a stepwise form.
-        /// </summary>
-        /// <param name="matrix">Input matrix or vectors set</param>
-        /// <returns>The transformed matrix</returns>
-        public static decimal[,] GetTriangleMatrix(decimal[,] matrix)
+        public static Matrix GetAdjanсencyClass(Matrix adjClass, Vector vector)
         {
-            int k = matrix.GetLength(0); // строки
-            int n = matrix.GetLength(1); // столбцы
+            int k = adjClass.k; // строки
+            int n = adjClass.n; // столбцы
 
-            for (int i = 0; i < n; i++)
-            { 
-                for (int j = i + 1; j < k; j++)
+            Matrix newClass = new Matrix(k, n);
+            for (int i = 0; i < k; i++)
+            {
+                for (int j = 0; j < n; j++)
                 {
-                    decimal koef = matrix[j, i] / matrix[i, i];
-                    for (int t = i; t < n; t++)
+                    newClass[i, j] = (adjClass[i, j] + vector[j]) % 2;
+                }
+            }
+
+            return newClass;
+        }
+
+        public static List<Vector> GetAdjancencyClassLeaders(Matrix adjacencyClass)
+        {
+            int k = adjacencyClass.k; // строки
+            int n = adjacencyClass.n; // столбцы
+
+            List<Vector> leaders = new List<Vector>();
+            int minWeight = int.MaxValue;
+            for (int i = 0; i < k; i++)
+            {
+                var vector = adjacencyClass.SliceRow(i).ToVector();
+
+                int weight = vector.GetWeight();
+                if (weight < minWeight)
+                {
+                    minWeight = weight;
+
+                    leaders = new List<Vector> { vector };
+                }
+                else if (weight == minWeight)
+                {
+                    leaders.Add(vector);
+                }
+            }
+
+            return leaders;
+        }
+
+        public static bool IsContainsVectorInAdjClasses(List<Matrix> adjClasess, Vector vector)
+        {
+            int cnt = adjClasess.Count; // count of adjancency classes
+
+            bool isVectorContains;
+            for (int adj = 0; adj < cnt; adj++)
+            {
+                int k = adjClasess[adj].k; // строки
+                int n = adjClasess[adj].n; // столбцы
+                for (int i = 0; i < k; i++)
+                {
+                    isVectorContains = true;
+                    for (int j = 0; j < n; j++)
                     {
-                        matrix[j, t] -= matrix[i, t] * koef;
+                        if (adjClasess[adj][i, j] != vector[j])
+                        {
+                            isVectorContains = false;
+                            break;
+                        }
+                    }
+
+                    if (isVectorContains is true)
+                    {
+                        return true;
                     }
                 }
             }
 
-            return matrix;
+            return false;
         }
 
-        /// <summary>
-        /// Checks the list of vectors for linear independence.
-        /// All vectors must be of the same length.
-        /// The choice of the length of the vectors is entrusted to the first test subject.
-        /// </summary>
-        /// <param name="vectors">Set of vectors</param>
-        /// <returns>Verification result</returns>
-        private static bool IsVectorsLinearlyIndependent(decimal[,] vectors)
+        public static void Print(Matrix matrix)
         {
-            var TriangleMatrix = GetTriangleMatrix(vectors);
-
-            int k = TriangleMatrix.GetLength(0); // строки
-            int n = TriangleMatrix.GetLength(1); // столбцы
-
-            bool IsVectorsLinearlyIndependent = false;
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < matrix.k; i++)
             {
-                if (TriangleMatrix[k - 1, i] != 0)
-                {
-                    IsVectorsLinearlyIndependent = true;
-                    break;
-                }
-            }
-
-            return IsVectorsLinearlyIndependent;
-        }
-
-        public static T[,] UnionMatrixes<T>(T[,] firstMatrix, T[,] secondMatrix)
-        {
-            int k1 = firstMatrix.GetLength(0); // строки
-            int k2 = secondMatrix.GetLength(0);
-
-            if (k1 != k2)
-            {
-                return new T[k1, k2];
-            }
-
-            int n1 = firstMatrix.GetLength(1);
-            int n2 = secondMatrix.GetLength(1);
-            T[,] unionMatrix = new T[k1, n1 + n2];
-
-            for (int i = 0; i < k1; i++)
-            {
-                for (int j = 0; j < n1; j++)
-                {
-                    unionMatrix[i, j] = firstMatrix[i, j];
-                }
-
-                for (int j = n1; j < n1 + n2; j++)
-                {
-                    unionMatrix[i, j] = secondMatrix[i, j - n1];
-                }
-            }
-
-            return unionMatrix;
-        }
-
-        public static void Print<T>(T[,] matrix)
-        {
-            for (int i = 0; i < matrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < matrix.GetLength(1); j++)
+                for (int j = 0; j < matrix.n; j++)
                 {
                     Console.Write("{0:0.0}\t", matrix[i, j]);
                 }
+
                 Console.WriteLine();
             }
-            Console.WriteLine();
         }
     }
 }
