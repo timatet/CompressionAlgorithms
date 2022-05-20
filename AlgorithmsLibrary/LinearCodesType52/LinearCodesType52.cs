@@ -33,16 +33,6 @@ namespace AlgorithmsLibrary
                 });
             }
 
-            if (n == 7 && k == 4)
-            {
-                QMatrix = new Matrix(4, 3, new int[,] {
-                    { 1, 1, 1 },
-                    { 1, 0, 1 },
-                    { 0, 1, 1 },
-                    { 1, 1, 0 },
-                });
-            }
-
             return IKMatrix.GetUnion(QMatrix);
         }
 
