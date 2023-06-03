@@ -8,4 +8,4 @@ Yaroslavl Demidov State University/Math/TK. 6sem. Zavodchikov.
 :white_check_mark: Словарный метод сжатия LZ77  
 :white_check_mark: Словарный метод сжатия LZ78  
 :white_check_mark: Код Хэмминга  
-:x: Линейный код типа (5,2)  
+:white_check_mark: Линейный код типа (5,2)  
